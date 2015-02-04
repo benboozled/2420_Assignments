@@ -27,7 +27,7 @@ import edu.princeton.cs.introcs.StdDraw;
 public class PercolationVisualizer {
 
     // delay in milliseconds (controls animation speed)
-    private final static int DELAY = 100;
+    private final static int DELAY = 10;
 
     // draw N-by-N percolation system
     public static void draw(Percolation perc, int N) {
@@ -80,10 +80,11 @@ public class PercolationVisualizer {
             draw(perc, N);
             StdDraw.show(DELAY);
         }
+        
     }
 
     public static void main(String[] args) {
-        String filename = "src/percolation/input10.txt";
-        simulateFromFile(filename);
+        //for (String el: args)      simulateFromFile(el);
+        simulateFromFile(args[0]);
     }
 }
