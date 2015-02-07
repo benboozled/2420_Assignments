@@ -23,11 +23,13 @@ import java.awt.Font;
 
 import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdDraw;
+import edu.princeton.cs.introcs.StdIn;
+import edu.princeton.cs.introcs.StdOut;
 
 public class PercolationVisualizer {
 
     // delay in milliseconds (controls animation speed)
-    private final static int DELAY = 10;
+    private final static int DELAY = 2;
 
     // draw N-by-N percolation system
     public static void draw(Percolation perc, int N) {
@@ -83,8 +85,24 @@ public class PercolationVisualizer {
         
     }
 
+    /**
+     * main string is primarily used for testing from PercolationTest, but it can also 
+     * be used to run individual files from a small selection.
+     */
     public static void main(String[] args) {
-        //for (String el: args)      simulateFromFile(el);
-        simulateFromFile(args[0]);
+    	
+    	if (args.length < 1){
+    		
+    		StdOut.println("Press key to run:\n\n1) input50.txt\n2) input20.txt\n3) input1.txt\n4) input2-no.txt");
+    		int sel = StdIn.readInt();
+    		if (sel == 1)	simulateFromFile("files/percolationTests/input50.txt");
+    		else if (sel == 2)	simulateFromFile("files/percolationTests/input20.txt");
+    		else if (sel == 3)	simulateFromFile("files/percolationTests/input1.txt");
+    		else if (sel == 4)	simulateFromFile("files/percolationTests/input2-no.txt");
+    		
+    	}
+    	else					
+    		simulateFromFile(args[0]);
+    	
     }
 }
