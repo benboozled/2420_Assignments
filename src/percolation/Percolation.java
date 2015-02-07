@@ -1,9 +1,7 @@
 /**
  * @author in order of appearance: David Weber, Vance Green
  * @Date created: 1/24/2015 - David Weber
-<<<<<<< HEAD
  * @Date last modified: 2/6/2015 - David Weber
->>>>>>> branch 'master' of https://github.com/davidlweber/2420_Assignments.git
  */
 package percolation;
 

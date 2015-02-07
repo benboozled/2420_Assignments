@@ -119,6 +119,7 @@ public class PercolationStats {
 		StdOut.printf("Standard Deviation:\t %.3f \n", percStats.stddev());
 		StdOut.printf("Low Confidence Int:\t %.3f \n", percStats.confidenceLow());
 		StdOut.printf("High Confidence Int:\t %.3f \n", percStats.confidenceHigh());
+
 	}
 
 }
