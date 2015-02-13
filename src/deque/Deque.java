@@ -58,9 +58,37 @@ public class Deque<Item> implements Iterable<Item>
 	   public Iterator<Item> iterator()// return an iterator over items in order from front to end
 	   {
 		   //call a static class that you can code the methods for the hasNext(), remove(throw exception instead of not including it), next()
-		   return ;
+		   return new linkedListIterator();
 	   }
+
+	   private class linkedListIterator implements Iterator<Item>{
+		   private Node checkSpace = first;
+		   
+			@Override
+			public boolean hasNext() {
+				return checkSpace != null;
+			}
+	
+			@Override
+			public Item next() {
+				if(!hasNext()){throw new NoSuchElementException();}
+				Item item = checkSpace.item;
+				checkSpace = checkSpace.next;
+				return item;
+			}
+			
+			@Override
+			public void remove()
+			{
+				throw new UnsupportedOperationException();
+			}
+		}
+	   
 	   public static void main(String[] args)
 	   {
 		   
 	   }   
+	   
+	   
+}
+
