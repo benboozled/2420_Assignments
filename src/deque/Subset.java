@@ -7,7 +7,7 @@ public class Subset {
 	public static void main(String[] args) {
 		
 		int k = StdIn.readInt();
-		
+		 
 		StdIn.readString();
 
 	}
