@@ -27,7 +27,6 @@ import edu.princeton.cs.introcs.StdRandom;
 public class RandomizedQueue<Item> implements Iterable<Item> 
 {
 	private int N;  
-	//TODO: Node has to be of type <Item>, can't be a raw type as we have it here.
 	private Node<Item> first;
 	private Node<Item> last;
 //	private Node hold;
@@ -108,15 +107,16 @@ public class RandomizedQueue<Item> implements Iterable<Item>
      * @return an iterator that iterates over the items in this queue
      */
     public Iterator<Item> iterator()  {
-        return new ListIterator<Item>(first.item);  
+        return new ListIterator<Item>(first.item);  //TODO: figure out what's going on here
     }
 
     // an iterator, doesn't implement remove() since it's optional
-    private class ListIterator<Item> implements Iterator<Item> {
+    @SuppressWarnings("hiding")
+	private class ListIterator<Item> implements Iterator<Item> {
         private Node<Item> current;
 
-        public ListIterator(Node<Item> first) {
-            current = first;
+        public ListIterator(Node<Item> item) {
+            current = item;
         }
 
 		public boolean hasNext()  { return current != null;                     }
