@@ -22,15 +22,12 @@ import java.util.NoSuchElementException;
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.introcs.StdIn;
 import edu.princeton.cs.introcs.StdOut;
-import edu.princeton.cs.introcs.StdRandom;
 
 public class RandomizedQueue<Item> implements Iterable<Item> 
 {
 	private int N;  
 	private Node<Item> first;
 	private Node<Item> last;
-//	private Node hold;
-//	private Item holdItem;
 
 	@SuppressWarnings("hiding")
 	private class Node<Item> {
@@ -68,17 +65,17 @@ public class RandomizedQueue<Item> implements Iterable<Item>
      * @param item the item to add
      */
 	public void enqueue(Item item) {
-        Node oldlast = last;
-        last = new Node();
+        RandomizedQueue<Item>.Node<Item> oldlast = last;
+        last = new Node<Item>();
         last.item = item;
         last.next = null;
         if (isEmpty()) first = last;
         else           oldlast.next = last;
-        N++; 										//add the item to the last available element if none are available resize the array
-	 }
+        N++; 										
+	}
 	 
     /**
-     * Removes and returns the item on this queue that was least recently added.
+     * Removes and returns the item on this queue.
      * @return the item on this queue that was least recently added
      * @throws java.util.NoSuchElementException if this queue is empty
      */
@@ -107,7 +104,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>
      * @return an iterator that iterates over the items in this queue
      */
     public Iterator<Item> iterator()  {
-        return new ListIterator<Item>(first.item);  //TODO: figure out what's going on here
+        return new ListIterator<Item>(first);  //TODO: figure out what's going on here
     }
 
     // an iterator, doesn't implement remove() since it's optional
@@ -130,7 +127,6 @@ public class RandomizedQueue<Item> implements Iterable<Item>
         }
     }   
     
-	 
     /**
      * Unit tests the <tt>Queue</tt> data type.
      */
