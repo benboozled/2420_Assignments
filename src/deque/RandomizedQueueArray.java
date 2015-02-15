@@ -16,48 +16,39 @@
  */
 package deque;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.introcs.StdIn;
-import edu.princeton.cs.introcs.StdOut;
 
 public class RandomizedQueueArray<Item> implements Iterable<Item> 
 {
 	private int N;  
-	private ArrayList<Item> rray = new ArrayList<Item>(32);
+	private Item[] rray;
+	
+	public boolean isEmpty() { return N == 0; }
+	public int size() { return N; }
+	
+	@SuppressWarnings("unchecked")
+	private void resize(int max)
+	{ // Move stack to a new array of size max.
+		Item[] temp = (Item[]) new Object[max];
+		for (int i = 0; i < N; i++)
+		temp[i] = rray[i];
+		rray = temp;
+	}
 	
     /**
      * Initializes an empty queue.
      */
-	 public RandomizedQueueArray() {
-
-	 }
-
-    /**
-     * Is this queue empty?
-     * @return true if this queue is empty; false otherwise
-     */
-	public boolean isEmpty() {
-		//TODO
-        return false;
-    }
-
-	/**
-	 * Returns the number of items in this queue.
-	 * @return the number of items in this queue
-	 */
-	public int size() {
-		 return N;   
-	 }
+	public RandomizedQueueArray() {
+		
+	}
 	 
     /**
      * Adds the item to this queue.
      * @param item the item to add
      */
 	public void enqueue(Item item) {
-		//TODO							
+		if (N == rray.length) resize(2*rray.length);
+		rray[N++] = item;
 	}
 	 
     /**
@@ -66,9 +57,10 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
      * @throws java.util.NoSuchElementException if this queue is empty
      */
 	public Item dequeue() {
-		
-		//TODO
-		return null;
+		Item item = rray[--N];
+		rray[N] = null; // Avoid loitering (see text).
+		if (N > 0 && N == rray.length/4) resize(rray.length/2);
+		return item;
 	 }
 
 	/**
@@ -85,45 +77,23 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
      * Returns an iterator that iterates over the items in this queue
      * @return an iterator that iterates over the items in this queue
      */
-    public Iterator<Item> iterator()  {
-    	//TODO
-		return null;
-       /* return new ListIterator<Item>(first);  //TODO: figure out what's going on here*/
-    }
-
-    // an iterator, doesn't implement remove() since it's optional
-	private class ListIterator<Item> implements Iterator<Item> {
-
-		@Override
-		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public Item next() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
- 
-    }   
+	 public Iterator<Item> iterator()
+	 { return new ReverseArrayIterator(); }
+	 
+	 private class ReverseArrayIterator implements Iterator<Item>
+	 { 
+		 private int i = N;
+		 public boolean hasNext() { return i > 0; }
+		 public Item next() { return rray[--i]; }
+		 public void remove() { }
+	 }
+   
     
     /**
-     * Unit tests the <tt>Queue</tt> data type.
+     * Unit tests
      */
     public static void main(String[] args) {
-        Queue<String> q = new Queue<String>();
-        while (!StdIn.isEmpty()) {
-            String item = StdIn.readString();
-            if (!item.equals("-")) q.enqueue(item);
-            else if (!q.isEmpty()) StdOut.print(q.dequeue() + " ");
-        }
-        StdOut.println("(" + q.size() + " left on queue)");
+    	//TODO
     }
 
 
