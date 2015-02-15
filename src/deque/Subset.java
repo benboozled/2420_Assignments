@@ -1,14 +1,21 @@
 package deque;
 
-import edu.princeton.cs.introcs.StdIn;
 
 public class Subset {
 	
+	private int k;
+	private static RandomizedQueueArray<String> rray;
+	
+	public Subset(int k){
+		this.k = k;
+	}
+	
 	public static void main(String[] args) {
 		
-		int k = StdIn.readInt();
-		StdIn.readString();
-
+		String[] test = {"a","b","c"};
+		//rray.enqueue(StdIn.readString());
+		
+		
 	}
 
 }

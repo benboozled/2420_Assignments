@@ -22,8 +22,8 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
 	private int N;  
 	private Item[] rray;
 	
-	public boolean isEmpty() { return N == 0; }
-	public int size() { return N; }
+	public boolean isEmpty() 	{ return N == 0; }
+	public int size() 			{ return N; }
 	
 	@SuppressWarnings("unchecked")
 	private void resize(int max)
@@ -38,7 +38,7 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
      * Initializes an empty queue.
      */
 	@SuppressWarnings("unchecked")
-	public RandomizedQueueArray() {
+	public RandomizedQueueArray(Item item) {
 		rray = (Item[]) new Object[4];
 	}
 	 
@@ -48,7 +48,8 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
      */
 	public void enqueue(Item item) {
 		if (N == rray.length) resize(2*rray.length);
-		rray[N++] = item;
+		//TODO: this isn't right
+		rray[StdRandom.uniform(0, N-1)] = item;		
 	}
 	 
     /**
@@ -90,7 +91,7 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
      * Unit tests
      */
     public static void main(String[] args) {
-    	//TODO
+		
     }
 
 }
