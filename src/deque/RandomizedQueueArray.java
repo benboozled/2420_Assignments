@@ -1,22 +1,21 @@
 /**
- * @author David Weber and Mark Richardson  
+ * @author David Weber
+ * @author Mark Richardson  
  * @author Robert Sedgewick
  * @author Kevin Wayne
  * 
  * @Date created: 2/11/2014 - David Weber
- * @Date last modified: 2/14/2014 - David Weber 
+ * @Date last modified: 2/15/2014 - David Weber 
  * CSIS 2420 - SPR 2014
  * 
  * Code available on GitHub here:
  * https://github.com/davidlweber/2420_Assignments/tree/master/src/deque
- * 
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- * 
  */
 package deque;
 
 import java.util.Iterator;
+
+import edu.princeton.cs.introcs.StdRandom;
 
 public class RandomizedQueueArray<Item> implements Iterable<Item> 
 {
@@ -38,8 +37,9 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
     /**
      * Initializes an empty queue.
      */
+	@SuppressWarnings("unchecked")
 	public RandomizedQueueArray() {
-		
+		rray = (Item[]) new Object[4];
 	}
 	 
     /**
@@ -64,31 +64,28 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
 	 }
 
 	/**
-	 * Make it so. 
+	 * returns an item without deleting. 
 	 * @return Item
 	 */
-	 public Item sample()                    	
-	 {
-		//TODO
-		return null;
-	 }
+	public Item sample(){
+		return rray[StdRandom.uniform(N)];
+	}
 	 
     /**
      * Returns an iterator that iterates over the items in this queue
      * @return an iterator that iterates over the items in this queue
      */
-	 public Iterator<Item> iterator()
-	 { return new ReverseArrayIterator(); }
+	public Iterator<Item> iterator(){ 
+		return new ReverseArrayIterator(); 
+	}
 	 
-	 private class ReverseArrayIterator implements Iterator<Item>
-	 { 
+	private class ReverseArrayIterator implements Iterator<Item>{ 
 		 private int i = N;
 		 public boolean hasNext() { return i > 0; }
 		 public Item next() { return rray[--i]; }
 		 public void remove() { }
-	 }
-   
-    
+	}
+     
     /**
      * Unit tests
      */
@@ -96,5 +93,28 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
     	//TODO
     }
 
-
 }
+
+/*************************************************************************
+ *  Copyright 2002-2012, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4-package.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4-package.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4-package.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4-package.jar.  If not, see http://www.gnu.org/licenses.
+ *************************************************************************/
