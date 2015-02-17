@@ -45,6 +45,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>
      * @param item the item to add
      */
 	public void enqueue(Item item) {
+		if(item == null){throw NullPointerException;}
 		if (N == rray.length){ resize(2*rray.length);}
 		//TODO: this isn't right
 		rray[StdRandom.uniform(N)] = item;		
@@ -57,6 +58,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>
      */
 	public Item dequeue() {
 		Item item = rray[--N];
+		if(item == null){throw NoSuchElementException;}
 		rray[N] = null; // Avoid loitering (see text).
 		if (N > 0 && N == rray.length/4) resize(rray.length/2);
 		return item;
@@ -67,7 +69,9 @@ public class RandomizedQueue<Item> implements Iterable<Item>
 	 * @return Item
 	 */
 	public Item sample(){
-		return rray[StdRandom.uniform(N)];
+		Item item = rray[StdRandom.uniform(N)];
+		if(item == null){throw NoSuchElementException;}
+		else{return item;}
 	}
 	 
     /**
@@ -81,8 +85,8 @@ public class RandomizedQueue<Item> implements Iterable<Item>
 	private class ReverseArrayIterator implements Iterator<Item>{ 
 		 private int i = N;
 		 public boolean hasNext() { return i > 0; }
-		 public Item next() { return rray[--i]; }
-		 public void remove() { }
+		 public Item next() { return rray[StdRandom.uniform(N)]; }
+		 public void remove() { throw UnsupportedOperationException; }
 	}
      
     /**
