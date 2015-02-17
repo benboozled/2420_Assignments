@@ -6,7 +6,10 @@ import java.util.NoSuchElementException;
 import edu.princeton.cs.introcs.StdOut;
 /**
  * 
- * @author Mark
+ * @author Mark Richardson
+ * @author David Weber
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  * Used to create a data structure known as Deque("Deck") that will be used to 
  *   add/remove from the front and the back of the list.
  * Created: 2/15/2015
