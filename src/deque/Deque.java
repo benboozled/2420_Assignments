@@ -2,6 +2,8 @@ package dequeRandomQueue;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import edu.princeton.cs.introcs.StdOut;
 /**
  * 
  * @author Mark
@@ -18,6 +20,7 @@ public class Deque<Item> implements Iterable<Item>
 	private Node last;
 	private Node hold;
 	private Item holdItem;
+	private int count = 0;
 /**
  * Sub-Class to create a "Node" this is the base of the Deque structure.
  * @author Mark
@@ -42,9 +45,9 @@ public class Deque<Item> implements Iterable<Item>
 	   public Deque()      // construct an empty deque
 	   {
 		   //should we make this doubly linked list not just linked list?
-		   first = new Node();
-		   last = first;
-		   if(size() == 1){first.prior = null;}
+//		   first = new Node();
+//		   last = first;
+//		   first.prior = null;
 	   }
 	   /**
 	    * Method used to determine if the Deque is empty
@@ -60,9 +63,7 @@ public class Deque<Item> implements Iterable<Item>
 	    */
 	   public int size() // return the number of items on the deque
 	   {
-		   int elements = 0;
-		   //call iterator to go through each element in the list and add one to the size
-		   return elements;
+		   return count;
 	   }                 
 	   /**
 	    * The method used to add an <code> Item </code> to the front of the list
@@ -70,11 +71,23 @@ public class Deque<Item> implements Iterable<Item>
 	    */
 	   public void addFirst(Item item)// insert the item at the front
 	   {
-		   hold = first;
-		   first = new Node();
-		   first.next = hold;
-		   hold.prior = hold; // this will point to the new first that we created(this is the backwards pointer).
-		   first.prior = null;
+		   if(isEmpty()){
+			   first = new Node();
+			   last = first;
+			   first.prior = null;
+			   first.item = item;
+			   count++;
+		   }
+		   else{
+			   hold = first;
+			   hold.item = first.item;
+			   first = new Node();
+			   first.item = item;
+			   first.next = hold;
+			   hold.prior = first; // this will point to the new first that we created(this is the backwards pointer).
+			   first.prior = null;
+			   count++;
+		   }
 	   }          
 	   /**
 	    * The method used to add an <code> Item </code> to the end of the list
@@ -82,10 +95,16 @@ public class Deque<Item> implements Iterable<Item>
 	    */
 	   public void addLast(Item item)// insert the item at the end
 	   {
-		   hold = last;
-		   last = new Node();
-		   hold.next = last;
-		   last.prior = hold;//this will point to the element immediately prior to the current element
+		   if(isEmpty()){addFirst(item);}
+		   else{
+			   hold = last;
+			   hold.item = last.item;
+			   last = new Node();
+			   last.item = item;
+			   hold.next = last;
+			   last.prior = hold;//this will point to the element immediately prior to the current element
+			   count++;
+		   }
 	   }           
 	   /**
 	    * The method used to remove the first element of the list and to reassign the first node
@@ -96,6 +115,7 @@ public class Deque<Item> implements Iterable<Item>
 		   holdItem = first.item;
 		   first = first.next;
 		   first.prior = null;
+		   if(count != 0)count--;
 		   return holdItem;
 	   }                
 	   /**
@@ -106,6 +126,7 @@ public class Deque<Item> implements Iterable<Item>
 	   {
 		   holdItem = last.item;
 		   last = last.prior;
+		   if(count != 0)count--;
 		   return holdItem;
 	   }                 
 	   /**
@@ -149,6 +170,21 @@ public class Deque<Item> implements Iterable<Item>
 	    */
 	   public static void main(String[] args)
 	   {
+		   Deque<String> list = new Deque<>();
+		   list.addFirst("Mark");
+		   list.addLast("David");
+		   list.addFirst("Tom");
+		   list.addLast("Herro");
+		   
+		   for(String el: list){StdOut.printf("%s ",el);}
+		   StdOut.println();
+		   
+		   StdOut.printf("this was removed from the first: %s\n",list.removeFirst());
+		   StdOut.printf("this was removed from the last: %s\n",list.removeLast());
+		   for(String el: list){StdOut.println(el);}
+		   
+		   list.removeFirst();
+		   list.removeFirst();
 		   
 	   }   	   
 }
