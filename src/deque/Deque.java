@@ -74,6 +74,7 @@ public class Deque<Item> implements Iterable<Item>
 	    */
 	   public void addFirst(Item item)// insert the item at the front
 	   {
+	   	if(item == null)throw NullPointerException;
 		   if(isEmpty()){
 			   first = new Node();
 			   last = first;
@@ -98,6 +99,7 @@ public class Deque<Item> implements Iterable<Item>
 	    */
 	   public void addLast(Item item)// insert the item at the end
 	   {
+	   	if(item == null)throw NullPointerException;
 		   if(isEmpty()){addFirst(item);}
 		   else{
 			   hold = last;
@@ -115,6 +117,7 @@ public class Deque<Item> implements Iterable<Item>
 	    */
 	   public Item removeFirst()// delete and return the item at the front
 	   {
+	   	if(isEmpty()){throw NoSuchElementException;}//add import to this
 		   holdItem = first.item;
 		   first = first.next;
 		   first.prior = null;
@@ -127,10 +130,11 @@ public class Deque<Item> implements Iterable<Item>
 	    */
 	   public Item removeLast()// delete and return the item at the end
 	   {
-		   holdItem = last.item;
-		   last = last.prior;
-		   if(count != 0)count--;
-		   return holdItem;
+	   	 if(isEmpty()){throw NoSuchElementException;}
+		 holdItem = last.item;
+		 last = last.prior;
+		 if(count != 0)count--;
+		 return holdItem;
 	   }                 
 	   /**
 	    * The method used to iterate through a data structure
