@@ -19,8 +19,10 @@ import edu.princeton.cs.introcs.StdRandom;
 
 public class RandomizedQueueArray<Item> implements Iterable<Item> 
 {
-	private int N;  
-	private Item[] rray;
+
+	@SuppressWarnings("unchecked")
+	private Item[] rray = (Item[]) new Object[1]; // stack items
+	private int N = 0; // number of items
 	
 	public boolean isEmpty() 	{ return N == 0; }
 	public int size() 			{ return N; }
@@ -37,9 +39,8 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
     /**
      * Initializes an empty queue.
      */
-	@SuppressWarnings("unchecked")
-	public RandomizedQueueArray(Item item) {
-		rray = (Item[]) new Object[4];
+	public RandomizedQueueArray() {
+
 	}
 	 
     /**
@@ -48,8 +49,7 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
      */
 	public void enqueue(Item item) {
 		if (N == rray.length) resize(2*rray.length);
-		//TODO: this isn't right
-		rray[StdRandom.uniform(0, N-1)] = item;		
+		rray[N++] = item;
 	}
 	 
     /**
@@ -58,8 +58,12 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
      * @throws java.util.NoSuchElementException if this queue is empty
      */
 	public Item dequeue() {
-		Item item = rray[--N];
-		rray[N] = null; // Avoid loitering (see text).
+		int rand = StdRandom.uniform(N);
+		Item item = rray[rand];
+		for (int i = rand; i < N-1; i++){			
+			rray[i] = rray[i+1];
+		}
+		rray[N-1] = null;
 		if (N > 0 && N == rray.length/4) resize(rray.length/2);
 		return item;
 	 }
