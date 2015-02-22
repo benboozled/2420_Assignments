@@ -15,6 +15,7 @@ package deque;
 
 import java.util.Iterator;
 
+import edu.princeton.cs.introcs.StdOut;
 import edu.princeton.cs.introcs.StdRandom;
 
 public class RandomizedQueueArray<Item> implements Iterable<Item> 
@@ -48,25 +49,29 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
      * @param item the item to add
      */
 	public void enqueue(Item item) {
-		if (N == rray.length) resize(2*rray.length);
+
+		if (N == rray.length) 	resize(2*rray.length);
 		rray[N++] = item;
+		int rand = StdRandom.uniform(N);
+		Item t = rray[rand];
+		rray[rand] = rray[N-1];
+		rray[N-1] = t;
+
 	}
 	 
     /**
      * Removes and returns the item on this queue.
-     * @return the item on this queue that was least recently added
+     * @return random item
      * @throws java.util.NoSuchElementException if this queue is empty
      */
 	public Item dequeue() {
-		int rand = StdRandom.uniform(N);
-		Item item = rray[rand];
-		for (int i = rand; i < N-1; i++){			
-			rray[i] = rray[i+1];
-		}
-		rray[N-1] = null;
+		
+		Item item = rray[--N];
+		rray[N] = null;
 		if (N > 0 && N == rray.length/4) resize(rray.length/2);
 		return item;
-	 }
+		
+	}
 
 	/**
 	 * returns an item without deleting. 
