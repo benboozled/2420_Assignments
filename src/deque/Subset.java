@@ -24,71 +24,7 @@ public class Subset {
 		StdOut.print("test array: \n");
 		for (String el : myRray){
 			StdOut.print(el+", ");
-		}
-		
-/*
-		myRray.enqueue("one");
-		StdOut.println("\nmyRray 1:");
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-		
-		myRray.enqueue("two");
-		StdOut.println("\nmyRray 2:");
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-		
-		myRray.enqueue("three");
-		StdOut.println("\nmyRray 3:");
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-		
-		myRray.enqueue("four");
-		StdOut.println("\nmyRray 4:");
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-		
-		myRray.enqueue("five");
-		StdOut.println("\nmyRray 5:");
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-		
-		myRray.enqueue("six");
-		StdOut.println("\nmyRray 6:");
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-		
-		//////////////////////////////
-		
-		StdOut.print("\n\ndequeueing: ");
-		StdOut.println(myRray.dequeue());
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-
-		StdOut.print("\n\ndequeueing: ");
-		StdOut.println(myRray.dequeue());
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-		
-		StdOut.print("\n\ndequeueing: ");
-		StdOut.println(myRray.dequeue());
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-		
-		StdOut.print("\n\ndequeueing: ");
-		StdOut.println(myRray.dequeue());
-		for (String el : myRray){
-			StdOut.print(el+", ");
-		}
-*/		
+		}		
 			
 	}
 

@@ -5,7 +5,7 @@
  * @author Kevin Wayne
  * 
  * @Date created: 2/11/2014 - David Weber
- * @Date last modified: 2/15/2014 - David Weber 
+ * @Date last modified: 2/21/2014 - David Weber 
  * CSIS 2420 - SPR 2014
  * 
  * Code available on GitHub here:
@@ -100,7 +100,20 @@ public class RandomizedQueueArray<Item> implements Iterable<Item>
      * Unit tests
      */
     public static void main(String[] args) {
+    	
+		String[] test = {"A","B","C","D","E","F","G"};
+		RandomizedQueueArray<String> myRray = new RandomizedQueueArray<String>();
+		for (String el: test) myRray.enqueue(el);
 		
+		StdOut.print("subset: \n");
+		for (int i = 0; i<3; i++){
+			 StdOut.println(myRray.dequeue());
+		}
+		
+		StdOut.print("test array: \n");
+		for (String el : myRray){
+			StdOut.print(el+", ");
+		}	
     }
 
 }
