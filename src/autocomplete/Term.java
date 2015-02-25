@@ -41,17 +41,15 @@ public class Term implements Comparable<Term> {
     public static Comparator<Term> byPrefixOrder(int r){
     	if (r < 0) 	throw new java.lang.IllegalArgumentException();
 
-    	class BY_PREFIX_ORDER implements Comparator<Term>{
+    	class ByPrefixOrderClass implements Comparator<Term>{
+    		int prefx;
+    		public ByPrefixOrderClass (int prefx){this.prefx = prefx;}
     		@Override
 			public int compare(Term term1, Term term2) {
-				//if (term1.query.startsWith(term2.query.substring(0, r)))
-    			if (term1.query.startsWith("N"))
-					return 0;
-				else return -1;
+    			return	term1.query.substring(0, prefx-1).compareTo(term2.query.substring(0, prefx-1));
 			}
     	}
-
-    	return new BY_PREFIX_ORDER();
+    	return new ByPrefixOrderClass(r);
     }
 
     // Compare the terms in lexicographic order by query.
@@ -79,7 +77,7 @@ public class Term implements Comparable<Term> {
     	for (Term el: terms) StdOut.println(el.toString());
     	
     	StdOut.println("\nsorted by comparator:");
-    	Arrays.sort(terms, Term.byPrefixOrder(3));
+    	Arrays.sort(terms, Term.byPrefixOrder(1));
     	for (Term el: terms) StdOut.println(el.toString());
     	
     	StdOut.println("\nsorted by compareTo:");
