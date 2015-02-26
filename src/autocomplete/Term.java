@@ -23,7 +23,6 @@ public class Term implements Comparable<Term> {
 	private double weight;
 
 	
-    // Initialize a term with the given query string and weight.
     public Term(String query, double weight){
     	if (query == null)	throw new java.lang.NullPointerException();
     	if (weight <= 0) 	throw new java.lang.IllegalArgumentException();
@@ -31,22 +30,39 @@ public class Term implements Comparable<Term> {
     	this.weight = weight;
     }
 
-    // Compare the terms in descending order by weight.
+    /**
+     * comparator that arranges Terms in the reverse order of their weight
+     * @return comparator that arranges Terms in the reverse order of their weight
+     */
     public static Comparator<Term> byReverseWeightOrder(){
-    	return null;
-    	//use BY_PREFIX_ORDER as template when finished. 
+    	
+    	class ByReverseWeightOrderClass implements Comparator<Term>{
+    		@Override
+			public int compare(Term term1, Term term2) {
+    			if (term1.weight > term2.weight) return 1;
+    			if (term1.weight < term2.weight) return -1;
+    			else return 0;
+			}
+    	}
+    	return new ByReverseWeightOrderClass();
     }
 
-    // Compare the terms in lexicographic order but using only the first r characters of each query.
+    /**
+     * comparator that arranges Terms in order of the query
+     * @return comparator that arranges Terms in order of the query
+     */
     public static Comparator<Term> byPrefixOrder(int r){
     	if (r < 0) 	throw new java.lang.IllegalArgumentException();
 
     	class ByPrefixOrderClass implements Comparator<Term>{
     		int prefx;
-    		public ByPrefixOrderClass (int prefx){this.prefx = prefx;}
+    		public ByPrefixOrderClass (int p){this.prefx = p;}
+    		
     		@Override
 			public int compare(Term term1, Term term2) {
-    			return	term1.query.substring(0, prefx-1).compareTo(term2.query.substring(0, prefx-1));
+				String temp1 = term1.query.substring(0, prefx);
+				String temp2 = term2.query.substring(0, prefx);
+				return	temp1.compareTo(temp2);
 			}
     	}
     	return new ByPrefixOrderClass(r);
@@ -76,13 +92,14 @@ public class Term implements Comparable<Term> {
     	StdOut.println("unsorted:");
     	for (Term el: terms) StdOut.println(el.toString());
     	
-    	StdOut.println("\nsorted by comparator:");
-    	Arrays.sort(terms, Term.byPrefixOrder(1));
+    	StdOut.println("\nsorted by query comparator:");
+    	Arrays.sort(terms, Term.byPrefixOrder(3));
     	for (Term el: terms) StdOut.println(el.toString());
     	
-    	StdOut.println("\nsorted by compareTo:");
-    	Arrays.sort(terms);
+    	StdOut.println("\nsorted by rev weight comparator:");
+    	Arrays.sort(terms, Term.byReverseWeightOrder());
     	for (Term el: terms) StdOut.println(el.toString());
+
     	
     }
 
