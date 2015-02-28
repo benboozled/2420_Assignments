@@ -3,7 +3,7 @@
  * @author Greg Hiatt 
  * 
  * @Date created: 2/24/2014 - David Weber
- * @Date last modified: 2/24/2014 - David Weber 
+ * @Date last modified: 2/26/2014 - David Weber 
  * CSIS 2420 - SPR 2014
  * 
  * Code available on GitHub here:
@@ -82,6 +82,11 @@ public class Term implements Comparable<Term> {
     
     public static void main(String[] args){
     	
+    	int[] ints = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,18,18,18,18,18,18,18,18,18,19,20};
+    	
+    	
+    	
+    	/*
     	Term nanook = new Term("Nanook of the North", 124.00);
     	Term repo = new Term("Repo Man", 70.00);
     	Term motels = new Term("200 Motels", 98.00);
@@ -99,7 +104,7 @@ public class Term implements Comparable<Term> {
     	StdOut.println("\nsorted by rev weight comparator:");
     	Arrays.sort(terms, Term.byReverseWeightOrder());
     	for (Term el: terms) StdOut.println(el.toString());
-
+*/
     	
     }
 
