@@ -15,12 +15,18 @@ import edu.princeton.cs.introcs.StdOut;
 public class TermTest {
 	
 	private static List<Term> queryList = new ArrayList<Term>();
+	String testString = "a";
+	Term testTerm = new Term(testString, 1.00);
+	int testLength = testString.length();
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
         try {Scanner scanner = new Scanner(TermTest.class.getResourceAsStream
-        		("/autocompleteTests/2grams.txt"));
+        		//("/autocompleteTests/fortune1000-randomly-ordered.txt"));
+        		//("/autocompleteTests/2grams.txt"));
+        		//("/autocompleteTests/5grams.txt"));
+        		//("/autocompleteTests/wiktionary.txt"));
+        		("/autocompleteTests/dweber.txt"));
         	scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -33,30 +39,20 @@ public class TermTest {
         }
         //Term[] queries = queryList.toArray(new Term[queryList.size()]);
         StdOut.println("done");
+        
 	}
 	
 	@Test
 	public void testFirstIndexOf(){
 		Term[] queries = queryList.toArray(new Term[queryList.size()]);
-		Arrays.sort(queries, Term.byReverseWeightOrder());
-		//BinarySearchDeluxe.firstIndexOf(queries, "i", Term.byPrefixOrder(1));
+		Arrays.sort(queries, Term.byPrefixOrderARRAY(testLength));
+    	for (int i = 0; i < queries.length-1; i++){
+    		StdOut.println(i+"\t"+queries[i].toString());
+    	}
+		StdOut.println("\nFirst index: "+BinarySearchDeluxe.firstIndexOf(queries, testTerm, Term.byPrefixOrder(testLength)));
 	}
 	
-//	@Test
-//	public void testByReverseWeightOrder() {
-//		Term[] queries = queryList.toArray(new Term[queryList.size()]);
-//    	StdOut.println("\nbyReverseWeightOrder:");
-//    	Arrays.sort(queries, Term.byReverseWeightOrder());
-//    	for (Term el: queries) StdOut.println(el.toString());
-//	}
 	
 	
-//	@Test
-//	public void testByPrefixOrder() {
-//		Term[] queries = queryList.toArray(new Term[queryList.size()]);
-//    	StdOut.println("\nsorted by query comparator:");
-//    	Arrays.sort(queries, Term.byPrefixOrder(1));
-//    	for (Term el: queries) StdOut.println(el.toString());
-//	}
 
 }

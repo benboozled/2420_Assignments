@@ -1,0 +1,19 @@
+2000
+    2766332391	Nanook of the North
+    1628795324	Repo Man
+    1139248999	Motels
+     800328815	Normal People
+     692874802	No Country for Old Men
+     629726893	yet
+     629726893	i
+     629726893	normal food
+     629726893	north by Northeast
+     3	aa
+     3	ab
+     3	ac
+     3	aaa
+     3	aab
+     3	aac
+     3	aaaa
+     3	aaab
+     3	aaac

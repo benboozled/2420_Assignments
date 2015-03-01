@@ -11,11 +11,7 @@
  */
 package autocomplete;
 
-import java.util.Arrays;
 import java.util.Comparator;
-
-import edu.princeton.cs.introcs.StdOut;
-
 
 public class Term implements Comparable<Term> {
 	
@@ -30,6 +26,49 @@ public class Term implements Comparable<Term> {
     	this.weight = weight;
     }
 
+    /**
+	 *FOR TESTING PURPOSES! DELETE OR SUBSTITUTE BEFORE FINAL SUBMISSION
+	 *TODO: delete this
+     */
+    public static Comparator<Term> byPrefixOrderPREFIX(int r){
+    	if (r < 0) 	throw new java.lang.IllegalArgumentException();
+    	final int rfinal = r;
+    	class PrefixComparator implements Comparator<Term>{
+			@Override
+			public int compare(Term t1, Term t2) {
+				//Prefix pre1 = new Prefix();
+				
+			return 0;
+			}
+    	}
+    	return new PrefixComparator();
+    }
+    
+    
+    /**
+	 *FOR TESTING PURPOSES! DELETE OR SUBSTITUTE BEFORE FINAL SUBMISSION
+	 *TODO: delete this
+     */
+    public static Comparator<Term> byPrefixOrderARRAY(int r){
+    	if (r < 0) 	throw new java.lang.IllegalArgumentException();
+    	final int rfinal = r;
+    	class PrefixComparator implements Comparator<Term>{
+    		
+			@Override
+			public int compare(Term term1, Term term2) {
+	            //if (term1.query.length() < rfinal) return -1; 	// optimization
+				int shorter = Math.min(term1.query.length(), term2.query.length());
+	            int len = Math.min(rfinal, shorter);
+	            for (int i = 0; i < len; i++) {
+	                if (term1.query.charAt(i) < term2.query.charAt(i)) return -1;
+	                if (term1.query.charAt(i) > term2.query.charAt(i)) return +1;
+	            }
+	           return 0;
+			}
+    	}
+    	return new PrefixComparator();
+    }
+    
     /**
      * comparator that arranges Terms in the reverse order of their weight
      * @return comparator that arranges Terms in the reverse order of their weight
@@ -53,25 +92,55 @@ public class Term implements Comparable<Term> {
      */
     public static Comparator<Term> byPrefixOrder(int r){
     	if (r < 0) 	throw new java.lang.IllegalArgumentException();
-
-    	class ByPrefixOrderClass implements Comparator<Term>{
-    		int prefx;
-    		public ByPrefixOrderClass (int p){this.prefx = p;}
+    	final int rfinal = r;
+    	class PrefixComparator implements Comparator<Term>{
     		
-    		@Override
-			public int compare(Term term1, Term term2) {
-				String temp1 = term1.query.substring(0, prefx);
-				String temp2 = term2.query.substring(0, prefx);
-				return	temp1.compareTo(temp2);
+			@Override
+			public int compare(Term t1, Term t2) {
+				String temp1 = t1.query.substring(0, rfinal-1);
+				String temp2 = t2.query.substring(0, rfinal-1);
+			return	temp1.compareToIgnoreCase(temp2);
+				
 			}
     	}
-    	return new ByPrefixOrderClass(r);
+    	return new PrefixComparator();
     }
 
     // Compare the terms in lexicographic order by query.
     @Override
     public int compareTo(Term that){
 		return this.query.compareToIgnoreCase(that.query);
+    }
+    
+    /**
+	 *FOR TESTING PURPOSES! DELETE OR SUBSTITUTE BEFORE FINAL SUBMISSION
+	 *TODO: delete this
+     */
+    private static class Prefix implements Comparable<Prefix> {
+        private final String text;
+        private final int index;
+
+        private Prefix(String text, int index) {
+            this.text = text;
+            this.index = index;
+        }
+        private int length() {
+            return index;
+        }
+        private char charAt(int i) {
+            return text.charAt(i);
+        }
+
+        public int compareTo(Prefix that) {
+            if (this == that) return 0;  // optimization
+            int N = Math.min(this.length(), that.length());
+            for (int i = 0; i < N; i++) {
+                if (this.charAt(i) < that.charAt(i)) return -1;
+                if (this.charAt(i) > that.charAt(i)) return +1;
+            }
+            return this.length() - that.length();
+        }
+
     }
 
     // Return a string representation of the term in the following format:
@@ -80,32 +149,5 @@ public class Term implements Comparable<Term> {
 		return this.weight+"\t"+this.query;
     }
     
-    public static void main(String[] args){
-    	
-    	int[] ints = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,18,18,18,18,18,18,18,18,18,19,20};
-    	
-    	
-    	
-    	/*
-    	Term nanook = new Term("Nanook of the North", 124.00);
-    	Term repo = new Term("Repo Man", 70.00);
-    	Term motels = new Term("200 Motels", 98.00);
-    	Term normal = new Term("Normal People", 54.00);
-    	Term noCountry = new Term("No Country for Old Men", 54.00);
-    	Term[] terms = {nanook,repo,noCountry,motels,normal};
-    	
-    	StdOut.println("unsorted:");
-    	for (Term el: terms) StdOut.println(el.toString());
-    	
-    	StdOut.println("\nsorted by query comparator:");
-    	Arrays.sort(terms, Term.byPrefixOrder(3));
-    	for (Term el: terms) StdOut.println(el.toString());
-    	
-    	StdOut.println("\nsorted by rev weight comparator:");
-    	Arrays.sort(terms, Term.byReverseWeightOrder());
-    	for (Term el: terms) StdOut.println(el.toString());
-*/
-    	
-    }
 
 }
