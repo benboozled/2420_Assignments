@@ -36,9 +36,9 @@ public class Term implements Comparable<Term> {
     	class PrefixComparator implements Comparator<Term>{
 			@Override
 			public int compare(Term t1, Term t2) {
-				//Prefix pre1 = new Prefix();
-				
-			return 0;
+				Prefix pre1 = new Prefix(t1.query.substring(0, rfinal),rfinal);
+				Prefix pre2 = new Prefix(t2.query.substring(0, rfinal),rfinal);
+				return pre1.compareTo(pre2);
 			}
     	}
     	return new PrefixComparator();
@@ -46,8 +46,8 @@ public class Term implements Comparable<Term> {
     
     
     /**
-	 *FOR TESTING PURPOSES! DELETE OR SUBSTITUTE BEFORE FINAL SUBMISSION
-	 *TODO: delete this
+	 *THIS WORKS PRETTY WELL.
+	 *TODO: SUBSTITUTE
      */
     public static Comparator<Term> byPrefixOrderARRAY(int r){
     	if (r < 0) 	throw new java.lang.IllegalArgumentException();
@@ -56,12 +56,12 @@ public class Term implements Comparable<Term> {
     		
 			@Override
 			public int compare(Term term1, Term term2) {
-	            //if (term1.query.length() < rfinal) return -1; 	// optimization
-				int shorter = Math.min(term1.query.length(), term2.query.length());
-	            int len = Math.min(rfinal, shorter);
+	            int len = Math.min(rfinal, Math.min(term1.query.length(), term2.query.length()));
 	            for (int i = 0; i < len; i++) {
-	                if (term1.query.charAt(i) < term2.query.charAt(i)) return -1;
-	                if (term1.query.charAt(i) > term2.query.charAt(i)) return +1;
+	                if (Character.toLowerCase(term1.query.charAt(i)) 
+	                		< Character.toLowerCase(term2.query.charAt(i))) return -1;
+	                if (Character.toLowerCase(term1.query.charAt(i)) 
+	                		> Character.toLowerCase(term2.query.charAt(i))) return +1;
 	            }
 	           return 0;
 			}
@@ -96,11 +96,9 @@ public class Term implements Comparable<Term> {
     	class PrefixComparator implements Comparator<Term>{
     		
 			@Override
-			public int compare(Term t1, Term t2) {
-				String temp1 = t1.query.substring(0, rfinal-1);
-				String temp2 = t2.query.substring(0, rfinal-1);
-			return	temp1.compareToIgnoreCase(temp2);
-				
+			public int compare(Term term1, Term term2) {
+	           return term1.query.substring(0,rfinal).compareToIgnoreCase(term2.query.substring(0,rfinal));
+	           
 			}
     	}
     	return new PrefixComparator();
