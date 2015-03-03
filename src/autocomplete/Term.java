@@ -3,8 +3,13 @@
  * @author Greg Hiatt 
  * 
  * @Date created: 2/24/2014 - David Weber
- * @Date last modified: 2/26/2014 - David Weber 
+ * @Date last modified: 3/2/2014 - David Weber 
  * CSIS 2420 - SPR 2014
+ * 
+ * Term is a datatype representation of a key/value pair for query and weight to be 
+ * used for a search engine autocomplete. Query is a string--typically a name--and 
+ * weight refers to the priority in which it might show. The for loop in the method
+ * "byPrefixOrder" is modified from Robert Sedgewick's "SuffixArray" class. 
  * 
  * Code available on GitHub here:
  * https://github.com/davidlweber/2420_Assignments/tree/master/src/autocomplete
@@ -26,35 +31,15 @@ public class Term implements Comparable<Term> {
     	this.weight = weight;
     }
 
+    
     /**
-	 *FOR TESTING PURPOSES! DELETE OR SUBSTITUTE BEFORE FINAL SUBMISSION
-	 *TODO: delete this
+     * comparator that arranges Terms in order of the query
+     * @return comparator that arranges Terms in order of the query
      */
-    public static Comparator<Term> byPrefixOrderPREFIX(int r){
+    public static Comparator<Term> byPrefixOrder(int r){
     	if (r < 0) 	throw new java.lang.IllegalArgumentException();
     	final int rfinal = r;
     	class PrefixComparator implements Comparator<Term>{
-			@Override
-			public int compare(Term t1, Term t2) {
-				Prefix pre1 = new Prefix(t1.query.substring(0, rfinal),rfinal);
-				Prefix pre2 = new Prefix(t2.query.substring(0, rfinal),rfinal);
-				return pre1.compareTo(pre2);
-			}
-    	}
-    	return new PrefixComparator();
-    }
-    
-    
-    /**
-	 *THIS WORKS PRETTY WELL.
-	 *TODO: SUBSTITUTE
-	 *
-     */
-    public static Comparator<Term> byPrefixOrderARRAY(int r){
-    	if (r < 0) 	throw new java.lang.IllegalArgumentException();
-    	final int rfinal = r;
-    	class PrefixComparator implements Comparator<Term>{
-    		
 			@Override
 			public int compare(Term term1, Term term2) {
 				int shorter = Math.min(term1.query.length(), term2.query.length());
@@ -76,7 +61,6 @@ public class Term implements Comparable<Term> {
      * @return comparator that arranges Terms in the reverse order of their weight
      */
     public static Comparator<Term> byReverseWeightOrder(){
-    	
     	class ByReverseWeightOrderClass implements Comparator<Term>{
     		@Override
 			public int compare(Term term1, Term term2) {
@@ -89,62 +73,18 @@ public class Term implements Comparable<Term> {
     }
 
     /**
-     * comparator that arranges Terms in order of the query
-     * @return comparator that arranges Terms in order of the query
+     * Compare by query field (name of thing)
+     * @return integer
      */
-    public static Comparator<Term> byPrefixOrder(int r){
-    	if (r < 0) 	throw new java.lang.IllegalArgumentException();
-    	final int rfinal = r;
-    	class PrefixComparator implements Comparator<Term>{
-    		
-			@Override
-			public int compare(Term term1, Term term2) {
-	           return term1.query.substring(0,rfinal).compareToIgnoreCase(term2.query.substring(0,rfinal));
-	           
-			}
-    	}
-    	return new PrefixComparator();
-    }
-
-    // Compare the terms in lexicographic order by query.
     @Override
     public int compareTo(Term that){
 		return this.query.compareToIgnoreCase(that.query);
     }
     
-    /**
-	 *FOR TESTING PURPOSES! DELETE OR SUBSTITUTE BEFORE FINAL SUBMISSION
-	 *TODO: delete this
-     */
-    private static class Prefix implements Comparable<Prefix> {
-        private final String text;
-        private final int index;
-
-        private Prefix(String text, int index) {
-            this.text = text;
-            this.index = index;
-        }
-        private int length() {
-            return index;
-        }
-        private char charAt(int i) {
-            return text.charAt(i);
-        }
-
-        public int compareTo(Prefix that) {
-            if (this == that) return 0;  // optimization
-            int N = Math.min(this.length(), that.length());
-            for (int i = 0; i < N; i++) {
-                if (this.charAt(i) < that.charAt(i)) return -1;
-                if (this.charAt(i) > that.charAt(i)) return +1;
-            }
-            return this.length() - that.length();
-        }
-
-    }
-
-    // Return a string representation of the term in the following format:
-    // the weight, followed by a tab, followed by the query.
+	/**
+	 * Returns a string representation of the term
+	 * @return String representation
+	 */
     public String toString(){
 		return this.weight+"\t"+this.query;
     }

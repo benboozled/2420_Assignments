@@ -1,3 +1,19 @@
+/**
+ * @author David Weber
+ * @author Greg Hiatt 
+ * 
+ * @Date created: 2/24/2014 - David Weber
+ * @Date last modified: by Greg sometime 
+ * CSIS 2420 - SPR 2014
+ * 
+ * Term is a datatype representation of a key/value pair for query and weight to be 
+ * used for a search engine autocomplete. Query is a string--typically a name--and 
+ * weight refers to the priority in which it might show. The for loop in the method
+ * "byPrefixOrder" is modified from Robert Sedgewick's "SuffixArray" class. 
+ * 
+ * Code available on GitHub here:
+ * https://github.com/davidlweber/2420_Assignments/tree/master/src/autocomplete
+ */
 package autocomplete;
 
 import java.util.Comparator;
@@ -29,7 +45,6 @@ public class BinarySearchDeluxe {
           }
     	
     	return -1;
-    	
     }
     /**
      * Return the index of the last key in a[] that equals the search key, or -1 if no such key.
@@ -58,13 +73,5 @@ public class BinarySearchDeluxe {
     	
     }
 
-	
-//	public static void main(String[] args) {
-//		
-//    	String[] keys = {"Ai","Bi","Ci","Di","Ei","Fi","Hi","Hi","Hi","Hi","Hi","Hm","Ii",};
-//    	Arrays.sort(keys);
-//    	StdOut.println(lastIndexOf(keys, "Hi", String.CASE_INSENSITIVE_ORDER));
-//		
-//	}
 
 }
