@@ -48,6 +48,7 @@ public class Term implements Comparable<Term> {
     /**
 	 *THIS WORKS PRETTY WELL.
 	 *TODO: SUBSTITUTE
+	 *
      */
     public static Comparator<Term> byPrefixOrderARRAY(int r){
     	if (r < 0) 	throw new java.lang.IllegalArgumentException();
@@ -56,7 +57,8 @@ public class Term implements Comparable<Term> {
     		
 			@Override
 			public int compare(Term term1, Term term2) {
-	            int len = Math.min(rfinal, Math.min(term1.query.length(), term2.query.length()));
+				int shorter = Math.min(term1.query.length(), term2.query.length());
+	            int len = Math.min(rfinal, shorter);
 	            for (int i = 0; i < len; i++) {
 	                if (Character.toLowerCase(term1.query.charAt(i)) 
 	                		< Character.toLowerCase(term2.query.charAt(i))) return -1;
