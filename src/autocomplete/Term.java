@@ -2,8 +2,8 @@
  * @author David Weber
  * @author Greg Hiatt 
  * 
- * @Date created: 2/24/2014 - David Weber
- * @Date last modified: 3/2/2014 - David Weber 
+ * @Date created: 2/24/2014 - d
+ * @Date last modified: 3/2/2014 - d 
  * CSIS 2420 - SPR 2014
  * 
  * Term is a datatype representation of a key/value pair for query and weight to be 
@@ -26,7 +26,7 @@ public class Term implements Comparable<Term> {
 	
     public Term(String query, double weight){
     	if (query == null)	throw new java.lang.NullPointerException();
-    	if (weight <= 0) 	throw new java.lang.IllegalArgumentException();
+    	if (weight < 0) 	throw new java.lang.IllegalArgumentException();
     	this.query = query;
     	this.weight = weight;
     }
@@ -42,18 +42,30 @@ public class Term implements Comparable<Term> {
     	class PrefixComparator implements Comparator<Term>{
 			@Override
 			public int compare(Term term1, Term term2) {
-				int shorter = Math.min(term1.query.length(), term2.query.length());
-	            int len = Math.min(rfinal, shorter);
+				if (term1.query.equals(term2.query)) return 0;
+	            int len = Math.min(rfinal, Math.min(term1.query.length(), term2.query.length()));
 	            for (int i = 0; i < len; i++) {
-	                if (Character.toLowerCase(term1.query.charAt(i)) 
-	                		< Character.toLowerCase(term2.query.charAt(i))) return -1;
-	                if (Character.toLowerCase(term1.query.charAt(i)) 
-	                		> Character.toLowerCase(term2.query.charAt(i))) return +1;
+	            	if (Character.toLowerCase(term1.query.charAt(i))
+	            			< Character.toLowerCase(term2.query.charAt(i))) return -1;
+        			if (Character.toLowerCase(term1.query.charAt(i))
+        					> Character.toLowerCase(term2.query.charAt(i))) return +1;
 	            }
-	           return 0;
+	            return 0;
+	            /**
+	             * By the strict definition of "lexicographic", this should produce the correct output:
+	             *
+ 	             *for (int i = 0; i < len; i++) {
+	             *	if (term1.query.charAt(i)
+	             *			< term2.query.charAt(i)) return -1;
+        		 *	if (term1.query.charAt(i)
+        		 *			> term2.query.charAt(i)) return +1;
+	             *}
+	             *return term1.query.length() - term2.query.length();
+	             */
 			}
     	}
     	return new PrefixComparator();
+
     }
     
     /**
@@ -64,8 +76,8 @@ public class Term implements Comparable<Term> {
     	class ByReverseWeightOrderClass implements Comparator<Term>{
     		@Override
 			public int compare(Term term1, Term term2) {
-    			if (term1.weight > term2.weight) return 1;
-    			if (term1.weight < term2.weight) return -1;
+    			if (term1.weight > term2.weight) return -1;
+    			if (term1.weight < term2.weight) return 1;
     			else return 0;
 			}
     	}
@@ -88,6 +100,5 @@ public class Term implements Comparable<Term> {
     public String toString(){
 		return this.weight+"\t"+this.query;
     }
-    
 
 }

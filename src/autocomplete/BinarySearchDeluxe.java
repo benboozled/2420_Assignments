@@ -1,77 +1,75 @@
 /**
+ * 
+ * @author Greg Hiatt
  * @author David Weber
- * @author Greg Hiatt 
+ * Date Created: 2/22/2015
+ * Date Modified: 3/7/2015
+ * Date Due: 3/7/2015
  * 
- * @Date created: 2/24/2014 - David Weber
- * @Date last modified: by Greg sometime 
- * CSIS 2420 - SPR 2014
+ * This class uses a modified binary search in order to find the first index or 
+ * the last index using a specific key.
  * 
- * Term is a datatype representation of a key/value pair for query and weight to be 
- * used for a search engine autocomplete. Query is a string--typically a name--and 
- * weight refers to the priority in which it might show. The for loop in the method
- * "byPrefixOrder" is modified from Robert Sedgewick's "SuffixArray" class. 
+ * Sources:
+ * http://algs4.cs.princeton.edu/11model/BinarySearch.java.html
+ * by Robert Sedgewick and Kevin Wayne.
  * 
- * Code available on GitHub here:
- * https://github.com/davidlweber/2420_Assignments/tree/master/src/autocomplete
  */
+
 package autocomplete;
 
 import java.util.Comparator;
 
 public class BinarySearchDeluxe {
-
-
+	
+	
 	/**
 	 * Return the index of the first key in a[] that equals the search key, or -1 if no such key.
-	 * @param a
-	 * @param key
-	 * @param comparator
+	 * @param a an array of keys.
+	 * @param key key to be searched for.
+	 * @param comparator comparator used to sort array.
 	 * @return
 	 */
     public static <Key> int firstIndexOf(Key[] a, Key key, Comparator<Key> comparator){
     	if(a == null || key == null || comparator == null) throw new NullPointerException();
-    	
-    	  int lo = 0;
-          int hi = a.length - 1;
-          if(key == a[lo]) return lo;
-          while (lo <= hi) {
-              // Key is in a[lo..hi] or not present.
-              int mid = lo + (hi - lo) / 2;
-              if      (comparator.compare(key, a[mid]) <= -1) hi = mid - 1;
-              else if (comparator.compare(key, a[mid]) >= 1) lo = mid + 1;
-              else if(comparator.compare(key, a[mid])== 0 && comparator.compare(key, a[mid-1])== 0) hi = mid - 1;
-              else return mid;
-            
-          }
-    	
+    	int lo = 0;
+    	int hi = a.length - 1;
+    	if(comparator.compare(key, a[lo])== 0) return lo;
+    	while (lo <= hi) {
+    		// Key is in a[lo..hi] or not present.
+    		int mid = lo + (hi - lo) / 2;
+    	    if      (comparator.compare(key, a[mid]) <= -1) hi = mid - 1;
+    	    else if (comparator.compare(key, a[mid]) >= 1) lo = mid + 1;
+    	    else if(comparator.compare(key, a[mid])== 0 && comparator.compare(key, a[mid-1])== 0) hi = mid - 1;
+    	    else return mid;
+    	}
     	return -1;
+    	
     }
+    
     /**
      * Return the index of the last key in a[] that equals the search key, or -1 if no such key.
-     * @param a
-     * @param key
-     * @param comparator
+     * @param a an array of keys.
+     * @param key key used to search for in the array.
+     * @param comparator comparator used to sort keys in array.
      * @return
      */
     public static <Key> int lastIndexOf(Key[] a, Key key, Comparator<Key> comparator){
     	if(a == null || key == null || comparator == null) throw new NullPointerException();
     	
-  	  int lo = 0;
-      int hi = a.length - 1;
-      if(key == a[hi]) return hi;
-      while (lo <= hi) {
-          // Key is in a[lo..hi] or not present.
-          int mid = lo + (hi - lo) / 2;
-          if      (comparator.compare(key, a[mid]) <= -1) hi = mid - 1;
-          else if (comparator.compare(key, a[mid]) >= 1) lo = mid + 1;
-          else if(comparator.compare(key, a[mid])== 0 && comparator.compare(key, a[mid+1])==0) lo = mid + 1;
-          else return mid;
-        
-      	}
-    	
+    	int lo = 0;
+    	int hi = a.length - 1;
+    	if(comparator.compare(key, a[hi])== 0 ) return hi;
+    	while (lo <= hi) {
+    		// Key is in a[lo..hi] or not present.
+    		int mid = lo + (hi - lo) / 2;
+    		if      (comparator.compare(key, a[mid]) <= -1) hi = mid - 1;
+    		else if (comparator.compare(key, a[mid]) >= 1) lo = mid + 1;
+    		else if(comparator.compare(key, a[mid])== 0 && comparator.compare(key, a[mid+1])==0) lo = mid + 1;
+    		else return mid;
+    	}
     	return -1;
     	
     }
-
-
+    
+    
 }
