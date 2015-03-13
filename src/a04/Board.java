@@ -14,13 +14,18 @@ package a04;
 
 public class Board {
 
+	private int N;
+	private int[][] blocks;
+	
 	/**
 	 * construct a board from an N-by-N array of blocks 
 	 * where blocks[i][j] = block in row i, column j)
 	 * @param blocks
 	 */
 	public Board(int[][] blocks) {
-		
+		if (blocks[0].length != blocks.length) throw new java.lang.IllegalArgumentException();
+		this.N = blocks.length;
+		this.blocks = blocks;
     }
   
 	/**
@@ -28,7 +33,7 @@ public class Board {
 	 * @return
 	 */
 	public int size() {
-		return 0;
+		return N;
     }
 	
 	/**
@@ -69,7 +74,11 @@ public class Board {
      * @return 
      */
     public boolean equals(Object y)   {
-		return false;
+    	if (this == y) return true;
+    	if (y == null) return false;
+    	if (this.getClass() != y.getClass()) return false;
+    	//if (this.size() != y.) return false;
+    	return true;
     }
     
     /**
@@ -85,7 +94,15 @@ public class Board {
      * @return
      */
     public String toString()    {
-		return null;
+        StringBuilder s = new StringBuilder();
+        s.append(N + "\n");
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                s.append(String.format("%2d ", blocks[i][j]));
+            }
+            s.append("\n");
+        }
+        return s.toString();
     }
 
     public static void main(String[] args) {
