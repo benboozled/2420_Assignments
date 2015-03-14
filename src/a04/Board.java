@@ -69,21 +69,20 @@ public class Board {
     	int mans = 0;
     	int emptyX = 0;
     	int emptyY = 0;
-    	List<int[]> oopList = new ArrayList<>();
-    	for (int i = 0; i < N; i++){
-        	for (int j = 0; j < N; j++){
-        		if (blocks[i][j] == 0)	{emptyX=j; emptyY=i;}//set block x,y for 0 block
-        		else if (blocks[i][j] != i*N+j+1){
-        			oopList.add(new int[]{j,i});//add new out-of-place x,y to oopList
-        			
+    	List<int[]> oopList = new ArrayList<>();				//-Create array list for out-of-place blocks,
+    	for (int i = 0; i < N; i++){							// for rows (i corresponds to y),
+        	for (int j = 0; j < N; j++){						// for columns (j corresponds to x),
+        		if (blocks[i][j] == 0)	{emptyX=j; emptyY=i;}	// set x,y for the empty block.
+        		else if (blocks[i][j] != i*N+j+1){				//-For only blocks that are out of place,
+        			oopList.add(new int[]{j,i});				// add new out-of-place x,y to oopList.
 /*TODO:delete*/StdOut.println("ij:"+(i)+","+(j)+"\txy:"+(j+1)+","+(i+1)+"\tval: "+blocks[i][j]);
         		}
         	}
     	}
 /*TODO:delete*/StdOut.println("\nemptyX:"+(emptyX+1)+" emptyY:"+(emptyY+1)+"\n");
-		int[][] oopRray = (int[][]) oopList.toArray();
-		for (int y=0;y<oopRray.length-1;y++){
-			for (int x=0;y<oopRray.length-1;x++){
+
+		for (int y=0;y<oopList.size();y++){
+			for (int x=0;y<oopList.size();x++){
 				
 			}
 		}
