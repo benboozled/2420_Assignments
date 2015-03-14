@@ -77,7 +77,9 @@ public class Board {
     	if (this == y) return true;
     	if (y == null) return false;
     	if (this.getClass() != y.getClass()) return false;
-    	//if (this.size() != y.) return false;
+    	Board that = (Board) y;
+    	if (this.size() != that.size()) return false;
+    	if (this.blocks != that.blocks) return false;
     	return true;
     }
     
