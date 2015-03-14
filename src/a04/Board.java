@@ -23,6 +23,7 @@ public class Board {
 	 * @param blocks
 	 */
 	public Board(int[][] blocks) {
+		//make sure that the number of blocks in each sub array are equal array length
 		if (blocks[0].length != blocks.length) throw new java.lang.IllegalArgumentException();
 		this.N = blocks.length;
 		this.blocks = blocks;
