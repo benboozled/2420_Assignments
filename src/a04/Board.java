@@ -65,24 +65,24 @@ public class Board {
      * sum of Manhattan distances between blocks and goal
      * @return
      */
-    public int manhattan()   {
+    public int manhattan(){
     	int mans = 0;
     	int emptyX = 0;
     	int emptyY = 0;
     	List<int[]> oopList = new ArrayList<>();				//-Create array list for out-of-place blocks,
     	for (int i = 0; i < N; i++){							// for rows (i corresponds to y),
-        	for (int j = 0; j < N; j++){						// for columns (j corresponds to x),
-        		if (blocks[i][j] == 0)	{emptyX=j; emptyY=i;}	// set x,y for the empty block.
-        		else if (blocks[i][j] != i*N+j+1){				//-For only blocks that are out of place,
-        			oopList.add(new int[]{j,i});				// add new out-of-place x,y to oopList.
+        	for (int j = 0; j < N; j++){						// for columns (j corresponds to x)...
+        		if (blocks[i][j] == 0)	{emptyX=j; emptyY=i;}	// -Set x,y for the empty block.
+        		else if (blocks[i][j] != i*N+j+1){				// -For only blocks that are out of place,
+        			oopList.add(new int[]{j,i});				//  add new out-of-place x,y to oopList.
 /*TODO:delete*/StdOut.println("ij:"+(i)+","+(j)+"\txy:"+(j+1)+","+(i+1)+"\tval: "+blocks[i][j]);
         		}
         	}
     	}
 /*TODO:delete*/StdOut.println("\nemptyX:"+(emptyX+1)+" emptyY:"+(emptyY+1)+"\n");
 
-		for (int y=0;y<oopList.size();y++){
-			for (int x=0;y<oopList.size();x++){
+		for (int i=0;i<oopList.size();i++){				//-For each x,y pair in oopList,
+			for (int j=0;j<1;j++){						// for each coordinate value...
 				
 			}
 		}
