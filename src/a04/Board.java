@@ -1,5 +1,8 @@
 package a04;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.princeton.cs.introcs.StdOut;
 
 /**
@@ -50,8 +53,9 @@ public class Board {
     	int hams = 0;
     	for (int i = 0; i < N; i++){
         	for (int j = 0; j < N; j++){
-        		//if the block is out of place, increment hams
+        		//if the block is out of place and not 0, increment hams
         		if (blocks[i][j] != i*N+j+1 && blocks[i][j]  != 0)	hams++;  
+/*TODO:delete*///StdOut.println("i:"+i+" j:"+j+" val: "+blocks[i][j]+" cal: "+(i*N+j+1));
         	}
     	}
 		return hams;
@@ -63,15 +67,23 @@ public class Board {
      */
     public int manhattan()   {
     	int mans = 0;
+    	int emptyX = 0;
+    	int emptyY = 0;
+    	List<int[]> outOfPlace = new ArrayList<>();
     	for (int i = 0; i < N; i++){
         	for (int j = 0; j < N; j++){
-        		if (blocks[i][j] != i*N+j+1 && blocks[i][j]  != 0){
-        		//if the block is out of place...
+        		if (blocks[i][j] == 0)	{emptyX=j; emptyY=i;}//set empty tile x,y coords.
+        		else if (blocks[i][j] != i*N+j+1){
+        			outOfPlace.add(new int[]{j,i});//add new array[2] with x,y coords. to OOP array
         			
+        			
+/*TODO:delete*/StdOut.println("ij:"+(i)+","+(j)+"\txy:"+(j+1)+","+(i+1)+"\tval: "+blocks[i][j]);
         		}
         	}
     	}
-		return mans;
+/*TODO:delete*/StdOut.println("\nemptyX:"+(emptyX+1)+" emptyY:"+(emptyY+1)+"\n");
+		
+    	return mans;
     }
 	
 	/**
@@ -129,7 +141,27 @@ public class Board {
         return s.toString();
     }
 
-    public static void main(String[] args) {
 
+    @SuppressWarnings("unused")
+	public static void main(String[] args) {
+    	Board testBoardN301 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});							//basic board
+    	Board testBoardN304 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});							//center block open
+    	Board testBoardN401 = new Board(new int[][]{{1,2,3,4},{5,6,7,8},{9,0,10,11},{15,13,14,12}});	//4x4 with 2,3 block open
+    	Board board01 = testBoardN304;
+    	StdOut.println(board01.toString());
+    	board01.manhattan();
+    	Board board02 = testBoardN401;
+    	StdOut.println(board02.toString());
+    	board02.manhattan();
     }
 }
+
+
+
+
+
+
+
+
+
+
