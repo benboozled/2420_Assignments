@@ -1,5 +1,7 @@
 package a04;
 
+import edu.princeton.cs.introcs.StdOut;
+
 /**
  * 
  * 
@@ -38,11 +40,21 @@ public class Board {
     }
 	
 	/**
-	 * number of blocks out of place
+	 * Evaluates the number of blocks out of place by performing a nested
+	 * loop and using the i and j values to calculate where each array...
+	 * too tired to finish my thought.
+	 * TODO: Sleep, then finish describing this. 
 	 * @return
 	 */
     public int hamming()  {
-		return 0;
+    	int hams = 0;
+    	for (int i = 0; i < N; i++){
+        	for (int j = 0; j < N; j++){
+        		//if the block is out of place, increment hams
+        		if (blocks[i][j] != i*N+j+1 && blocks[i][j]  != 0)	hams++;  
+        	}
+    	}
+		return hams;
     }
     
     /**
@@ -50,7 +62,16 @@ public class Board {
      * @return
      */
     public int manhattan()   {
-		return 0;
+    	int mans = 0;
+    	for (int i = 0; i < N; i++){
+        	for (int j = 0; j < N; j++){
+        		if (blocks[i][j] != i*N+j+1 && blocks[i][j]  != 0){
+        		//if the block is out of place...
+        			
+        		}
+        	}
+    	}
+		return mans;
     }
 	
 	/**
@@ -109,6 +130,6 @@ public class Board {
     }
 
     public static void main(String[] args) {
-    	// unit tests (not graded)
+
     }
 }

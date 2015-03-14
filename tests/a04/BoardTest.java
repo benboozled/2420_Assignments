@@ -18,23 +18,30 @@ public class BoardTest {
 	Board testBoardN302 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//same block positions as above
 	Board testBoardN303 = new Board(new int[][]{{1,2,3},{4,5,6},{7,0,8}});	//inverted blocks, unsolvable
 	Board testBoardN304 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});	//center block open
-
+	Board testBoardN305 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//pure ham, baby. 
+	
+	@Test
+	public void testHamming() {
+		assertEquals(true, testBoardN301.hamming()==0);		//0 blocks out of place
+		assertEquals(true, testBoardN304.hamming()==4);		//4 blocks out of place
+		assertEquals(true, testBoardN305.hamming()==8);		//8 blocks out of place
+	}	
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testBoardConstructor() {
-		Board testBoardN2401 = new Board(new int[][]{{1,2,3,4},{5,6,7,0}});		//2x4
+		Board testBoardN2401 = new Board(new int[][]{{1,2,3,4},{5,6,7,0}});	//2x4 throws illegal argument
 	}
 	
 	@Test
 	public void testSize() {
-		assertEquals(true, testBoardN301.size()==3);
+		assertEquals(true, testBoardN301.size()==3);	//3x3 board has size 3
 	}
 
 	@Test
 	public void testEqualsObject() {
-		assertEquals(false, testBoardN301.equals(testBoard00));//test against null board
-		assertEquals(true, testBoardN301.equals(testBoardN301));//test against self
-		assertEquals(false, testBoardN301.equals(testBoardN302));//test against board with same block positions
+		assertEquals(false, testBoardN301.equals(testBoard00));		//not null board
+		assertEquals(true, testBoardN301.equals(testBoardN301));	//is itself
+		assertEquals(false, testBoardN301.equals(testBoardN302));	//not just same block positions
 	}
 	
 	@Test
@@ -45,18 +52,13 @@ public class BoardTest {
 //		StdOut.println("testBoardN201string: \n"+testBoardN201string);
 	}
 
-//	@Test
-//	public void testIsGoal() {
-//		fail("Not yet implemented");
-//	}
-	
 	
 	/*
 	@Test
-	public void testHamming() {
+	public void testIsGoal() {
 		fail("Not yet implemented");
 	}
-
+	
 	@Test
 	public void testManhattan() {
 		fail("Not yet implemented");
