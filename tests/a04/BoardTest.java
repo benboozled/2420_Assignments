@@ -12,28 +12,29 @@ public class BoardTest {
 	
 	//weird boards
 	Board testBoard00;														//null
-	Board testBoardN201 = new Board(new int[][]{{1,2},{3,0}});				//2x2
-	//functional boards
-	Board testBoardN301 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//basic board
-	Board testBoardN302 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//same block positions as above
-	Board testBoardN303 = new Board(new int[][]{{1,2,3},{4,5,6},{7,0,8}});	//inverted blocks, unsolvable
-	Board testBoardN304 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});	//center block open
-	Board testBoardN305 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//pure ham, baby. 
+	Board testBoardN222 = new Board(new int[][]{{1,2},{3,0}});				//2x2
+	Board testBoardN323u = new Board(new int[][]{{1,2,3},{4,5,6},{7,0,8}});	//inverted blocks, unsolvable
+	Board testBoardN333b = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//same block positions N301
+	//functional boards 
+	Board testBoardN333 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//basic solved board
+	//unsolved
+	Board testBoardN322 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});	//2,2 block open;6 manhattan;4 ham
+	Board testBoardN311 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//1,1 block open;12 manhattan;8 ham
 	
 	@Test
 	public void testManhattan() {
-		assertEquals(true, testBoardN301.manhattan()==0);	//0 manhattan distance
-		assertEquals(true, testBoardN302.manhattan()==0);	//0 manhattan distance
-		assertEquals(true, testBoardN303.manhattan()==1);	//1 manhattan distance	
-		assertEquals(true, testBoardN304.manhattan()==6);	//6 manhattan distance	
-		assertEquals(true, testBoardN305.manhattan()==12);	//12 manhattan distance	
+		assertEquals(true, testBoardN333.manhattan()==0);	//0 manhattan distance
+		assertEquals(true, testBoardN333b.manhattan()==0);	//0 manhattan distance
+		assertEquals(true, testBoardN323u.manhattan()==1);	//1 manhattan distance	
+		assertEquals(true, testBoardN322.manhattan()==6);	//6 manhattan distance	
+		assertEquals(true, testBoardN311.manhattan()==12);	//12 manhattan distance	
 	}
 	
 	@Test
 	public void testHamming() {
-		assertEquals(true, testBoardN301.hamming()==0);		//0 blocks out of place
-		assertEquals(true, testBoardN304.hamming()==4);		//4 blocks out of place
-		assertEquals(true, testBoardN305.hamming()==8);		//8 blocks out of place
+		assertEquals(true, testBoardN333.hamming()==0);		//0 blocks out of place
+		assertEquals(true, testBoardN322.hamming()==4);		//4 blocks out of place
+		assertEquals(true, testBoardN311.hamming()==8);		//8 blocks out of place
 	}	
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -43,20 +44,20 @@ public class BoardTest {
 	
 	@Test
 	public void testSize() {
-		assertEquals(true, testBoardN301.size()==3);	//3x3 board has size 3
+		assertEquals(true, testBoardN333.size()==3);	//3x3 board has size 3
 	}
 
 	@Test
 	public void testEqualsObject() {
-		assertEquals(false, testBoardN301.equals(testBoard00));		//not null board
-		assertEquals(true, testBoardN301.equals(testBoardN301));	//is itself
-		assertEquals(false, testBoardN301.equals(testBoardN302));	//not just same block positions
+		assertEquals(false, testBoardN333.equals(testBoard00));		//not null board
+		assertEquals(true, testBoardN333.equals(testBoardN333));	//is itself
+		assertEquals(false, testBoardN333.equals(testBoardN333b));	//not just same block positions
 	}
 	
 	@Test
 	public void testToString() {
 		String testBoardN201string = "2"+"\n"+" 1  2 "+"\n"+" 3  0 "+"\n";
-		assertEquals(true, testBoardN201.toString().contentEquals(testBoardN201string));
+		assertEquals(true, testBoardN222.toString().contentEquals(testBoardN201string));
 //		StdOut.println("testBoardN201.toString: \n"+testBoardN201.toString());
 //		StdOut.println("testBoardN201string: \n"+testBoardN201string);
 	}
