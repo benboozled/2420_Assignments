@@ -21,6 +21,15 @@ public class BoardTest {
 	Board testBoardN305 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//pure ham, baby. 
 	
 	@Test
+	public void testManhattan() {
+		assertEquals(true, testBoardN301.manhattan()==0);	//0 manhattan distance
+		assertEquals(true, testBoardN302.manhattan()==0);	//0 manhattan distance
+		assertEquals(true, testBoardN303.manhattan()==1);	//1 manhattan distance	
+		assertEquals(true, testBoardN304.manhattan()==6);	//6 manhattan distance	
+		assertEquals(true, testBoardN305.manhattan()==12);	//12 manhattan distance	
+	}
+	
+	@Test
 	public void testHamming() {
 		assertEquals(true, testBoardN301.hamming()==0);		//0 blocks out of place
 		assertEquals(true, testBoardN304.hamming()==4);		//4 blocks out of place
@@ -59,11 +68,6 @@ public class BoardTest {
 		fail("Not yet implemented");
 	}
 	
-	@Test
-	public void testManhattan() {
-		fail("Not yet implemented");
-	}
-
 	@Test
 	public void testIsSolvable() {
 		fail("Not yet implemented");
