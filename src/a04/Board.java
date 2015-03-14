@@ -78,8 +78,8 @@ public class Board {
     	if (y == null) return false;
     	if (this.getClass() != y.getClass()) return false;
     	Board that = (Board) y;
-    	if (this.size() != that.size()) return false;
-    	if (this.blocks != that.blocks) return false;
+    	if (this.size() != that.size()) return false;//return false if board sizes are not the same
+    	if (this.blocks != that.blocks) return false;//return false if block arrays are not the same
     	return true;
     }
     
