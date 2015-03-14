@@ -13,18 +13,21 @@ package a04;
  */
 public class Solver {
 
+	private Board board;
+	
 	/**
 	 * find a solution to the initial board (using the A* algorithm)
 	 * @param initial
 	 */
-	public Solver(Board initial)     {
+	public Solver(Board initial) {
+		this.board = initial;
 	}
 
 	/**
 	 * min number of moves to solve initial board
 	 * @return
 	 */
-    public int moves()     {
+    public int moves() {
 		return 0;
     }
     
@@ -32,13 +35,12 @@ public class Solver {
      * sequence of boards in a shortest solution
      * @return Board solution
      */
-    public Iterable<Board> solution()   {
+    public Iterable<Board> solution() {
 		return null;
     }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -1,8 +1,5 @@
 package a04;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.princeton.cs.introcs.StdOut;
 
 /**
@@ -116,6 +113,7 @@ public class Board {
     	return true;
     }
     
+    
     /**
      * all neighboring boards
      * @return
@@ -123,6 +121,7 @@ public class Board {
     public Iterable<Board> neighbors()   {
 		return null;
 	}
+    
     
     /**
      * string representation of this board (in the output format specified below)
@@ -153,8 +152,11 @@ public class Board {
     	StdOut.println(board02.toString());
     	board02.manhattan();
     }
+
 }
 
+
+//FAILED IDEAS, JUNK CODE-----------------------------------------------------
 ///**
 // * sum of Manhattan distances between blocks and goal
 // * The use of 2 nested loops theoretically improves efficiency by eliminating any 
