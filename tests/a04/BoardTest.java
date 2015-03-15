@@ -24,17 +24,6 @@ public class BoardTest {
 	
 	private static String file = "/A04Tests/puzzle10.txt";
 	
-	private Board boardReader(String inputFile){
-		In in = new In(inputFile);
-        int N = in.readInt();
-        int[][] boardFile = new int[N][N];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-            	boardFile[i][j] = in.readInt();
-            }
-        }
-		return new Board(boardFile);
-	}
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -45,11 +34,9 @@ public class BoardTest {
 	Board testBoardN222 = new Board(new int[][]{{1,2},{3,0}});				//2x2
 	Board testBoardN323u = new Board(new int[][]{{1,2,3},{4,5,6},{7,0,8}});	//inverted blocks, unsolvable
 	Board testBoardN333b = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//same block positions N301
-	//board from file
 	Board fileBoard = boardReader(file);									//board from file specified above
 	//functional boards 
 	Board testBoardN333 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//basic solved board
-	//unsolved
 	Board testBoardN322 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});	//2,2 block open;6 manhattan;4 ham
 	Board testBoardN311 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//1,1 block open;12 manhattan;8 ham
 	
@@ -98,10 +85,19 @@ public class BoardTest {
 	public void testToString() {
 		String testBoardN201string = "2"+"\n"+" 1  2 "+"\n"+" 3  0 "+"\n";
 		assertEquals(true, testBoardN222.toString().contentEquals(testBoardN201string));
-//		StdOut.println("testBoardN201.toString: \n"+testBoardN201.toString());
-//		StdOut.println("testBoardN201string: \n"+testBoardN201string);
 	}
 
+	private Board boardReader(String inputFile){
+		In in = new In(inputFile);
+		int N = in.readInt();
+		int[][] boardFile = new int[N][N];
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				boardFile[i][j] = in.readInt();
+			}
+		}
+		return new Board(boardFile);
+	}
 	
 	/*
 	@Test

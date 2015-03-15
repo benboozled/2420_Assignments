@@ -156,54 +156,6 @@ public class Board {
 }
 
 
-//FAILED IDEAS, JUNK CODE-----------------------------------------------------
-///**
-// * sum of Manhattan distances between blocks and goal
-// * The use of 2 nested loops theoretically improves efficiency by eliminating any 
-// * in-place blocks from manhattan size calculations. Loop one is O(n^2), 
-// * but loop 2 is only 2 N-[# of in-place blocks], resulting in O(n) order-of-growth
-// * 
-// * @return
-// */
-
-//public int manhattan(){
-//	int mans = 0;
-//	int emptyX = 0;
-//	int emptyY = 0;
-//	List<int[]> oopList = new ArrayList<>();				//-Create array list of all out-of-place(oop) blocks.
-//	for (int i = 0; i < N; i++){							// for rows (i corresponds to y)...
-//    	for (int j = 0; j < N; j++){						// for columns (j corresponds to x)...
-//    		if (blocks[i][j] == 0)	{emptyX=j+1;emptyY=i+1;}// -Set x,y for the empty block.
-//    		else if (blocks[i][j] != i*N+j+1){				// -For only blocks that are out of place,
-//    			oopList.add(new int[]{						//  add new oop block to oopList.
-//    									j+1,					//actual x position
-//    									i+1,					//actual y position
-//    									Math.abs(emptyY-i+1),	//<------------------------resume
-//    									Math.abs(emptyY-i+1)	//<------------------------resume
-//    									});	
-///*TODO:delete*/StdOut.println("ij:"+(i)+","+(j)+				//trace
-//			"\tactual xy:"+(j+1)+","+(i+1)+					//trace
-//			"\tval: "+blocks[i][j]);						//trace
-//    		}
-//    	}
-//	}
-///*TODO:delete*/StdOut.println("emptyX:"+(emptyX+1)+" emptyY:"+(emptyY+1));//trace
-//	for (int i=0;i<oopList.size();i++){			//-For each block in oopList...
-////TODO: tighten this up, should not have to declare x,y value separately.
-//		int[] iRray = oopList.get(i);			// -Make new array of x,y values of block.
-//		int x = iRray[0];						// -Declare block's actual x value.
-//		int y = iRray[1];						// -Declare block's actual y value.
-//		int gx = iRray[2];						// -Declare block's goal x value.
-//		int gy = iRray[3];						// -Declare block's goal y value.
-//		if (y == gy && x != gx) {				// -If block is in goal row, but not in goal column
-//			mans = mans + Math.abs(x-gx);		//  add the column difference to manhattan score.
-///*TODO:delete*/StdOut.println();//debug breakpoint
-//		}
-//	}
-///*TODO:delete*/StdOut.println("manhattan: "+mans+"\n------------------------------");//trace
-//	return mans;
-//}
-
 
 
 
