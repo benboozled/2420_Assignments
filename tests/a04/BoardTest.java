@@ -22,32 +22,20 @@ import edu.princeton.cs.introcs.StdOut;
 @SuppressWarnings("unused")
 public class BoardTest {
 	
-	private static String file = "/A04Tests/puzzle10.txt";
-	
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+	private String file = "/A04Tests/puzzle05.txt";
 
 	//weird boards
 	Board testBoard00;														//null
 	Board testBoardN222 = new Board(new int[][]{{1,2},{3,0}});				//2x2
 	Board testBoardN323u = new Board(new int[][]{{1,2,3},{4,5,6},{7,0,8}});	//inverted blocks, unsolvable
-	Board testBoardN333b = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//same block positions N301
-	Board fileBoard = boardReader(file);									//board from file specified above
+	Board testBoardN333b = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//same block positions N311
+	Board testBoardPZ05 = new Board(new int[][]{{4,1,3},{0,2,6},{7,5,8}});	//same as puzzle05.txt
+	Board fileBoard = BoardApp.readBoard(file);									//board from file specified above
 	//functional boards 
 	Board testBoardN333 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//basic solved board
 	Board testBoardN322 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});	//2,2 block open;6 manhattan;4 ham
 	Board testBoardN311 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//1,1 block open;12 manhattan;8 ham
-	
-	@Test
-	public void testBoardReader(){
-		StdOut.println(file);
-		StdOut.print(boardReader(file).toString());
-		StdOut.println("hamming: "+fileBoard.hamming());
-		StdOut.println("manhattan: "+fileBoard.manhattan());
-	}
-	
+
 	@Test
 	public void testManhattan() {
 		assertEquals(true, testBoardN333.manhattan()==0);	//0 manhattan distance
@@ -86,18 +74,7 @@ public class BoardTest {
 		String testBoardN201string = "2"+"\n"+" 1  2 "+"\n"+" 3  0 "+"\n";
 		assertEquals(true, testBoardN222.toString().contentEquals(testBoardN201string));
 	}
-
-	private Board boardReader(String inputFile){
-		In in = new In(inputFile);
-		int N = in.readInt();
-		int[][] boardFile = new int[N][N];
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				boardFile[i][j] = in.readInt();
-			}
-		}
-		return new Board(boardFile);
-	}
+	
 	
 	/*
 	@Test

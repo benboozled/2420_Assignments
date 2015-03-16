@@ -1,17 +1,13 @@
 package a04;
 
-import edu.princeton.cs.introcs.StdOut;
+import java.util.Iterator;
 
 /**
- * 
- * 
  * @author Jasmin Stefanussen
  * @author David Weber
+ * @Source Sedgewick
  * Date: March 28, 2015
- * Date last modified: March 10, 2015
- * 
- * sources:
- *
+ * Date last modified: March 16, 2015 - D
  */
 
 public class Board {
@@ -52,7 +48,6 @@ public class Board {
         	for (int j = 0; j < N; j++){
         		//if the block is out of place and not 0, increment hams
         		if (blocks[i][j] != i*N+j+1 && blocks[i][j]  != 0)	hams++;  
-/*TODO:delete*///StdOut.println("i:"+i+" j:"+j+" val: "+blocks[i][j]+" cal: "+(i*N+j+1));
         	}
     	}
 		return hams;
@@ -108,18 +103,54 @@ public class Board {
     	if (y == null) return false;
     	if (this.getClass() != y.getClass()) return false;
     	Board that = (Board) y;
-    	if (this.size() != that.size()) return false;//return false if board sizes are not the same
-    	if (this.blocks != that.blocks) return false;//return false if block arrays are not the same
+    	if (this.size() != that.size()) return false;		//are board sizes the same
+    	if (this.blocks != that.blocks) return false;		//return false if block arrays are not the same
     	return true;
     }
-    
     
     /**
      * all neighboring boards
      * @return
      */
-    public Iterable<Board> neighbors()   {
-		return null;
+    public Iterable<Board> neighbors()  {
+    	/**
+    	 * TODO: figure this part out. 
+    	 * @Source http://www.cs.princeton.edu/courses/archive/fall14/
+    	 *  cos226/checklist/8puzzle.html :
+    	 * "How do I return an Iterable<Board>? Add the items you want to
+    	 *  a Stack<Board> or Queue<Board> and return that."
+    	 * @Source Below is from "Algorithms 4th ed." by Sedgewick
+    	 */
+    	@SuppressWarnings({ "unused", "hiding" })
+		class Stack<Board> implements Iterable<Board>{
+    		private Node first;
+    		class Node{
+    			Board board;
+    			Node next;
+    		}
+    		public void add(Board board){
+    			Node oldfirst = first;
+    			first = new Node();
+    			first.board = board;
+    			first.next = oldfirst;
+    		}
+    		public Iterator<Board> iterator(){
+    			return new BoardIterator(); 
+    		}
+    		class BoardIterator implements Iterator<Board>{
+    			private Node current = first;
+    			public boolean hasNext() {
+    				return current != null; 
+    			}
+    			public Board next() {
+    				Board board = current.board;
+    				current = current.next;
+    				return board;
+    			}
+    			public void remove() { }
+    		}
+    	}
+		return new Stack<Board>();
 	}
     
     
@@ -139,18 +170,8 @@ public class Board {
         return s.toString();
     }
 
-
-    @SuppressWarnings("unused")
 	public static void main(String[] args) {
-    	Board testBoardN301 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});							//basic board
-    	Board testBoardN304 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});							//center block open
-    	Board testBoardN401 = new Board(new int[][]{{1,2,3,4},{5,6,7,8},{9,0,10,11},{15,13,14,12}});	//4x4 with 2,3 block open
-    	Board board01 = testBoardN304;
-    	StdOut.println(board01.toString());
-    	board01.manhattan();
-    	Board board02 = testBoardN401;
-    	StdOut.println(board02.toString());
-    	board02.manhattan();
+
     }
 
 }
