@@ -6,8 +6,8 @@ import java.util.Iterator;
  * @author Jasmin Stefanussen
  * @author David Weber
  * @Source Sedgewick
- * Date: March 28, 2015
- * Date last modified: March 16, 2015 - D
+ * @Date Created March 28, 2015   
+ * Last modified: March 16, 2015 - D
  */
 
 public class Board {
