@@ -153,7 +153,6 @@ public class Board {
 		return new Stack<Board>();
 	}
     
-    
     /**
      * string representation of this board (in the output format specified below)
      * @return

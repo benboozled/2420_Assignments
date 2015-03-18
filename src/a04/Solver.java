@@ -1,5 +1,7 @@
 package a04;
 
+import edu.princeton.cs.algs4.MinPQ;
+
 /**
  * 
  * 
@@ -13,14 +15,18 @@ package a04;
  */
 public class Solver {
 
-	private Board board;
-	
+	private MinPQ<SearchNode> boardQ;
+	private Board initialBoard;
+
 	/**
-	 * find a solution to the initial board (using the A* algorithm)
+	 * find a solution to the initial board
+	 * (using the A* algorithm)
 	 * @param initial
 	 */
-	public Solver(Board initial) {
-		this.board = initial;
+	public Solver(Board initialBoard) {
+		this.initialBoard = initialBoard;						//set initialBoard
+		SearchNode initialNode = new SearchNode(initialBoard);	//Create new Node from board
+		boardQ.insert(initialNode);								//Enqueue the board						
 	}
 
 	/**
@@ -28,7 +34,7 @@ public class Solver {
 	 * @return
 	 */
     public int moves() {
-		return 0;
+		return initialBoard.hamming();		//TODO: return the ham score, is that right?
     }
     
     /**
@@ -39,9 +45,22 @@ public class Solver {
 		return null;
     }
     
+    /**
+     * Experimental recursive solving prototype. 
+     * @param node
+     * @return
+     */
+    private SearchNode recursiveSolve(SearchNode node){
+    	if (node.getBoard().isGoal() != false){	//recursion terminates returning node has the goal Board
+    		
+    		node.setMoves(node.getMoves()+1);	//increment moves...
+    		return node;						//return node
+    	}
+		return null;							//TODO: probably need something better here
+    }
     
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 	}
 
 }
