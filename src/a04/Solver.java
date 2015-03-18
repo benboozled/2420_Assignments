@@ -50,8 +50,9 @@ public class Solver {
      * @param node
      * @return
      */
-    private SearchNode recursiveSolve(SearchNode node){
-    	if (node.getBoard().isGoal() != false){	//recursion terminates returning node has the goal Board
+    @SuppressWarnings("unused")
+	private SearchNode recursiveSolve(SearchNode node){
+    	if (node.getBoard().isGoal() != true){	//recursion terminates returning node has the goal Board
     		
     		node.setMoves(node.getMoves()+1);	//increment moves...
     		return node;						//return node
