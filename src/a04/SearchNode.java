@@ -1,5 +1,6 @@
 package a04;
 
+@SuppressWarnings("unused")
 class SearchNode implements Comparable<SearchNode> {
 //these are taken pretty much directly from the diagram of the SearchNode in the 
 //odd, furry little man video.
@@ -14,6 +15,7 @@ private int moves;
 	
 	private int priority() {
 		return this.moves + this.board.manhattan();
+		//return this.moves + this.board.hamming();
 	}
 	
 	@Override

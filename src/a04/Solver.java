@@ -3,16 +3,13 @@ package a04;
 import edu.princeton.cs.algs4.MinPQ;
 
 /**
- * 
- * 
  * @author Jasmin Stefanussen
  * @author David Weber
  * Date: March 28, 2015
  * Date last modified: March 10, 2015
- * 
  * sources:
- *
  */
+@SuppressWarnings("unused")
 public class Solver {
 
 	private MinPQ<SearchNode> boardQ;
@@ -34,7 +31,8 @@ public class Solver {
 	 * @return
 	 */
     public int moves() {
-		return initialBoard.hamming();		//TODO: return the ham score, is that right?
+    	
+		return 0;
     }
     
     /**
@@ -47,26 +45,23 @@ public class Solver {
 		return null;
     }
     
+    
     /**
-     * Experimental recursive solving prototype. 
+     * Recursive solving prototype. 
      * @param node
      * @return
      */
-    @SuppressWarnings("unused")
 	private SearchNode recursiveSolve(SearchNode node){
     	if (node.getBoard().isGoal() != true){	//stop when node is goal Board
-    		/*TODO: probably...
-			1. add node and do stuff to boardQ
-			2. do some other things.
-			3. do something better than return null at the end.*/
-    		node.setMoves(node.getMoves()+1);	//increment moves...
+
+    		node.setMoves(node.getMoves()+1);	//increment node.moves...
     		return node;						//return node
     	}
 		return null;
     }
     
-	public static void main(String[] args) {
-		
-	}
+//	public static void main(String[] args) {
+//		
+//	}
 
 }

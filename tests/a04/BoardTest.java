@@ -1,23 +1,11 @@
 package a04;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import autocomplete.Autocomplete;
-import autocomplete.Term;
-import autocomplete.TermTest;
-import edu.princeton.cs.introcs.BinaryIn;
-import edu.princeton.cs.introcs.In;
-import edu.princeton.cs.introcs.StdArrayIO;
-import edu.princeton.cs.introcs.StdIn;
-import edu.princeton.cs.introcs.StdOut;
 
 @SuppressWarnings("unused")
 public class BoardTest {
@@ -35,7 +23,36 @@ public class BoardTest {
 	Board testBoardN333 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//basic solved board
 	Board testBoardN322 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});	//2,2 block open;6 manhattan;4 ham
 	Board testBoardN311 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//1,1 block open;12 manhattan;8 ham
+	//testBoardN322 neighbors
+	Board testBoardN322up = new Board(new int[][]{{1,0,3},{4,2,5},{6,7,8}});	//open up
+	Board testBoardN322rt = new Board(new int[][]{{1,2,3},{4,5,0},{6,7,8}});	//open right
+	Board testBoardN322dn = new Board(new int[][]{{1,2,3},{4,7,5},{6,0,8}});	//open down
+	Board testBoardN322lf = new Board(new int[][]{{1,2,3},{0,4,5},{6,7,8}});	//open left
+	//testBoardN333 neighbors
+	Board testBoardN333up = new Board(new int[][]{{1,2,3},{4,5,0},{7,8,6}});	//open up
+	Board testBoardN333lf = new Board(new int[][]{{1,2,3},{4,5,6},{7,0,8}});	//open left
+	
 
+	@Test
+	public void testNeighbors() {
+		List<Board> tbN322 = new ArrayList<Board>();
+		for (Board el : testBoardN322.neighbors()){
+			tbN322.add(el);
+		}
+		assertEquals(true, tbN322.get(0).equals(testBoardN322up));
+		assertEquals(true, tbN322.get(1).equals(testBoardN322rt));
+		assertEquals(true, tbN322.get(2).equals(testBoardN322dn));
+		assertEquals(true, tbN322.get(3).equals(testBoardN322lf));
+		
+		List<Board> tbN333 = new ArrayList<Board>();
+		for (Board el : testBoardN333.neighbors()){
+			tbN333.add(el);
+		}
+		assertEquals(true, tbN333.get(0).equals(testBoardN333up));
+		assertEquals(true, tbN333.get(1).equals(testBoardN333lf));
+	}
+	
+	
 	@Test
 	public void testManhattan() {
 		assertEquals(true, testBoardN333.manhattan()==0);	//0 manhattan distance
@@ -66,7 +83,7 @@ public class BoardTest {
 	public void testEqualsObject() {
 		assertEquals(false, testBoardN333.equals(testBoard00));		//not null board
 		assertEquals(true, testBoardN333.equals(testBoardN333));	//is itself
-		assertEquals(false, testBoardN333.equals(testBoardN333b));	//not just same block positions
+		assertEquals(true, testBoardN333.equals(testBoardN333b));	//has the same block positions
 	}
 	
 	@Test
@@ -77,6 +94,7 @@ public class BoardTest {
 	
 	
 	/*
+	
 	@Test
 	public void testIsGoal() {
 		fail("Not yet implemented");
