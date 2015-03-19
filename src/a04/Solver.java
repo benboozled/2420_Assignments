@@ -26,7 +26,7 @@ public class Solver {
 	public Solver(Board initialBoard) {
 		this.initialBoard = initialBoard;						//set initialBoard
 		SearchNode initialNode = new SearchNode(initialBoard);	//Create new Node from board
-		boardQ.insert(initialNode);								//Enqueue the board						
+		boardQ.insert(initialNode);								//Enqueue the board node					
 	}
 
 	/**
@@ -42,6 +42,8 @@ public class Solver {
      * @return Board solution
      */
     public Iterable<Board> solution() {
+    	//TODO: this might just be return boardQ.
+    	//maybe it will need to be sorted, maybe not. 
 		return null;
     }
     
@@ -52,12 +54,16 @@ public class Solver {
      */
     @SuppressWarnings("unused")
 	private SearchNode recursiveSolve(SearchNode node){
-    	if (node.getBoard().isGoal() != true){	//recursion terminates returning node has the goal Board
-    		
+    	if (node.getBoard().isGoal() != true){	//stop when node is goal Board
+    		/*TODO: probably...
+    			1. add node and do stuff to boardQ
+    			2. do some other things.
+    			3. do something better than return null at the end.
+    		*/
     		node.setMoves(node.getMoves()+1);	//increment moves...
     		return node;						//return node
     	}
-		return null;							//TODO: probably need something better here
+		return null;
     }
     
 	public static void main(String[] args) {
