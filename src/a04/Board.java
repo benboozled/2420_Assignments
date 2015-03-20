@@ -104,14 +104,14 @@ public class Board {
         	}
         }
     	
-    	if (N % 2 == 1){								//if the board is odd
+    	if (N % 2 == 1){								//if the board size is odd...
     		for (int i=boardStack.size(); i>1; i--){	//starting at the top of the stack 
 	    		for (Integer el : boardStack)			//for each board in the stack
 	    			if (el > i)							//if any block below it should be above it,
-	    				inversions++;	 				//count that as another inversion.							   		 
-	    		boardStack.pop();						//remove that board
-    		}											//start over with remaining stack
-    		return inversions % 2 == 0;					//if # of inversions odd, board not solvable 
+	    				inversions++;	 				//count that as an inversion.							   		 
+	    		boardStack.pop();						//Then remove the top board
+    		}											//and start over with remaining stack.
+    		return inversions % 2 == 0;					//If # inversions odd, board is not solvable 
     	}else{
     		
     		
