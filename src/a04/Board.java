@@ -94,22 +94,22 @@ public class Board {
     @SuppressWarnings("unused")
 	public boolean isSolvable()   {
     	
-    	Stack<Integer> boardStack = new Stack<Integer>();
+    	Stack<Integer> blockStack = new Stack<Integer>();
     	int inversions = 0;
     	
     	for (int i = 0; i < N; i++){
         	for (int j = 0; j < N; j++){	
         		if (blocks[i][j] != 0) 					//*except* for the empty block..
-        			boardStack.push(blocks[i][j]);		//push blocks onto a stack, row-by-row
+        			blockStack.push(blocks[i][j]);		//push blocks onto a stack, row-by-row
         	}
         }
     	
     	if (N % 2 == 1){								//if the board size is odd...
-    		for (int i=boardStack.size(); i>1; i--){	//starting at the top of the stack 
-	    		for (Integer el : boardStack)			//for each block in the stack
+    		for (int i=blockStack.size(); i>1; i--){	//starting at the top of the stack 
+	    		for (Integer el : blockStack)			//for each block in the stack
 	    			if (el > i)							//if any block below it should be above it,
 	    				inversions++;	 				//count that as an inversion.							   		 
-	    		boardStack.pop();						//Then remove the top block
+	    		blockStack.pop();						//Then remove the top block
     		}											//and start over with remaining stack.
     		return inversions % 2 == 0;					//If # inversions odd, board is not solvable 
     	}else{
