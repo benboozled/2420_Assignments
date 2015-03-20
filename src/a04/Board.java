@@ -1,6 +1,8 @@
 package a04;
 
-import java.util.Iterator;
+import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Stack;
+import edu.princeton.cs.introcs.StdOut;
 
 /**
  * @author Jasmin Stefanussen
@@ -89,8 +91,35 @@ public class Board {
      * is this board solvable?
      * @return
      */
-    public boolean isSolvable()   {
-		return false;
+    @SuppressWarnings("unused")
+	public boolean isSolvable()   {
+    	
+    	Stack<Integer> boardStack = new Stack<Integer>();
+    	int inversions = 0;
+    	
+    	for (int i = 0; i < N; i++){
+        	for (int j = 0; j < N; j++){	
+        		if (blocks[i][j] != 0) 					//*except* for the empty block..
+        			boardStack.push(blocks[i][j]);		//push blocks onto a stack, row-by-row
+        	}
+        }
+    	
+    	if (N % 2 == 1){								//if the board is odd
+    		for (int i=boardStack.size(); i>1; i--){	//starting at the top of the stack 
+	    		for (Integer el : boardStack)			//for each board in the stack
+	    			if (el > i)							//if any block below it should be above it,
+	    				inversions++;	 				//count that as another inversion.							   		 
+	    		boardStack.pop();						//remove that board
+    		}											//start over with remaining stack
+    		return inversions % 2 == 0;					//if # of inversions odd, board not solvable 
+    	}else{
+    		
+    		
+    		
+    		StdOut.println("board is even");			//if the board is even do something else.
+    	}
+    	
+    	return inversions == 0;							//assuming no inversions, it is solvable.
     }
     
     /**
@@ -104,7 +133,16 @@ public class Board {
     	if (this.getClass() != y.getClass()) return false;
     	Board that = (Board) y;
     	if (this.size() != that.size()) return false;		//are board sizes the same
-    	if (this.blocks != that.blocks) return false;		//return false if block arrays are not the same
+//    	if (this.blocks != that.blocks) return false;		//return false if block arrays are not the same
+    	 for (int i = 0; i < N; i++) {
+
+             for (int j = 0; j < N; j++) {
+
+                 if (this.blocks[i][j] != that.blocks[i][j])
+
+                     return false;
+             }
+    	 }
     	return true;
     }
     
@@ -113,45 +151,51 @@ public class Board {
      * @return
      */
     public Iterable<Board> neighbors()  {
-    	/**
-    	 * TODO: figure this part out. 
-    	 * @Source http://www.cs.princeton.edu/courses/archive/fall14/
-    	 *  cos226/checklist/8puzzle.html :
-    	 * "How do I return an Iterable<Board>? Add the items you want to
-    	 *  a Stack<Board> or Queue<Board> and return that."
-    	 * @Source Below is from "Algorithms 4th ed." by Sedgewick
-    	 */
-    	@SuppressWarnings({ "unused", "hiding" })
-		class Stack<Board> implements Iterable<Board>{
-    		private Node first;
-    		class Node{
-    			Board board;
-    			Node next;
-    		}
-    		public void add(Board board){
-    			Node oldfirst = first;
-    			first = new Node();
-    			first.board = board;
-    			first.next = oldfirst;
-    		}
-    		public Iterator<Board> iterator(){
-    			return new BoardIterator(); 
-    		}
-    		class BoardIterator implements Iterator<Board>{
-    			private Node current = first;
-    			public boolean hasNext() {
-    				return current != null; 
+
+    	Queue<Board> neighbors = new Queue<Board>();
+    	int blankRow = 0;
+    	int blankColumn = 0;
+    	
+    	//for loop to find the blank block
+    	for (int i = 0; i < N; i++) {
+    		for (int j = 0; j < N; j++) {
+    			if (blocks[i][j] != 0) continue;
+    			else {
+    				blankRow = i;
+    				blankColumn = j;
     			}
-    			public Board next() {
-    				Board board = current.board;
-    				current = current.next;
-    				return board;
-    			}
-    			public void remove() { }
     		}
     	}
-		return new Stack<Board>();
+
+    	//to find blocks bordering the blank block
+    	//top(-1, 0), right(0, 1), bottom(1, 0), left(0, -1) 
+    	int[] offsets = {-1, 0, 0, 1, 1, 0, 0, -1};
+    	for (int i = 0; i < offsets.length; i += 2) {
+    		int row = blankRow + offsets[i];
+    		int column = blankColumn + offsets[i + 1];
+    		if (row >= 0 && row < N && column >= 0 && column < N) {
+    			neighbors.enqueue(this.swap(blankRow, blankColumn, row, column));
+    		}
+    	}
+        return neighbors;  
 	}
+    
+    private Board swap(int row1, int column1, int row2, int column2) {
+    	int[][] boardCopy = new int[N][N];
+    	
+    	for (int i = 0; i < N; i++) {
+    		for (int j = 0; j < N; j++) {
+    			boardCopy[i][j] = this.blocks[i][j];
+    		}
+    	}
+    	
+    	int v1 = boardCopy[row1][column1];
+    	int v2 = boardCopy[row2][column2];
+    	boardCopy[row1][column1] = v2;
+    	boardCopy[row2][column2] = v1;
+    	
+    	return new Board(boardCopy);
+    }
     
     /**
      * string representation of this board (in the output format specified below)

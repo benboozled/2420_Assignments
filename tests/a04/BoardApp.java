@@ -7,13 +7,13 @@ public class BoardApp {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		Board testBoardN333 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//basic solved board
-		Board testBoardN322 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});	//2,2 block open;6 manhattan;4 ham
-		Board testBoardN311 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//1,1 block open;12 manhattan;8 ham
-    	String file = "/A04Tests/puzzle05.txt";
-    	Board fileBoard = BoardApp.readBoard(file);
-    	traceBoard(fileBoard);
-    	traceBoard(testBoardN322);
+//		Board testBoardN333 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//basic solved board
+//		Board testBoardN322 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});	//2,2 block open;6 manhattan;4 ham
+//		Board testBoardN311 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//1,1 block open;12 manhattan;8 ham
+//    	String file = "/A04Tests/puzzle05.txt";
+//    	Board fileBoard = BoardApp.readBoard(file);
+//    	traceBoard(fileBoard);
+//    	traceBoard(testBoardN322);
 	}
 	
 	public static void traceBoard(Board brd){
