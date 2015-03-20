@@ -113,10 +113,8 @@ public class Board {
     		}											//and start over with remaining stack.
     		return inversions % 2 == 0;					//If # inversions odd, board is not solvable 
     	}else{
-    		
-    		
-    		
     		StdOut.println("board is even");			//if the board is even do something else.
+    		//TODO: If the board number is even
     	}
     	
     	return inversions == 0;							//assuming no inversions, it is solvable.
