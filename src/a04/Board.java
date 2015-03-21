@@ -91,34 +91,45 @@ public class Board {
      * is this board solvable?
      * @return
      */
-    @SuppressWarnings("unused")
 	public boolean isSolvable()   {
-    	
+		
     	Stack<Integer> blockStack = new Stack<Integer>();
     	int inversions = 0;
+    	int blankRow = N;
     	
+//---------------------MAKE BLOCK STACK-----------------------------------------------------   	
     	for (int i = 0; i < N; i++){
-        	for (int j = 0; j < N; j++){	
-        		if (blocks[i][j] != 0) 					//*except* for the empty block..
-        			blockStack.push(blocks[i][j]);		//push blocks onto a stack, row-by-row
+        	for (int j = 0; j < N; j++){
+        		if (blocks[i][j] == 0)				//upon reaching the empty block...
+        			blankRow = i + 1;				//set the blank row. 
+        		if (blocks[i][j] != 0) 				//*except* for the empty block..
+        			blockStack.push(blocks[i][j]);	//push blocks onto a stack, row-by-row
         	}
-        }
+        } 
+/*TODO:delete*/StdOut.print("blockStack: ");
+/*TODO:delete*/for (Integer el : blockStack) StdOut.print(el+" ");
+/*TODO:delete*/StdOut.println("\nblank row: "+blankRow);
+
+//---------------------COUNT INVERSIONS-----------------------------------------------------
+		for (int i=blockStack.size(); i>1; i--){	//starting at the top of the stack 
+    		for (Integer el : blockStack)			//for each block in the stack
+    			if (el > i)							//if any block below it should be above it,
+    				inversions++;	 				//count that as an inversion.							   		 
+    		blockStack.pop();						//Then remove the top block
+		}											//and start over with remaining stack.
+/*TODO:delete*/StdOut.println("inversions: "+inversions+"\n");
+/*TODO:delete*/StdOut.println("-------------------------------");
+
+//---------------------CHECK FOR SOLVABLE-----------------------------------------------------
+    	if (N % 2 == 1)								//ODD board size
+    		return inversions % 2 == 0;				//+ ODD inversions >> NOT solvable
     	
-    	if (N % 2 == 1){								//if the board size is odd...
-    		for (int i=blockStack.size(); i>1; i--){	//starting at the top of the stack 
-	    		for (Integer el : blockStack)			//for each block in the stack
-	    			if (el > i)							//if any block below it should be above it,
-	    				inversions++;	 				//count that as an inversion.							   		 
-	    		blockStack.pop();						//Then remove the top block
-    		}											//and start over with remaining stack.
-    		return inversions % 2 == 0;					//If # inversions odd, board is not solvable 
-    	}else{
-    		StdOut.println("board is even");			//if the board is even do something else.
-    		//TODO: If the board number is even
-    	}
+    	if ((inversions+blankRow) % 2 == 1)			//if EVEN board size & emptyRow + inversions is ODD
+    		return false;							// >> not solvable
     	
-    	return inversions == 0;							//assuming no inversions, it is solvable.
+    	return inversions == 0;						//assuming NO INVERSIONS >> solvable
     }
+    
     
     /**
      * does this board equal y?
