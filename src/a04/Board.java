@@ -41,7 +41,7 @@ public class Board {
 	 * Evaluates the number of blocks out of place by performing a nested
 	 * loop and using the i and j values to calculate where each array...
 	 * too tired to finish my thought.
-	 * TODO: Sleep, then finish describing this. 
+	 * TODO:finish describing this. 
 	 * @return
 	 */
     public int hamming()  {
@@ -97,7 +97,7 @@ public class Board {
     	int inversions = 0;
     	int blankRow = N;
     	
-//---------------------MAKE BLOCK STACK-----------------------------------------------------   	
+//----------------MAKE BLOCK STACK / GET BLANK ROW------------------------------------------   	
     	for (int i = 0; i < N; i++){
         	for (int j = 0; j < N; j++){
         		if (blocks[i][j] == 0)				//upon reaching the empty block...
@@ -106,9 +106,9 @@ public class Board {
         			blockStack.push(blocks[i][j]);	//push blocks onto a stack, row-by-row
         	}
         } 
-/*TODO:delete*/StdOut.print("blockStack: ");
-/*TODO:delete*/for (Integer el : blockStack) StdOut.print(el+" ");
-/*TODO:delete*/StdOut.println("\nblank row: "+blankRow);
+/*TODO:trace*/StdOut.print("blockStack: ");
+/*TODO:trace*/for (Integer el : blockStack) StdOut.print(el+" ");
+/*TODO:trace*/StdOut.println("\nblank row: "+blankRow);
 
 //---------------------COUNT INVERSIONS-----------------------------------------------------
 		for (int i=blockStack.size(); i>1; i--){	//starting at the top of the stack 
@@ -117,10 +117,10 @@ public class Board {
     				inversions++;	 				//count that as an inversion.							   		 
     		blockStack.pop();						//Then remove the top block
 		}											//and start over with remaining stack.
-/*TODO:delete*/StdOut.println("inversions: "+inversions+"\n");
-/*TODO:delete*/StdOut.println("-------------------------------");
+/*TODO:trace*/StdOut.println("inversions: "+inversions+"\n");
+/*TODO:trace*/StdOut.println("-------------------------------");
 
-//---------------------CHECK FOR SOLVABLE-----------------------------------------------------
+//---------------------CHECK FOR SOLVABLE---------------------------------------------------
     	if (N % 2 == 1)								//ODD board size
     		return inversions % 2 == 0;				//+ ODD inversions >> NOT solvable
     	
