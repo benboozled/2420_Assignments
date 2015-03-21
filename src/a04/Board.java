@@ -101,7 +101,7 @@ public class Board {
     	for (int i = 0; i < N; i++){
         	for (int j = 0; j < N; j++){
         		if (blocks[i][j] == 0)				//upon reaching the empty block...
-        			blankRow = i + 1;				//set the blank row. 
+        			blankRow = i;				//set the blank row. 
         		if (blocks[i][j] != 0) 				//*except* for the empty block..
         			blockStack.push(blocks[i][j]);	//push blocks onto a stack, row-by-row
         	}
@@ -110,6 +110,7 @@ public class Board {
 /*TODO:trace*/for (Integer el : blockStack) StdOut.print(el+" ");
 /*TODO:trace*/StdOut.println("\nblank row: "+blankRow);
 
+
 //---------------------COUNT INVERSIONS-----------------------------------------------------
 		for (int i=blockStack.size(); i>1; i--){	//starting at the top of the stack 
     		for (Integer el : blockStack)			//for each block in the stack
@@ -117,15 +118,16 @@ public class Board {
     				inversions++;	 				//count that as an inversion.							   		 
     		blockStack.pop();						//Then remove the top block
 		}											//and start over with remaining stack.
-/*TODO:trace*/StdOut.println("inversions: "+inversions+"\n");
+/*TODO:trace*/StdOut.println("inversions: "+inversions);
 /*TODO:trace*/StdOut.println("-------------------------------");
+
 
 //---------------------CHECK FOR SOLVABLE---------------------------------------------------
     	if (N % 2 == 1)								//ODD board size
-    		return inversions % 2 == 0;				//+ ODD inversions >> NOT solvable
+    		return inversions == 0;					//+ ANY inversions >> NOT solvable
     	
     	if ((inversions+blankRow) % 2 == 1)			//if EVEN board size & emptyRow + inversions is ODD
-    		return false;							// >> not solvable
+    		return false;							// >> NOT solvable
     	
     	return inversions == 0;						//assuming NO INVERSIONS >> solvable
     }
