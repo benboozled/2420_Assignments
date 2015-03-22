@@ -96,20 +96,18 @@ public class Board {
     	Stack<Integer> blockStack = new Stack<Integer>();
     	int inversions = 0;
     	int blankRow = N;
-    	
+    
 //----------------MAKE BLOCK STACK / GET BLANK ROW------------------------------------------   	
     	for (int i = 0; i < N; i++){
         	for (int j = 0; j < N; j++){
         		if (blocks[i][j] == 0)				//upon reaching the empty block...
-        			blankRow = i;				//set the blank row. 
+        			blankRow = i;					//set the blank row. 
         		if (blocks[i][j] != 0) 				//*except* for the empty block..
         			blockStack.push(blocks[i][j]);	//push blocks onto a stack, row-by-row
         	}
         } 
-/*TODO:trace*/StdOut.print("blockStack: ");
-/*TODO:trace*/for (Integer el : blockStack) StdOut.print(el+" ");
-/*TODO:trace*/StdOut.println("\nblank row: "+blankRow);
-
+/*TODO:trace*/StdOut.print(" boardsize: \t"+((N % 2 == 1)?"odd":"even"));
+/*TODO:trace*/StdOut.print("\n blank row: \t"+blankRow);
 
 //---------------------COUNT INVERSIONS-----------------------------------------------------
 		for (int i=blockStack.size(); i>1; i--){	//starting at the top of the stack 
@@ -118,17 +116,17 @@ public class Board {
     				inversions++;	 				//count that as an inversion.							   		 
     		blockStack.pop();						//Then remove the top block
 		}											//and start over with remaining stack.
-/*TODO:trace*/StdOut.println("inversions: "+inversions);
+/*TODO:trace*/StdOut.println("\ninversions: \t"+inversions);
+/*TODO:trace*/StdOut.println("       sum: \t"+(inversions+blankRow));
 /*TODO:trace*/StdOut.println("-------------------------------");
 
-
 //---------------------CHECK FOR SOLVABLE---------------------------------------------------
-    	if (N % 2 == 1)								//ODD board size
-    		return inversions == 0;					//+ ANY inversions >> NOT solvable
-    	
-    	if ((inversions+blankRow) % 2 == 1)			//if EVEN board size & emptyRow + inversions is ODD
-    		return false;							// >> NOT solvable
-    	
+		//TODO: figure out what's going on here. 
+		if (N % 2 == 1)								//ODD board size
+			return inversions == 0;					//ANY inversions >> NOT solvable
+		else										//EVEN board 
+			if ((inversions+blankRow) % 2 == 0 )
+				return true;
     	return inversions == 0;						//assuming NO INVERSIONS >> solvable
     }
     

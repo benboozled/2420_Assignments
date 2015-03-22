@@ -23,19 +23,8 @@ public class BoardTest {
 //no inversions
 	Board testBoardN333 = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//basic solved board
 	Board testBoardN322 = new Board(new int[][]{{1,2,3},{4,0,5},{6,7,8}});	//2,2 block open;6 manhattan;4 ham
-	Board testBoardN311 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//1,1 block open;12 manhattan;8 ham	
-
-//inversion tests
-	//odd inversions, odd board
-	Board inversionN33i1 = new Board(new int[][]{{1,2,3},{4,5,6},{8,7,0}});	//1 inversion
-	Board inversionN22i3 = new Board(new int[][]{{1,2,3},{4,0,6},{8,5,7}});	//3 inversions
-	//even inversions, even board
-	Board inversionN42i6 = new Board(new int[][]
-			{{1,2,3,4},{5,0,6,8},{9,10,7,11},{13,14,15,12}});				//6 inversions
-	//odd inversions, even board
-	Board inversionN43i3 = new Board(new int[][]
-			{{1,2,3,4},{5,6,7,8},{9,10,0,11},{13,14,15,12}});				//3 inversions
-
+	Board testBoardN311 = new Board(new int[][]{{0,1,2},{5,3,4},{6,7,8}});	//1,1 block open;12 manhattan;8 ham		
+	
 //neighbor tests
 	//testBoardN322 neighbors
 	Board testBoardN322up = new Board(new int[][]{{1,0,3},{4,2,5},{6,7,8}});//open up
@@ -45,28 +34,50 @@ public class BoardTest {
 	//testBoardN333 neighbors
 	Board testBoardN333up = new Board(new int[][]{{1,2,3},{4,5,0},{7,8,6}});//open up
 	Board testBoardN333lf = new Board(new int[][]{{1,2,3},{4,5,6},{7,0,8}});//open left
-	
+
+//inversion tests
+	//odd inversions, odd board
+	Board inversionN333i1 = new Board(new int[][]{{1,2,3},{4,5,6},{8,7,0}});	//1 inversion
+	Board inversionN322i3 = new Board(new int[][]{{1,2,3},{4,0,6},{8,5,7}});	//3 inversions
+	//even inversions, even board
+	Board inversionN422i6 = new Board(new int[][]
+			{{1,2,3,4},{5,0,6,8},{9,10,7,11},{13,14,15,12}});				//6 inversions
+	Board inversionN433i3 = new Board(new int[][]
+			{{1,2,3,4},{5,6,7,8},{9,10,0,11},{13,14,15,12}});				//3 inversions
+	//odd inversions, even board
+	Board inversionN442i3 = new Board(new int[][]
+			{{1,2,3,4},{5,6,7,0},{8,9,10,11},{13,14,15,12}});				//3 inversions
+
 	@Test
 	public void testIsSolvable() {
-
-	//should be solvable because even rows, no inversions	
+	StdOut.println("ASSERT SOLVABLE======================================================================");
+	//StdOut.println("\nshould be solvable");
+	StdOut.println("Board: "+inversionN442i3.toString());
+	//inversionN442i3.isSolvable();
+	assertEquals(true, inversionN442i3.isSolvable());
+	
+	//StdOut.println("should be solvable because even rows, no inversions");
 	StdOut.println("Board: "+testBoardN322.toString());
 	assertEquals(true, testBoardN322.isSolvable());		//blank row: 2, inversions: 0
 	StdOut.println("Board: "+testBoardN333.toString());
 	assertEquals(true, testBoardN333.isSolvable());		//blank row: 3, inversions: 0
-	StdOut.println("================================================================================");	
-	//should be unsolvable because odd board size w/ inversions
-	StdOut.println("Board: "+inversionN33i1.toString());
-	assertEquals(false, inversionN33i1.isSolvable());	//blank row: 3, inversions: 1
-	StdOut.println("Board: "+inversionN22i3.toString());
-	assertEquals(false, inversionN22i3.isSolvable());	//blank row: 2, inversions: 3
+	
+	
+	StdOut.println("\n\n\nASSERT NOT SOLVABLE=====================================================================");	
+	//StdOut.println("should be unsolvable because odd board size w/ inversions");
+	StdOut.println("Board: "+inversionN333i1.toString());
+	assertEquals(false, inversionN333i1.isSolvable());	//blank row: 3, inversions: 1
+	StdOut.println("Board: "+inversionN322i3.toString());
+	assertEquals(false, inversionN322i3.isSolvable());	//blank row: 2, inversions: 3
+
+	//StdOut.println("\nshould be unsolvable because blank row + inversions is odd");
+	StdOut.println("Board: "+inversionN422i6.toString());
+	assertEquals(false, inversionN422i6.isSolvable());	//blank row: 1, inversions: 6
+	StdOut.println("Board: "+inversionN433i3.toString());
+	assertEquals(false, inversionN433i3.isSolvable());	//blank row: 2, inversions: 3
 	StdOut.println("================================================================================");
-	//should be unsolvable because blank row + inversions is odd
-	StdOut.println("Board: "+inversionN42i6.toString());
-	assertEquals(false, inversionN42i6.isSolvable());	//blank row: 2, inversions: 6
-	StdOut.println("Board: "+inversionN43i3.toString());
-	assertEquals(false, inversionN43i3.isSolvable());	//blank row: 3, inversions: 3
-	StdOut.println("================================================================================");
+	
+	
 	}
 
 	@Test
@@ -126,25 +137,5 @@ public class BoardTest {
 		String testBoardN201string = "2"+"\n"+" 1  2 "+"\n"+" 3  0 "+"\n";
 		assertEquals(true, testBoardN222.toString().contentEquals(testBoardN201string));
 	}
-	
-	
-	/*
-	
-	@Test
-	public void testIsGoal() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testIsSolvable() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNeighbors() {
-		fail("Not yet implemented");
-	}
-	*/
-
 
 }
