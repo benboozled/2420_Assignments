@@ -37,8 +37,8 @@ public class BoardTest {
 
 //inversion tests
 	//odd inversions, odd board
-	Board inversionN333i1 = new Board(new int[][]{{1,2,3},{4,5,6},{8,7,0}});	//1 inversion
-	Board inversionN322i3 = new Board(new int[][]{{1,2,3},{4,0,6},{8,5,7}});	//3 inversions
+	Board inversionN333i1 = new Board(new int[][]{{1,2,3},{4,5,6},{8,7,0}});//1 inversion
+	Board inversionN322i3 = new Board(new int[][]{{1,2,3},{4,0,6},{8,5,7}});//3 inversions
 	//even inversions, even board
 	Board inversionN422i6 = new Board(new int[][]
 			{{1,2,3,4},{5,0,6,8},{9,10,7,11},{13,14,15,12}});				//6 inversions
