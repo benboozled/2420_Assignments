@@ -108,6 +108,7 @@ public class BoardTest {
 		System.out.printf("Runtime: %.3f \n", (period2 - period1) / 1000.0);
 		System.out.printf("Moves: %d\n\n\n", solve2.moves());		
 		
+		//TODO: should not be unsolvable
 		Solver solve3 = new Solver(BoardApp.readBoard("/A04Tests/puzzle32.txt"));
 		StdOut.println("/A04Tests/puzzle32.txt");
 		long period3 = System.currentTimeMillis();
