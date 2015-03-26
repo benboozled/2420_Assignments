@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.princeton.cs.algs4.Stopwatch;
 import edu.princeton.cs.introcs.StdOut;
 
 @SuppressWarnings("unused")
@@ -49,6 +50,23 @@ public class BoardTest {
 			{{1,2,3,4},{5,6,7,0},{8,9,10,11},{13,14,15,12}});				//3 inversions
 
 	@Test
+	public void performanceTests() {
+		
+		//Board fileBoard2 = BoardApp.readBoard("/A04Tests/puzzle00.txt");
+		//78, 80
+		Solver boardSolver = new Solver(testBoardN333);
+		int moves;
+
+		Stopwatch stopwatch = new Stopwatch();
+		moves = boardSolver.moves();
+		double timeToProcess = stopwatch.elapsedTime();
+		
+		StdOut.println("Moves: "+moves);
+		StdOut.println("Time to process: "+timeToProcess);
+	}
+	
+/*	
+	@Test
 	public void testIsSolvable() {
 	StdOut.println("ASSERT SOLVABLE======================================================================");
 	//StdOut.println("\nshould be solvable");
@@ -76,10 +94,9 @@ public class BoardTest {
 	StdOut.println("Board: "+inversionN433i3.toString());
 	assertEquals(false, inversionN433i3.isSolvable());	//blank row: 2, inversions: 3
 	StdOut.println("================================================================================");
-	
-	
-	}
 
+	}
+*/
 	@Test
 	public void testNeighbors() {
 		List<Board> tbN322 = new ArrayList<Board>();

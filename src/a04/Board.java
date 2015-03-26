@@ -24,7 +24,10 @@ public class Board {
 	 */
 	public Board(int[][] blocks) {
 		//make sure that the number of blocks in each sub array are equal array length
-		if (blocks[0].length != blocks.length) throw new java.lang.IllegalArgumentException();
+		if (blocks == null) throw new NullPointerException("Null pointer exception");
+
+		if (blocks[0].length != blocks.length) 
+			throw new java.lang.IllegalArgumentException("Illegal arguments");
 		this.N = blocks.length;
 		this.blocks = blocks;
     }
@@ -106,8 +109,8 @@ public class Board {
         			blockStack.push(blocks[i][j]);	//push blocks onto a stack, row-by-row
         	}
         } 
-/*TODO:trace*/StdOut.print(" boardsize: \t"+((N % 2 == 1)?"odd":"even"));
-/*TODO:trace*/StdOut.print("\n blank row: \t"+blankRow);
+///*TODO:trace*/StdOut.print(" boardsize: \t"+((N % 2 == 1)?"odd":"even"));
+///*TODO:trace*/StdOut.print("\n blank row: \t"+blankRow);
 
 //---------------------COUNT INVERSIONS-----------------------------------------------------
 		for (int i=blockStack.size(); i>1; i--){	//starting at the top of the stack 
@@ -116,9 +119,9 @@ public class Board {
     				inversions++;	 				//count that as an inversion.							   		 
     		blockStack.pop();						//Then remove the top block
 		}											//and start over with remaining stack.
-/*TODO:trace*/StdOut.println("\ninversions: \t"+inversions);
-/*TODO:trace*/StdOut.println("       sum: \t"+(inversions+blankRow));
-/*TODO:trace*/StdOut.println("-------------------------------");
+///*TODO:trace*/StdOut.println("\ninversions: \t"+inversions);
+///*TODO:trace*/StdOut.println("       sum: \t"+(inversions+blankRow));
+///*TODO:trace*/StdOut.println("-------------------------------");
 
 //---------------------CHECK FOR SOLVABLE---------------------------------------------------
 		//TODO: figure out what's going on here. 
@@ -227,11 +230,3 @@ public class Board {
     }
 
 }
-
-
-
-
-
-
-
-
