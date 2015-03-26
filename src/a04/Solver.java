@@ -2,6 +2,7 @@ package a04;
 
 import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.Stack;
+import edu.princeton.cs.algs4.Stopwatch;
 import edu.princeton.cs.introcs.StdOut;
 
 /**
@@ -34,14 +35,13 @@ public class Solver {
     	MinPQ<SearchNode> minQueue = new MinPQ<SearchNode>();
     	    	
     	minQueue.insert(node);
-    	int i = 1;
     	while(!node.board.isGoal()) {
-    		StdOut.println(i++);
     		if (minQueue.isEmpty())
     			break;
     		
     		node = minQueue.delMin();
        		Iterable<Board> neighbors = node.board.neighbors();
+       		
     		for (Board b : neighbors) {
     			SearchNode newNode = new SearchNode(b, node.moves + 1, node);
     			
@@ -100,19 +100,18 @@ public class Solver {
     }
     
 	public static void main(String[] args) {
-		
-//		int[][] test = null;
-//		Board testBoard = new Board(test);	
-//		Solver solver = new Solver(testBoard);
-//		
-//		System.out.println(solver.moves());
-//		System.out.print(solver.solution.board);
-//		
-//		for (Board board : solver.solution()) {
-//			System.out.println(board);
-//		}
-		
-		
+				
+	  int[][] test = {{8, 1, 3},{4, 0, 2},{7, 6, 5}};
+	  Board testBoard = new Board(test); 
+	  Solver solver = new Solver(testBoard);
+	  
+	  System.out.println(solver.moves());
+	  
+	  for (Board board : solver.solution()) {
+	   System.out.println(board);
+	  }
+
+	  
 	}
 
 }

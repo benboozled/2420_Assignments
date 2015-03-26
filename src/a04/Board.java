@@ -87,7 +87,7 @@ public class Board {
 	 * @return
 	 */
     public boolean isGoal() {
-		return false;
+		return hamming() == 0;
     }
     
     /**
@@ -115,7 +115,8 @@ public class Board {
 //---------------------COUNT INVERSIONS-----------------------------------------------------
 		for (int i=blockStack.size(); i>1; i--){	//starting at the top of the stack 
     		for (Integer el : blockStack)			//for each block in the stack
-    			if (el > i)							//if any block below it should be above it,
+    			if (blockStack.peek() < el)
+    			//if (el > i)							//if any block below it should be above it,
     				inversions++;	 				//count that as an inversion.							   		 
     		blockStack.pop();						//Then remove the top block
 		}											//and start over with remaining stack.
@@ -125,12 +126,14 @@ public class Board {
 
 //---------------------CHECK FOR SOLVABLE---------------------------------------------------
 		//TODO: figure out what's going on here. 
-		if (N % 2 == 1)								//ODD board size
-			return inversions == 0;					//ANY inversions >> NOT solvable
-		else										//EVEN board 
-			if ((inversions+blankRow) % 2 == 0 )
-				return true;
-    	return inversions == 0;						//assuming NO INVERSIONS >> solvable
+	if (N % 2 == 1)        //ODD board size
+		   return (inversions % 2) == 0;     //ANY inversions >> NOT solvable
+	//  else          //EVEN board 
+	//   if ((inversions+blankRow) % 2 == 0 )
+	//	    return true;
+	//	     return inversions % 2 == 0;      //assuming NO INVERSIONS >> solvable
+	   
+	  return (inversions + blankRow) % 2 == 0;
     }
     
     
@@ -228,5 +231,10 @@ public class Board {
 	public static void main(String[] args) {
 
     }
+
+/*TODO: for testing only*/
+	public int tileAt(int row, int col) {
+		return blocks[row][col];
+	}
 
 }

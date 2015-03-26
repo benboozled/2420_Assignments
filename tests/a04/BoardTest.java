@@ -18,7 +18,7 @@ public class BoardTest {
 	Board testBoardN222 = new Board(new int[][]{{1,2},{3,0}});				//2x2
 	Board testBoardN333b = new Board(new int[][]{{1,2,3},{4,5,6},{7,8,0}});	//same block positions N311
 	Board testBoardPZ05 = new Board(new int[][]{{4,1,3},{0,2,6},{7,5,8}});	//same as puzzle05.txt
-	private String file = "/A04Tests/puzzle05.txt";
+	private String file = "/A04Tests/puzzle00.txt";
 	Board fileBoard = BoardApp.readBoard(file);								//board from file specified above
 
 //no inversions
@@ -48,24 +48,10 @@ public class BoardTest {
 	//odd inversions, even board
 	Board inversionN442i3 = new Board(new int[][]
 			{{1,2,3,4},{5,6,7,0},{8,9,10,11},{13,14,15,12}});				//3 inversions
-
-	@Test
-	public void performanceTests() {
-		
-		//Board fileBoard2 = BoardApp.readBoard("/A04Tests/puzzle00.txt");
-		//78, 80
-		Solver boardSolver = new Solver(testBoardN333);
-		int moves;
-
-		Stopwatch stopwatch = new Stopwatch();
-		moves = boardSolver.moves();
-		double timeToProcess = stopwatch.elapsedTime();
-		
-		StdOut.println("Moves: "+moves);
-		StdOut.println("Time to process: "+timeToProcess);
-	}
 	
-/*	
+	Board jTest = new Board(new int[][] {{8, 1, 3},{4, 0, 2},{7, 6, 5}});
+	
+/*
 	@Test
 	public void testIsSolvable() {
 	StdOut.println("ASSERT SOLVABLE======================================================================");
@@ -73,13 +59,18 @@ public class BoardTest {
 	StdOut.println("Board: "+inversionN442i3.toString());
 	//inversionN442i3.isSolvable();
 	assertEquals(true, inversionN442i3.isSolvable());
+	//from instructions
+	StdOut.println("\n\nJTEST==============================");
+	StdOut.println("Board: "+jTest.toString());
+	jTest.isSolvable();
+	assertEquals(true, jTest.isSolvable());
+	StdOut.println("JTEST==============================\n\n");
 	
 	//StdOut.println("should be solvable because even rows, no inversions");
 	StdOut.println("Board: "+testBoardN322.toString());
 	assertEquals(true, testBoardN322.isSolvable());		//blank row: 2, inversions: 0
 	StdOut.println("Board: "+testBoardN333.toString());
 	assertEquals(true, testBoardN333.isSolvable());		//blank row: 3, inversions: 0
-	
 	
 	StdOut.println("\n\n\nASSERT NOT SOLVABLE=====================================================================");	
 	//StdOut.println("should be unsolvable because odd board size w/ inversions");
@@ -94,9 +85,76 @@ public class BoardTest {
 	StdOut.println("Board: "+inversionN433i3.toString());
 	assertEquals(false, inversionN433i3.isSolvable());	//blank row: 2, inversions: 3
 	StdOut.println("================================================================================");
-
 	}
 */
+	
+	@Test
+	public void performanceTests() {
+		
+		//78, 80
+
+		long startTime = System.currentTimeMillis();
+		
+		
+		Solver solve1 = new Solver(BoardApp.readBoard("/A04Tests/puzzle28.txt"));
+		long period1 = System.currentTimeMillis();
+		StdOut.println("/A04Tests/puzzle28.txt");
+		System.out.printf("Runtime: %.3f \n", (period1 - startTime) / 1000.0);
+		System.out.printf("Moves: %d\n\n\n", solve1.moves());		
+		
+		Solver solve2 = new Solver(BoardApp.readBoard("/A04Tests/puzzle30.txt"));
+		long period2 = System.currentTimeMillis();
+		StdOut.println("/A04Tests/puzzle30.txt");
+		System.out.printf("Runtime: %.3f \n", (period2 - period1) / 1000.0);
+		System.out.printf("Moves: %d\n\n\n", solve2.moves());		
+		
+		Solver solve3 = new Solver(BoardApp.readBoard("/A04Tests/puzzle32.txt"));
+		StdOut.println("/A04Tests/puzzle32.txt");
+		long period3 = System.currentTimeMillis();
+		System.out.printf("Runtime: %.3f \n", (period3 - period2) / 1000.0);
+		System.out.printf("Moves: %d\n\n\n", solve3.moves());		
+
+		Solver solve4 = new Solver(BoardApp.readBoard("/A04Tests/puzzle34.txt"));
+		StdOut.println("/A04Tests/puzzle34.txt");
+		long period4 = System.currentTimeMillis();
+		System.out.printf("Runtime: %.3f \n", (period4 - period3) / 1000.0);
+		System.out.printf("Moves: %d\n\n\n", solve4.moves());	
+		
+		Solver solve5 = new Solver(BoardApp.readBoard("/A04Tests/puzzle36.txt"));
+		StdOut.println("/A04Tests/puzzle36.txt");
+		long period5 = System.currentTimeMillis();
+		System.out.printf("Runtime: %.3f \n", (period5 - period4) / 1000.0);
+		System.out.printf("Moves: %d\n\n\n", solve5.moves());	
+		
+		Solver solve6 = new Solver(BoardApp.readBoard("/A04Tests/puzzle38.txt"));
+		StdOut.println("/A04Tests/puzzle38.txt");
+		long period6 = System.currentTimeMillis();
+		System.out.printf("Runtime: %.3f \n", (period6 - period5) / 1000.0);
+		System.out.printf("Moves: %d\n\n\n", solve6.moves());	
+		
+		Solver solve7 = new Solver(BoardApp.readBoard("/A04Tests/puzzle40.txt"));
+		StdOut.println("/A04Tests/puzzle40.txt");
+		long period7 = System.currentTimeMillis();
+		System.out.printf("Runtime: %.3f \n", (period7 - period6) / 1000.0);
+		System.out.printf("Moves: %d\n\n\n", solve7.moves());	
+		
+		Solver solve8 = new Solver(BoardApp.readBoard("/A04Tests/puzzle42.txt"));
+		StdOut.println("/A04Tests/puzzle42.txt");
+		long period8 = System.currentTimeMillis();
+		System.out.printf("Runtime: %.3f \n", (period8 - period7) / 1000.0);
+		System.out.printf("Moves: %d\n\n\n", solve8.moves());	
+
+//		SolverVisualizer.animateBoard("/A04Tests/puzzle10.txt");
+		
+		
+//		moves = boardSolver.moves();
+//		
+//		long endTime   = System.currentTimeMillis();
+//		long totalTime = endTime - startTime;
+//		System.out.println("Runtime: "+totalTime/1000.0);
+//		System.out.println("Moves: "+moves);
+	}
+	
 	@Test
 	public void testNeighbors() {
 		List<Board> tbN322 = new ArrayList<Board>();
