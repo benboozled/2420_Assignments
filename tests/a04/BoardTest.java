@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.Stopwatch;
 import edu.princeton.cs.introcs.StdOut;
 
@@ -48,8 +49,37 @@ public class BoardTest {
 	//odd inversions, even board
 	Board inversionN442i3 = new Board(new int[][]
 			{{1,2,3,4},{5,6,7,0},{8,9,10,11},{13,14,15,12}});				//3 inversions
+
+//ad hoc boards
+	Board jTest = new Board(new int[][] {{8, 1, 3},{4, 0, 2},{7, 6, 5}});	//Jasmin's test board
+	Board solutionTest = BoardApp.readBoard("/A04Tests/puzzle04.txt");		//4 move board from test files
+			//	3
+			//	0 1 3	<----------------------------------------------     //board from the file
+			//	4 2 5
+			//	7 8 6														 //moves to solve....
+	Board solution1 = new Board(new int[][] {{1, 0, 3},{4, 2, 5},{7, 8, 6}});//Move 1
+	Board solution2 = new Board(new int[][] {{1, 2, 3},{4, 0, 5},{7, 8, 6}});//Move 2
+	Board solution3 = new Board(new int[][] {{1, 2, 3},{4, 5, 0},{7, 8, 6}});//Move 3
+	Board solution4 = new Board(new int[][] {{1, 2, 3},{4, 5, 6},{7, 8, 0}});//Move 4
 	
-	Board jTest = new Board(new int[][] {{8, 1, 3},{4, 0, 2},{7, 6, 5}});
+
+	@Test
+	public void testSolution() {
+		
+		Stack<Board> solutionStack = new Stack<Board>();
+		solutionStack.push(solution4);
+		solutionStack.push(solution3);
+		solutionStack.push(solution2);
+		solutionStack.push(solution1);
+		
+		
+		
+//		Solver solver = new Solver(solutionTest);
+//		for (Board board : solver.solution()) {
+//			System.out.println(board);
+//		}
+		
+	}
 	
 /*
 	@Test
@@ -86,16 +116,14 @@ public class BoardTest {
 	assertEquals(false, inversionN433i3.isSolvable());	//blank row: 2, inversions: 3
 	StdOut.println("================================================================================");
 	}
-*/
+
 	
 	@Test
 	public void performanceTests() {
 		
 		//78, 80
-
 		long startTime = System.currentTimeMillis();
-		
-		
+
 		Solver solve1 = new Solver(BoardApp.readBoard("/A04Tests/puzzle28.txt"));
 		long period1 = System.currentTimeMillis();
 		StdOut.println("/A04Tests/puzzle28.txt");
@@ -155,7 +183,7 @@ public class BoardTest {
 //		System.out.println("Runtime: "+totalTime/1000.0);
 //		System.out.println("Moves: "+moves);
 	}
-	
+*/	
 	@Test
 	public void testNeighbors() {
 		List<Board> tbN322 = new ArrayList<Board>();

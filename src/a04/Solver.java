@@ -101,15 +101,15 @@ public class Solver {
     
 	public static void main(String[] args) {
 				
-	  int[][] test = {{8, 1, 3},{4, 0, 2},{7, 6, 5}};
-	  Board testBoard = new Board(test); 
-	  Solver solver = new Solver(testBoard);
-	  
-	  System.out.println(solver.moves());
-	  
-	  for (Board board : solver.solution()) {
-	   System.out.println(board);
-	  }
+//	  int[][] test = {{8, 1, 3},{4, 0, 2},{7, 6, 5}};
+//	  Board testBoard = new Board(test); 
+//	  Solver solver = new Solver(testBoard);
+//	  
+//	  System.out.println(solver.moves());
+//	  
+//	  for (Board board : solver.solution()) {
+//	   System.out.println(board);
+//	  }
 
 	  
 	}
