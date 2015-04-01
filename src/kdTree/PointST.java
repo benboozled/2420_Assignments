@@ -19,14 +19,20 @@ public class PointST<Value> {
 	}
 	
 	public void put(Point2D p, Value val){		// associate the value val with point p
+		if (p == null || val == null) 
+			throw new NullPointerException("Null pointer exception");
 		points.put(p, val);
 	}
 	
 	public Value get(Point2D p){				//value associated with point p
+		if (p == null) 
+			throw new NullPointerException("Null pointer exception");
 		return points.get(p);
 	}
 	
 	public boolean contains(Point2D p){			//does the symbol table contain point p?
+		if (p == null) 
+			throw new NullPointerException("Null pointer exception");
 		return points.contains(p);
 	}
 	
@@ -35,11 +41,15 @@ public class PointST<Value> {
 	}
 	
 	public Iterable<Point2D> range(RectHV rect){//TODO: all points that are inside the rectangle 
-
+		if (rect == null) 
+			throw new NullPointerException("Null pointer exception");
+		
 		return null; 
 	}
 	
 	public Point2D nearest(Point2D p){			//TODO: a nearest neighbor to point p; null if the symbol table is empty
+		if (p == null) 
+			throw new NullPointerException("Null pointer exception");
 		
 		return p; 
 	}
