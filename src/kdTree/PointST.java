@@ -55,7 +55,7 @@ public class PointST<Value> {
 	 * @param a point of type Point2D
 	 * @return whether or not this table contains given point
 	 */
-	public boolean contains(Point2D p){			//does the symbol table contain point p?
+	public boolean contains(Point2D p){
 		if (p == null) 
 			throw new NullPointerException("Null pointer exception");
 		return points.contains(p);
@@ -83,11 +83,11 @@ public class PointST<Value> {
 	}
 	
 	/**
-	 * Returns the nearest neighbor of a given point
+	 * Returns the nearest neighbor of a given point.
 	 * @param a point of type Point2D
-	 * @return the nearest neighbor of a given point
+	 * @return the nearest neighbor of a given point, null if the table is empty
 	 */
-	public Point2D nearest(Point2D p){			//TODO: a nearest neighbor to point p; null if the symbol table is empty
+	public Point2D nearest(Point2D p){//TODO: a nearest neighbor to point p; null if the symbol table is empty
 		if (p == null) 
 			throw new NullPointerException("Null pointer exception");
 		
