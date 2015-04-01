@@ -63,23 +63,24 @@ public class BoardTest {
 	Board solution4 = new Board(new int[][] {{1, 2, 3},{4, 5, 6},{7, 8, 0}});//Move 4
 	
 
-	@Test
-	public void testSolution() {
-		
-		Stack<Board> solutionStack = new Stack<Board>();
-		solutionStack.push(solution4);
-		solutionStack.push(solution3);
-		solutionStack.push(solution2);
-		solutionStack.push(solution1);
-		
-		
-		
-//		Solver solver = new Solver(solutionTest);
-//		for (Board board : solver.solution()) {
-//			System.out.println(board);
-//		}
-		
-	}
+//	@Test
+//	public void testSolution() {
+//		
+//		Stack<Board> solutionStack = new Stack<Board>();
+//		solutionStack.push(solution4);
+//		solutionStack.push(solution3);
+//		solutionStack.push(solution2);
+//		solutionStack.push(solution1);
+//		
+//		//assertEquals(true,
+//		
+//		
+////		Solver solver = new Solver(solutionTest);
+////		for (Board board : solver.solution()) {
+////			System.out.println(board);
+////		}
+//		
+//	}
 	
 /*
 	@Test
@@ -117,17 +118,19 @@ public class BoardTest {
 	StdOut.println("================================================================================");
 	}
 
+*/	
 	
 	@Test
 	public void performanceTests() {
 		
-		//78, 80
-		long startTime = System.currentTimeMillis();
-
+		long period0 = System.currentTimeMillis();
+		
+//		SolverVisualizer.animateBoard("/A04Tests/puzzle30.txt");
+		
 		Solver solve1 = new Solver(BoardApp.readBoard("/A04Tests/puzzle28.txt"));
 		long period1 = System.currentTimeMillis();
 		StdOut.println("/A04Tests/puzzle28.txt");
-		System.out.printf("Runtime: %.3f \n", (period1 - startTime) / 1000.0);
+		System.out.printf("Runtime: %.3f \n", (period1 - period0) / 1000.0);
 		System.out.printf("Moves: %d\n\n\n", solve1.moves());		
 		
 		Solver solve2 = new Solver(BoardApp.readBoard("/A04Tests/puzzle30.txt"));
@@ -136,73 +139,92 @@ public class BoardTest {
 		System.out.printf("Runtime: %.3f \n", (period2 - period1) / 1000.0);
 		System.out.printf("Moves: %d\n\n\n", solve2.moves());		
 		
-		//TODO: should not be unsolvable
-		Solver solve3 = new Solver(BoardApp.readBoard("/A04Tests/puzzle32.txt"));
-		StdOut.println("/A04Tests/puzzle32.txt");
-		long period3 = System.currentTimeMillis();
-		System.out.printf("Runtime: %.3f \n", (period3 - period2) / 1000.0);
-		System.out.printf("Moves: %d\n\n\n", solve3.moves());		
+//-----------------STACK OVERFLOW--------------------------------------------------------
+		
+		
+//		Solver solve3 = new Solver(BoardApp.readBoard("/A04Tests/puzzle32.txt"));
+//		StdOut.println("/A04Tests/puzzle32.txt");
+//		long period3 = System.currentTimeMillis();
+//		System.out.printf("Runtime: %.3f \n", (period3 - period0) / 1000.0);
+//		System.out.printf("Moves: %d\n\n\n", solve3.moves());
+		
+		
 
-		Solver solve4 = new Solver(BoardApp.readBoard("/A04Tests/puzzle34.txt"));
-		StdOut.println("/A04Tests/puzzle34.txt");
-		long period4 = System.currentTimeMillis();
-		System.out.printf("Runtime: %.3f \n", (period4 - period3) / 1000.0);
-		System.out.printf("Moves: %d\n\n\n", solve4.moves());	
-		
-		Solver solve5 = new Solver(BoardApp.readBoard("/A04Tests/puzzle36.txt"));
-		StdOut.println("/A04Tests/puzzle36.txt");
-		long period5 = System.currentTimeMillis();
-		System.out.printf("Runtime: %.3f \n", (period5 - period4) / 1000.0);
-		System.out.printf("Moves: %d\n\n\n", solve5.moves());	
-		
-		Solver solve6 = new Solver(BoardApp.readBoard("/A04Tests/puzzle38.txt"));
-		StdOut.println("/A04Tests/puzzle38.txt");
-		long period6 = System.currentTimeMillis();
-		System.out.printf("Runtime: %.3f \n", (period6 - period5) / 1000.0);
-		System.out.printf("Moves: %d\n\n\n", solve6.moves());	
-		
-		Solver solve7 = new Solver(BoardApp.readBoard("/A04Tests/puzzle40.txt"));
-		StdOut.println("/A04Tests/puzzle40.txt");
-		long period7 = System.currentTimeMillis();
-		System.out.printf("Runtime: %.3f \n", (period7 - period6) / 1000.0);
-		System.out.printf("Moves: %d\n\n\n", solve7.moves());	
-		
-		Solver solve8 = new Solver(BoardApp.readBoard("/A04Tests/puzzle42.txt"));
-		StdOut.println("/A04Tests/puzzle42.txt");
-		long period8 = System.currentTimeMillis();
-		System.out.printf("Runtime: %.3f \n", (period8 - period7) / 1000.0);
-		System.out.printf("Moves: %d\n\n\n", solve8.moves());	
-
-//		SolverVisualizer.animateBoard("/A04Tests/puzzle10.txt");
-		
-		
-//		moves = boardSolver.moves();
+//		Solver solve4 = new Solver(BoardApp.readBoard("/A04Tests/puzzle34.txt"));
+//		StdOut.println("/A04Tests/puzzle34.txt");
+//		long period4 = System.currentTimeMillis();
+//		System.out.printf("Runtime: %.3f \n", (period4 - period3) / 1000.0);
+//		System.out.printf("Moves: %d\n\n\n", solve4.moves());	
 //		
-//		long endTime   = System.currentTimeMillis();
-//		long totalTime = endTime - startTime;
-//		System.out.println("Runtime: "+totalTime/1000.0);
-//		System.out.println("Moves: "+moves);
-	}
-*/	
-	@Test
-	public void testNeighbors() {
-		List<Board> tbN322 = new ArrayList<Board>();
-		for (Board el : testBoardN322.neighbors()){
-			tbN322.add(el);
-		}
-		assertEquals(true, tbN322.get(0).equals(testBoardN322up));
-		assertEquals(true, tbN322.get(1).equals(testBoardN322rt));
-		assertEquals(true, tbN322.get(2).equals(testBoardN322dn));
-		assertEquals(true, tbN322.get(3).equals(testBoardN322lf));
-		
-		List<Board> tbN333 = new ArrayList<Board>();
-		for (Board el : testBoardN333.neighbors()){
-			tbN333.add(el);
-		}
-		assertEquals(true, tbN333.get(0).equals(testBoardN333up));
-		assertEquals(true, tbN333.get(1).equals(testBoardN333lf));
+//		Solver solve5 = new Solver(BoardApp.readBoard("/A04Tests/puzzle36.txt"));
+//		StdOut.println("/A04Tests/puzzle36.txt");
+//		long period5 = System.currentTimeMillis();
+//		System.out.printf("Runtime: %.3f \n", (period5 - period4) / 1000.0);
+//		System.out.printf("Moves: %d\n\n\n", solve5.moves());	
+//		
+//		Solver solve6 = new Solver(BoardApp.readBoard("/A04Tests/puzzle38.txt"));
+//		StdOut.println("/A04Tests/puzzle38.txt");
+//		long period6 = System.currentTimeMillis();
+//		System.out.printf("Runtime: %.3f \n", (period6 - period5) / 1000.0);
+//		System.out.printf("Moves: %d\n\n\n", solve6.moves());	
+//		
+//		Solver solve7 = new Solver(BoardApp.readBoard("/A04Tests/puzzle40.txt"));
+//		StdOut.println("/A04Tests/puzzle40.txt");
+//		long period7 = System.currentTimeMillis();
+//		System.out.printf("Runtime: %.3f \n", (period7 - period2) / 1000.0);
+//		System.out.printf("Moves: %d\n\n\n", solve7.moves());	
+//		
+//		Solver solve8 = new Solver(BoardApp.readBoard("/A04Tests/puzzle42.txt"));
+//		StdOut.println("/A04Tests/puzzle42.txt");
+//		long period8 = System.currentTimeMillis();
+//		System.out.printf("Runtime: %.3f \n", (period8 - period7) / 1000.0);
+//		System.out.printf("Moves: %d\n\n\n", solve8.moves());	
 	}
 	
+
+	@Test
+	public void testNeighbors() {
+		List<Board> tbN322rray = new ArrayList<Board>();
+		for (Board el : testBoardN322.neighbors()){
+			tbN322rray.add(el);
+		}
+		assertEquals(true, tbN322rray.get(0).equals(testBoardN322up));
+		assertEquals(true, tbN322rray.get(1).equals(testBoardN322rt));
+		assertEquals(true, tbN322rray.get(2).equals(testBoardN322dn));
+		assertEquals(true, tbN322rray.get(3).equals(testBoardN322lf));
+		
+		List<Board> tbN333rray = new ArrayList<Board>();
+		for (Board el : testBoardN333.neighbors()){
+			tbN333rray.add(el);
+		}
+		assertEquals(true, tbN333rray.get(0).equals(testBoardN333up));
+		assertEquals(true, tbN333rray.get(1).equals(testBoardN333lf));
+		
+//-----------------------TEST PROTOTYPE-----------------------------------------
+//		for (Board el : testBoardN322.neighborsTEST()){
+//			tbN322rray.add(el);
+//		}
+//		assertEquals(true, tbN322rray.get(0).equals(testBoardN322up));
+//		assertEquals(true, tbN322rray.get(1).equals(testBoardN322rt));
+//		assertEquals(true, tbN322rray.get(2).equals(testBoardN322dn));
+//		assertEquals(true, tbN322rray.get(3).equals(testBoardN322lf));
+		
+	}
+
+/*
+	@Test
+	public void testMoves() {
+		Solver solve30 = new Solver(BoardApp.readBoard("/A04Tests/puzzle30.txt"));
+		assertEquals(true, solve30.moves() == 30);
+		Solver solve32 = new Solver(BoardApp.readBoard("/A04Tests/puzzle32.txt"));
+		assertEquals(true, solve32.moves() == 32);
+		Solver solve34 = new Solver(BoardApp.readBoard("/A04Tests/puzzle34.txt"));
+		assertEquals(true, solve34.moves() == 34);
+		Solver solve36 = new Solver(BoardApp.readBoard("/A04Tests/puzzle36.txt"));
+		assertEquals(true, solve36.moves() == 36);
+	}
+	
+*/	
 	
 	@Test
 	public void testManhattan() {
