@@ -5,12 +5,18 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+@SuppressWarnings("unused")
 public class PointSTTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		
+		
 	}
 
+	
+	
+	/*
 	@Test
 	public void testPointST() {
 		fail("Not yet implemented");
@@ -55,5 +61,6 @@ public class PointSTTest {
 	public void testNearest() {
 		fail("Not yet implemented");
 	}
+	*/
 
 }

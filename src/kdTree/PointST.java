@@ -1,23 +1,25 @@
 package kdTree;
 
+import edu.princeton.cs.algs4.RedBlackBST;
+
 public class PointST<Value> {
+	
+	RedBlackBST<Point2D, Value> points = new RedBlackBST<>();
 	
 	public PointST() { // construct an empty symbol table of points
 		 
 	}
 	
 	public boolean isEmpty(){// is the symbol table empty?
-		
-		return false;  
+		return points.isEmpty();  
 	}
 	
 	public int size(){// number of points
-		
-		return 0;  
+		return points.size();  
 	}
 	
 	public void put(Point2D p, Value val){// associate the value val with point p
-		
+		points.put(p, val);
 	}
 	
 	public Value get(Point2D p){// value associated with point p
