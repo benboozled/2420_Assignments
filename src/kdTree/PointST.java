@@ -6,17 +6,17 @@ public class PointST<Value> {
 	
 	RedBlackBST<Point2D, Value> points = new RedBlackBST<>();
 	
-	public PointST() { 							// construct an empty symbol table of points
+	public PointST() {
 		 
 	}
 	
 	/**
 	 * Returns the bitter-sweet answer to life's eternal question: is this 
-	 * all there is in this table? And as we peer into the abyss, so does it
+	 * all there is in this table? And as we peer into the table, so does it
 	 * peer back at us. 
 	 * @return emptiness. 
 	 */
-	public boolean isEmpty(){					// is the symbol table empty?
+	public boolean isEmpty(){
 		return points.isEmpty();  
 	}
 	
@@ -24,7 +24,7 @@ public class PointST<Value> {
 	 * Returns the number of points in the symbol table
 	 * @return number of points
 	 */
-	public int size(){							// number of points
+	public int size(){
 		return points.size();  
 	}
 	
@@ -33,7 +33,7 @@ public class PointST<Value> {
 	 * @param a point of type Point2D
 	 * @param a value to associate with given point
 	 */
-	public void put(Point2D p, Value val){		// associate the value val with point p
+	public void put(Point2D p, Value val){
 		if (p == null || val == null) 
 			throw new NullPointerException("Null pointer exception");
 		points.put(p, val);
@@ -44,7 +44,7 @@ public class PointST<Value> {
 	 * @param a point of type Point2D
 	 * @return the value associated with a given point
 	 */
-	public Value get(Point2D p){				//value associated with point p
+	public Value get(Point2D p){
 		if (p == null) 
 			throw new NullPointerException("Null pointer exception");
 		return points.get(p);
@@ -65,7 +65,7 @@ public class PointST<Value> {
 	 * Return all of the points
 	 * @return all of the points
 	 */
-	public Iterable<Point2D> points(){			// all points in the symbol table 
+	public Iterable<Point2D> points(){
 		return points.keys();  
 	}
 	
@@ -94,7 +94,7 @@ public class PointST<Value> {
 		return p; 
 	}
 	
-	public static void main(String[] args){		// unit testing of the methods (not graded)
+	public static void main(String[] args){
 		
 	}
 	
