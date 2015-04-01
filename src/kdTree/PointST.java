@@ -1,6 +1,5 @@
 package kdTree;
 
-import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.RedBlackBST;
 
 public class PointST<Value> {
@@ -23,14 +22,12 @@ public class PointST<Value> {
 		points.put(p, val);
 	}
 	
-	public Value get(Point2D p){				//TODO: value associated with point p
-		
-		return null;
+	public Value get(Point2D p){				//value associated with point p
+		return points.get(p);
 	}
 	
-	public boolean contains(Point2D p){			//TODO: does the symbol table contain point p?
-		
-		return false;
+	public boolean contains(Point2D p){			//does the symbol table contain point p?
+		return points.contains(p);
 	}
 	
 	public Iterable<Point2D> points(){			// all points in the symbol table 
