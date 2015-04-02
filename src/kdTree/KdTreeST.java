@@ -45,10 +45,24 @@ public class KdTreeST<Value> {
 	 * @param a point of type Point2D
 	 * @param a value to associate with given point
 	 */
+	//TODO: The code below was taken from BST.class as per
+	//the recommendation in assignment checklist. Needs to 
+	//be adopted for our particular needs. 
 	public void put(Point2D p, Value val){
-        if (val == null) {}
-        
+//        if (val == null) { delete(key); return; }
+//        root = put(root, key, val); 
 	}
+	
+	
+//    private Node put(Node x, Key key, Value val) {
+//        if (x == null) return new Node(key, val, 1);
+//        int cmp = key.compareTo(x.key);
+//        if      (cmp < 0) x.left  = put(x.left,  key, val);
+//        else if (cmp > 0) x.right = put(x.right, key, val);
+//        else              x.val   = val;
+//        x.N = 1 + size(x.left) + size(x.right);
+//        return x;
+//    }
 	
 	/**
 	 * returns the value associated with a given point
