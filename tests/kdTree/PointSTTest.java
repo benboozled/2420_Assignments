@@ -7,7 +7,11 @@ import org.junit.Test;
 
 @SuppressWarnings("unused")
 public class PointSTTest {
+	
+	Point2D point01 = new Point2D(4,5);
+	PointST<Point2D> myTestST = new PointST<>();
 
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		

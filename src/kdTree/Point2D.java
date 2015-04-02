@@ -1,5 +1,8 @@
 package kdTree;
 
+import edu.princeton.cs.introcs.StdDraw;
+
+
 /**
  * 
  * @author JHardesty
@@ -90,4 +93,12 @@ if (other == this) return true;
 public  String toString() {
 return "(" + x + ", " + y + ")";
 }
+
+//TODO: delete this! Not allows by assignment specifications
+//but necessary to make visualizers work
+public void draw() {
+    StdDraw.point(x, y);
+}
+
+
 }

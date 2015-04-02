@@ -2,11 +2,11 @@ package kdTree;
 
 import edu.princeton.cs.algs4.RedBlackBST;
 
-public class PointST<Value> {
+public class KdTreeST<Value> {
 	
 	RedBlackBST<Point2D, Value> points = new RedBlackBST<>();
 	
-	public PointST() {
+	public KdTreeST() {
 		 
 	}
 	
@@ -96,7 +96,7 @@ public class PointST<Value> {
 	
 	public static void main(String[] args){
 		Point2D point01 = new Point2D(4,5);
-		PointST<Point2D> myTestST = new PointST<>();
+		KdTreeST<Point2D> myTestST = new KdTreeST<>();
 
 	}
 	

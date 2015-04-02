@@ -1,5 +1,8 @@
 package kdTree;
 
+import edu.princeton.cs.introcs.StdDraw;
+
+
 /**
  * 
  * @author JHardesty
@@ -67,6 +70,16 @@ if (xmax < xmin || ymax < ymin) {
         if (this.xmax != that.xmax) return false;
         if (this.ymax != that.ymax) return false;
         return true;
+    }
+    
+  //TODO: delete this! Not allows by assignment specifications
+  //but necessary to make visualizers work
+    // draw this axis-aligned rectangle
+    public void draw() {
+        StdDraw.line(xmin, ymin, xmax, ymin);
+        StdDraw.line(xmax, ymin, xmax, ymax);
+        StdDraw.line(xmax, ymax, xmin, ymax);
+        StdDraw.line(xmin, ymax, xmin, ymin);
     }
     
     // return a string representation of this axis-aligned rectangle
