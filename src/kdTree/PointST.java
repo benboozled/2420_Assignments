@@ -5,6 +5,7 @@ import edu.princeton.cs.algs4.RedBlackBST;
 public class PointST<Value> {
 	
 	RedBlackBST<Point2D, Value> points = new RedBlackBST<>();
+
 	
 	public PointST() {
 		 

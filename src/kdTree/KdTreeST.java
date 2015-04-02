@@ -1,10 +1,22 @@
 package kdTree;
 
-import edu.princeton.cs.algs4.RedBlackBST;
-
 public class KdTreeST<Value> {
 	
-	RedBlackBST<Point2D, Value> points = new RedBlackBST<>();
+	private int N;
+	
+	@SuppressWarnings("unused")
+	private class Node {
+		   private Point2D p;      // the point
+		   private Value value;    // the symbol table maps the point to this value
+		   private RectHV rect;    // the axis-aligned rectangle corresponding to this node
+		   private Node lb;        // the left/bottom subtree
+		   private Node rt;        // the right/top subtree
+	
+		   public Node(Point2D p, Value value){
+			   this.p = p;
+			   this.value = value;
+		   }
+	}
 	
 	public KdTreeST() {
 		 
@@ -17,7 +29,7 @@ public class KdTreeST<Value> {
 	 * @return emptiness. 
 	 */
 	public boolean isEmpty(){
-		return points.isEmpty();  
+		return N == 0;
 	}
 	
 	/**
@@ -25,7 +37,7 @@ public class KdTreeST<Value> {
 	 * @return number of points
 	 */
 	public int size(){
-		return points.size();  
+        return N; 
 	}
 	
 	/**
@@ -34,9 +46,8 @@ public class KdTreeST<Value> {
 	 * @param a value to associate with given point
 	 */
 	public void put(Point2D p, Value val){
-		if (p == null || val == null) 
-			throw new NullPointerException("Null pointer exception");
-		points.put(p, val);
+        if (val == null) {}
+        
 	}
 	
 	/**
@@ -45,9 +56,8 @@ public class KdTreeST<Value> {
 	 * @return the value associated with a given point
 	 */
 	public Value get(Point2D p){
-		if (p == null) 
-			throw new NullPointerException("Null pointer exception");
-		return points.get(p);
+		return null;
+
 	}
 	
 	/**
@@ -56,9 +66,8 @@ public class KdTreeST<Value> {
 	 * @return whether or not this table contains given point
 	 */
 	public boolean contains(Point2D p){
-		if (p == null) 
-			throw new NullPointerException("Null pointer exception");
-		return points.contains(p);
+		return false;
+
 	}
 	
 	/**
@@ -66,7 +75,8 @@ public class KdTreeST<Value> {
 	 * @return all of the points
 	 */
 	public Iterable<Point2D> points(){
-		return points.keys();  
+		return null;
+ 
 	}
 	
 	/**
@@ -76,8 +86,6 @@ public class KdTreeST<Value> {
 	 * @return all points that are inside the rectangle 
 	 */
 	public Iterable<Point2D> range(RectHV rect){//TODO: all points that are inside the rectangle 
-		if (rect == null) 
-			throw new NullPointerException("Null pointer exception");
 		
 		return null; 
 	}
