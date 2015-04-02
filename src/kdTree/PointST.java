@@ -80,7 +80,7 @@ public class PointST<Value> {
 			throw new NullPointerException("Null pointer exception");
 		
 		return null; 
-	}
+	} 
 	
 	/**
 	 * Returns the nearest neighbor of a given point.
@@ -95,8 +95,7 @@ public class PointST<Value> {
 	}
 	
 	public static void main(String[] args){
-		Point2D point01 = new Point2D(4,5);
-		PointST<Point2D> myTestST = new PointST<>();
+
 
 	}
 	

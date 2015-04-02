@@ -19,8 +19,8 @@ import edu.princeton.cs.introcs.StdDraw;
 public class NearestNeighborVisualizer {
 
     public static void main(String[] args) {
-        String filename = args[0];
-        In in = new In(filename);
+        //String filename = args[0];
+        In in = new In("/kdTreeTests/input10K.txt");
 
         StdDraw.show(0);
 

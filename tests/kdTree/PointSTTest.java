@@ -5,16 +5,20 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import edu.princeton.cs.introcs.In;
+import edu.princeton.cs.introcs.StdOut;
+
 @SuppressWarnings("unused")
 public class PointSTTest {
 	
-	Point2D point01 = new Point2D(4,5);
-	PointST<Point2D> myTestST = new PointST<>();
-
+	In in = new In("/kdTreeTests/input10K.txt");
+	PointST<Integer> brute = new PointST<Integer>();
 	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Test
+	public void setUpBeforeClass() throws Exception {
 		
+		for (Point2D pnt: brute.points())
+			StdOut.print(pnt.toString());
 		
 	}
 
