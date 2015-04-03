@@ -12,10 +12,12 @@ public class KdTreeST<Value> {
 		   private RectHV rect;    // the axis-aligned rectangle corresponding to this node
 		   private Node lb;        // the left/bottom subtree
 		   private Node rt;        // the right/top subtree
+		   private int orientation;// 0 == vertical(even number level), 1 == horizontal(odd number level)
 	
-		   public Node(Point2D p, Value value){
+		   public Node(Point2D p, Value value, int orientation){
 			   this.p = p;
 			   this.value = value;
+			   this.orientation = orientation;
 		   }
 	}
 	
@@ -42,57 +44,48 @@ public class KdTreeST<Value> {
 	}
 	
 	/**
-	 * Associates a given value with a given point
+	 * Associates a given value (x or y) with a given point
 	 * @param a point of type Point2D
 	 * @param a value to associate with given point
 	 */
-	//TODO: The code below was taken from BST.class as per
-	//the recommendation in assignment checklist. Needs to 
-	//be adopted for our particular needs.
 	public void put(Point2D p, Value val){
 		
-		//if (val == null) { delete(p); return; }
-		root = put(root, p, val, size() % 2); 
-				
+		//if (val == null) { delete(p); return; }			//from BST.java
+		
+		// root = put(root, key, val);						//from BST.java
+		root = put(root, N % 2, p, val); 
+		
 		//from checklist:
 		//1. use helper method below
 		//2. pass orientation (vertical, horizontal) as argument to helper method
-		//from BST.java:
-
+			//TODO: will N%2 work? Doesn't need to be passed.
 	}
 	
 //  private Node put(Node x, Key key, Value val) {
-	private Node put(Node x, Point2D p, Value val, int orientation) {
+	private Node put(Node x, int orientation, Point2D p, Value val) {
+
+//      if (x == null) return new Node(key, val, 1);		//from BST.java
+		if (x == null){ return new Node(p, val, N % 2);}
 		
-//      if (x == null) return new Node(key, val, 1);
-		if (x == null) return new Node(p, val);
+		x.orientation = orientation;
+		
+//		int cmp = key.compareTo(x.key);//from BST.java
+
+		
+//		if      (cmp < 0) x.left  = put(x.left,  key, val);	//from BST.java
+
+		
+//		else if (cmp > 0) x.right = put(x.right, key, val);	//from BST.java
+//		else              x.val   = val;					//from BST.java
 		
 		
-//		int cmp = key.compareTo(x.key);
-		
-//		if      (cmp < 0) x.left  = put(x.left,  key, val);
-		
-//		else if (cmp > 0) x.right = put(x.right, key, val);
-		
-//		else              x.val   = val;
-		
-		
-//      x.N = 1 + size(x.left) + size(x.right);
+//      x.N = 1 + size(x.left) + size(x.right);				//from BST.java
 		N++;
 		
-//      return x;
+//      return x;											//from BST.java
 		return x;
 	}
 	
-//    private Node put(Node x, Key key, Value val) {
-//        if (x == null) return new Node(key, val, 1);
-//        int cmp = key.compareTo(x.key);
-//        if      (cmp < 0) x.left  = put(x.left,  key, val);
-//        else if (cmp > 0) x.right = put(x.right, key, val);
-//        else              x.val   = val;
-//        x.N = 1 + size(x.left) + size(x.right);
-//        return x;
-//    }
 	
 	/**
 	 * returns the value associated with a given point
@@ -147,8 +140,7 @@ public class KdTreeST<Value> {
 	}
 	
 	public static void main(String[] args){
-		Point2D point01 = new Point2D(4,5);
-		KdTreeST<Point2D> myTestST = new KdTreeST<>();
+
 
 	}
 	
