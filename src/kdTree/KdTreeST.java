@@ -2,6 +2,7 @@ package kdTree;
 
 public class KdTreeST<Value> {
 	
+	private Node root;
 	private int N;
 	
 	@SuppressWarnings("unused")
@@ -47,12 +48,41 @@ public class KdTreeST<Value> {
 	 */
 	//TODO: The code below was taken from BST.class as per
 	//the recommendation in assignment checklist. Needs to 
-	//be adopted for our particular needs. 
+	//be adopted for our particular needs.
 	public void put(Point2D p, Value val){
-//        if (val == null) { delete(key); return; }
-//        root = put(root, key, val); 
+		
+		//if (val == null) { delete(p); return; }
+		root = put(root, p, val, size() % 2); 
+				
+		//from checklist:
+		//1. use helper method below
+		//2. pass orientation (vertical, horizontal) as argument to helper method
+		//from BST.java:
+
 	}
 	
+//  private Node put(Node x, Key key, Value val) {
+	private Node put(Node x, Point2D p, Value val, int orientation) {
+		
+//      if (x == null) return new Node(key, val, 1);
+		if (x == null) return new Node(p, val);
+		
+		
+//		int cmp = key.compareTo(x.key);
+		
+//		if      (cmp < 0) x.left  = put(x.left,  key, val);
+		
+//		else if (cmp > 0) x.right = put(x.right, key, val);
+		
+//		else              x.val   = val;
+		
+		
+//      x.N = 1 + size(x.left) + size(x.right);
+		N++;
+		
+//      return x;
+		return x;
+	}
 	
 //    private Node put(Node x, Key key, Value val) {
 //        if (x == null) return new Node(key, val, 1);
