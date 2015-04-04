@@ -16,7 +16,7 @@ public class KdTreeSTTest {
 	
 	@Test
 	public void testPut() {
-		kDTest01.put(testPoint23, 1);
+		//kDTest01.put(testPoint23, 1);
 		//assertEquals(expected, actual);
 	}
 	
