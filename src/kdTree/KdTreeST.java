@@ -104,10 +104,9 @@ public class KdTreeST<Value> {
 			else if (compare > 0) 	node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
 			else					node.value = val;
 		}
-		
 		if (node.orientation != Oriented.HORIZONTALLY && node.orientation != Oriented.VERTICALLY) 
 			System.err.println("Node without orientation");
-		
+
 		N++;
 		return node;
 	}
@@ -119,21 +118,21 @@ public class KdTreeST<Value> {
 	* @return the value associated with a given point
 	*/
 	public Value get(Point2D p){
-	return get(root, p);
+		return get(root, p);
 	}
 	/**
 	* Private helper method similar to what is found in BST.class
-	* @param x
+	* @param node
 	* @param key
 	* @return Value, our favorite
 	*/
-	private Value get(Node x, Point2D p) {
-	        if (x == null) return null;
-	        int cmp = p.compareTo(x.point);
+	private Value get(Node node, Point2D point) {
+	        if (node == null) return null;
+	        int cmp = point.compareTo(node.point);
 	        
-	        if      (cmp < 0) return get(x.lb, p);
-	        else if (cmp > 0) return get(x.rt, p);
-	        else              return x.value;
+	        if      (cmp < 0) return get(node.lb, point);
+	        else if (cmp > 0) return get(node.rt, point);
+	        else              return node.value;
 	}
 	
 	/**
