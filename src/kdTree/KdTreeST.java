@@ -44,7 +44,7 @@ public class KdTreeST<Value> {
 	}
 	
 	/**
-	 * Associates a given value (x or y) with a given point
+	 * Associates a given value with a given point
 	 * @param a point of type Point2D
 	 * @param a value to associate with given point
 	 */
@@ -54,12 +54,12 @@ public class KdTreeST<Value> {
 			throw new IllegalArgumentException ("unable to insert null value into KDTree");
 		}
 		// root = put(root, key, val);						//from BST.java
-		//TODO: check whether N%2 will work, seems too easy. 
-		root = put(root, N % 2 == 1, val); 					//0==false==vert, 1==true==horz
+ 
+		root = put(root, p, val, N%2==1); 					//0==false==vert, 1==true==horz
 	}
 	
 //  private Node put(Node x, Key key, Value val) {
-	private Node put(Node x, boolean orientation, Value val) {
+	private Node put(Node x, Point2D p, Value val, boolean orientation) {
 //      if (x == null) return new Node(key, val, 1);		//from BST.java
 		
 		
@@ -82,13 +82,26 @@ public class KdTreeST<Value> {
 	
 	
 	/**
-	 * returns the value associated with a given point
-	 * @param a point of type Point2D
-	 * @return the value associated with a given point
-	 */
+	* returns the value associated with a given point
+	* @param a point of type Point2D
+	* @return the value associated with a given point
+	*/
 	public Value get(Point2D p){
-		return null;
-
+	return get(root, p);
+	}
+	/**
+	* Private helper method similar to what is found in BST.class
+	* @param x
+	* @param key
+	* @return Value, our favorite
+	*/
+	private Value get(Node x, Point2D p) {
+	        if (x == null) return null;
+	        int cmp = p.compareTo(x.p);
+	        
+	        if      (cmp < 0) return get(x.lb, p);
+	        else if (cmp > 0) return get(x.rt, p);
+	        else              return x.value;
 	}
 	
 	/**
