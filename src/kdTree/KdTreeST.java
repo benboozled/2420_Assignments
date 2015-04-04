@@ -1,5 +1,7 @@
 package kdTree;
 
+import edu.princeton.cs.introcs.StdOut;
+
 
 
 public class KdTreeST<Value> {
@@ -104,8 +106,8 @@ public class KdTreeST<Value> {
 			else if (compare > 0) 	node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
 			else					node.value = val;
 		}
-		if (node.orientation != Oriented.HORIZONTALLY && node.orientation != Oriented.VERTICALLY) 
-			System.err.println("Node without orientation");
+		
+		StdOut.println("node " + node.point.toString() + " is oriented " + node.orientation);
 
 		N++;
 		return node;
@@ -128,7 +130,7 @@ public class KdTreeST<Value> {
 	*/
 	private Value get(Node node, Point2D point) {
 	        if (node == null) return null;
-	        int cmp = point.compareTo(node.point);
+	        int cmp = point.compareTo(node.point);//TODO: Point2D.compareTo won't work for this
 	        
 	        if      (cmp < 0) return get(node.lb, point);
 	        else if (cmp > 0) return get(node.rt, point);
