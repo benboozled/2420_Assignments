@@ -12,9 +12,9 @@ public class KdTreeST<Value> {
 		   private RectHV rect;    // the axis-aligned rectangle corresponding to this node
 		   private Node lb;        // the left/bottom subtree
 		   private Node rt;        // the right/top subtree
-		   private int orientation;// 0 == vertical(even number level), 1 == horizontal(odd number level)
+		   private boolean orientation;// true = vertical, false = horizontal
 	
-		   public Node(Point2D p, Value value, int orientation){
+		   public Node(Point2D p, Value value, boolean orientation){
 			   this.p = p;
 			   this.value = value;
 			   this.orientation = orientation;
@@ -49,25 +49,19 @@ public class KdTreeST<Value> {
 	 * @param a value to associate with given point
 	 */
 	public void put(Point2D p, Value val){
-		
-		//if (val == null) { delete(p); return; }			//from BST.java
-		
+		//if (val == null) { delete(p); return; }			//from BST.java		
+		if (val == null) {
+			throw new IllegalArgumentException ("unable to insert null value into KDTree");
+		}
 		// root = put(root, key, val);						//from BST.java
-		root = put(root, N % 2, p, val); 
-		
-		//from checklist:
-		//1. use helper method below
-		//2. pass orientation (vertical, horizontal) as argument to helper method
-			//TODO: will N%2 work? Doesn't need to be passed.
+		//TODO: check whether N%2 will work, seems too easy. 
+		root = put(root, N % 2 == 1, val); 					//0==false==vert, 1==true==horz
 	}
 	
 //  private Node put(Node x, Key key, Value val) {
-	private Node put(Node x, int orientation, Point2D p, Value val) {
-
+	private Node put(Node x, boolean orientation, Value val) {
 //      if (x == null) return new Node(key, val, 1);		//from BST.java
-		if (x == null){ return new Node(p, val, N % 2);}
 		
-		x.orientation = orientation;
 		
 //		int cmp = key.compareTo(x.key);//from BST.java
 
