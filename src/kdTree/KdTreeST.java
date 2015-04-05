@@ -90,24 +90,38 @@ public class KdTreeST<Value> {
 		if (val == null) {
 			throw new IllegalArgumentException ("unable to insert null value into KDTree");
 		}
-		root = put(root, p, val, Oriented.VERTICALLY); 					
+		root = put(root, p, val, Oriented.VERTICALLY);
 	}
 	
 	private Node put(Node node, Point2D point, Value val, Oriented o) {
+		
 		if (node == null) return new Node(point, val, o);
-		double compare = point.x() - node.point.x();		
-		if (node.orientation == Oriented.VERTICALLY){
-			if 		(compare < 0) 	node.lb = put(node.lb, point, val, Oriented.HORIZONTALLY);
-			else if (compare > 0) 	node.rt = put(node.rt, point, val, Oriented.HORIZONTALLY);
+
+		if (node.orientation == Oriented.HORIZONTALLY){//Condition for HORIZONTAL rows, this is wrong
+			double compare = point.x() - node.point.x();	
+			if 		(compare < 0){
+				node.lb = put(node.lb, point, val, Oriented.VERTICALLY);
+/*TODO:delete trace*/														StdOut.println(node.point.toString()+"\t | \t/\t"+N);
+			}
+			else if (compare > 0){
+				node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
+/*TODO:delete trace*/														StdOut.println(node.point.toString()+"\t | \t  \\\t"+N);
+			}
 			else 					node.value = val;
 		}
-		if (node.orientation == Oriented.HORIZONTALLY){
-			if 		(compare < 0) 	node.lb = put(node.lb, point, val, Oriented.VERTICALLY);
-			else if (compare > 0) 	node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
+		
+		if (node.orientation == Oriented.VERTICALLY){//Condition for VERTICAL rows, this is wrong
+			double compare = point.y() - node.point.y();
+			if 		(compare < 0){
+				node.lb = put(node.lb, point, val, Oriented.HORIZONTALLY);
+/*TODO:delete trace*/														StdOut.println(node.point.toString()+"\t--- \t/\t"+N);
+			}
+			else if (compare > 0){
+				node.rt = put(node.rt, point, val, Oriented.HORIZONTALLY);
+/*TODO:delete trace*/														StdOut.println(node.point.toString()+"\t--- \t  \\\t"+N);
+			}
 			else					node.value = val;
 		}
-		
-		StdOut.println("node " + node.point.toString() + " is oriented " + node.orientation);
 
 		N++;
 		return node;

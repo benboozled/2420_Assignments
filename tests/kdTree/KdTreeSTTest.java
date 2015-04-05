@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import edu.princeton.cs.introcs.In;
+import edu.princeton.cs.introcs.StdOut;
+
 @SuppressWarnings("unused")
 public class KdTreeSTTest {
 
@@ -14,25 +17,26 @@ public class KdTreeSTTest {
 	Point2D testPoint15 = new Point2D(1,5);		//vert
 	Point2D testPoint44 = new Point2D(4,4);		//horz
 	
-	
+	In in = new In("/kdTreeTests/inputWorksheet.txt");
 	
 	@Test
 	public void testPut() {
-		KdTreeST<Point2D> kDTest01 = new KdTreeST<Point2D>();
-		kDTest01.put(testPoint23, testPoint23);
-		kDTest01.put(testPoint42, testPoint42);
-		kDTest01.put(testPoint45, testPoint45);
-		kDTest01.put(testPoint33, testPoint33);
-		kDTest01.put(testPoint15, testPoint15);
-		kDTest01.put(testPoint44, testPoint44);
-		
+StdOut.println("\n----------testPut------------");
+StdOut.println("Node\t\t\tOrent \tDir \tN");
+		KdTreeST<Integer> kdTreeTestPut = new KdTreeST<Integer>();
+        for (int i = 0; !in.isEmpty(); i++) {
+            double x = in.readDouble();
+            double y = in.readDouble();
+            Point2D p = new Point2D(x, y);
+            kdTreeTestPut.put(p, i);
+        }
 		//fail("Not yet implemented");
 		//assertEquals(expected, actual);
 	}
 	
-
 	@Test
 	public void testIsEmpty() {
+StdOut.println("\n----------testIsEmpty------------");
 		KdTreeST<Point2D> kDTest02 = new KdTreeST<Point2D>();
 		assertEquals(true, kDTest02.isEmpty());
 		
@@ -40,9 +44,11 @@ public class KdTreeSTTest {
 		kDTest02.put(testPoint42, testPoint42);
 		assertEquals(false, kDTest02.isEmpty());
 	}
-
+	
+	/*
 	@Test
 	public void testSize() {
+StdOut.println("\n----------testSize------------");
 		KdTreeST<Point2D> kDTest03 = new KdTreeST<Point2D>();
 		assertEquals(0, kDTest03.size());
 		
@@ -54,7 +60,7 @@ public class KdTreeSTTest {
 		assertEquals(3, kDTest03.size());
 	}
 
-	/*
+
 
 	@Test
 	public void testGet() {
