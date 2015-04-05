@@ -27,8 +27,8 @@ StdOut.printf("%-20s %22s %6s %5s\n", "Node", "Orent", "subs", "N");
             double x = in1.readDouble();
             double y = in1.readDouble();
             Point2D p = new Point2D(x, y);
+    		StdOut.println("adding "+p.toString());
             kdTreeTestPut1.put(p, i);
-            StdOut.println("adding "+p.toString());
         }
 //		In in2 = new In("/kdTreeTests/input10.txt");
 //		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();

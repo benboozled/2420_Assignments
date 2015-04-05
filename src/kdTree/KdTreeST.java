@@ -92,32 +92,31 @@ public class KdTreeST<Value> {
 ///*TODO:delete trace*/																			StdOut.print("--------\n"+tracer(root));				
 	}
 	
+
 	private Node put(Node node, Point2D point, Value val, Oriented o) {
 		
 		if (node == null) return new Node(point, val, o);			//create new node at end
 		
+		double compareX = point.x() - node.point.x();
 		double compareY = point.y() - node.point.y();
-
+//*TODO:delete trace*/StdOut.print("comparing "+point.toString()+"to"+node.point.toString());
 //---------------------------------------------------
-		if (point.x() - node.point.x() <= 0 && node.orientation == Oriented.VERTICALLY){
+		if (compareX < 0 && node.orientation == Oriented.VERTICALLY){
 			node.lb = put(node.lb, point, val, Oriented.HORIZONTALLY);
 /*TODO:delete trace*/																			StdOut.print(tracer(node));				
 		}
-		if (point.x() - node.point.x() >= 0 && node.orientation == Oriented.VERTICALLY){
+		if (compareX >= 0 && node.orientation == Oriented.VERTICALLY){
 			node.rt = put(node.rt, point, val, Oriented.HORIZONTALLY);
-			
-//--------------------------------------------------
 /*TODO:delete trace*/																			StdOut.print(tracer(node));				
 		}
-		if (compareY <= 0 && node.orientation == Oriented.HORIZONTALLY){
+		if (compareY < 0 && node.orientation == Oriented.HORIZONTALLY){
 			node.lb = put(node.lb, point, val, Oriented.VERTICALLY);
 /*TODO:delete trace*/																			StdOut.print(tracer(node));				
 		}
 		if (compareY >= 0 && node.orientation == Oriented.HORIZONTALLY){
 			node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
 /*TODO:delete trace*/																			StdOut.print(tracer(node));				
-		}       
-		
+		}
 		return node;
 	}
 	
@@ -137,7 +136,7 @@ public class KdTreeST<Value> {
 //		if (node.lb != null && node.rt == null) subs = "/  ";
 //		if (node.lb == null && node.rt != null) subs = "  \\";
 //		if (node.lb != null && node.rt != null) subs = "/ \\";
-		return String.format("%-20s %20s %8s %5d\n", node.point.toString(), orent, subs, N);
+		return String.format("%-20s %20s\n", node.point.toString(), orent);
 	}
 	
 	/**
