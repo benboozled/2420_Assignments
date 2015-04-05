@@ -7,7 +7,7 @@ import org.junit.Test;
 import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
 
-@SuppressWarnings("unused")
+
 public class KdTreeSTTest {
 
 	Point2D testPoint23 = new Point2D(2,3);		//vert
@@ -17,18 +17,27 @@ public class KdTreeSTTest {
 	Point2D testPoint15 = new Point2D(1,5);		//vert
 	Point2D testPoint44 = new Point2D(4,4);		//horz
 	
-	In in = new In("/kdTreeTests/inputWorksheet.txt");
+	
 	
 	@Test
 	public void testPut() {
-StdOut.println("\n----------testPut------------");
-StdOut.println("Node\t\t\tOrent \tDir \tN");
-		KdTreeST<Integer> kdTreeTestPut = new KdTreeST<Integer>();
-        for (int i = 0; !in.isEmpty(); i++) {
-            double x = in.readDouble();
-            double y = in.readDouble();
+StdOut.println("\n----------testWorksheet------------");
+StdOut.printf("%-20s %22s %6s %5s\n", "Node", "Orent", "Dir", "N");
+		In in1 = new In("/kdTreeTests/inputWorksheet.txt");
+		KdTreeST<Integer> kdTreeTestPut1 = new KdTreeST<Integer>();
+        for (int i = 0; !in1.isEmpty(); i++) {
+            double x = in1.readDouble();
+            double y = in1.readDouble();
             Point2D p = new Point2D(x, y);
-            kdTreeTestPut.put(p, i);
+            kdTreeTestPut1.put(p, i);
+        }
+		In in2 = new In("/kdTreeTests/input10.txt");
+		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
+        for (int i = 0; !in2.isEmpty(); i++) {
+            double x = in2.readDouble();
+            double y = in2.readDouble();
+            Point2D p = new Point2D(x, y);
+            kdTreeTestPut2.put(p, i);
         }
 		//fail("Not yet implemented");
 		//assertEquals(expected, actual);

@@ -96,31 +96,35 @@ public class KdTreeST<Value> {
 	private Node put(Node node, Point2D point, Value val, Oriented o) {
 		
 		if (node == null) return new Node(point, val, o);
-
-		if (node.orientation == Oriented.HORIZONTALLY){//Condition for HORIZONTAL rows, this is wrong
+		
+		
+//----------------------------------------------------Condition for HORIZONTAL rows, this is wrong
+		if (node.orientation == Oriented.HORIZONTALLY){
 			double compare = point.x() - node.point.x();	
-			if 		(compare < 0){
+			if (compare < 0){
 				node.lb = put(node.lb, point, val, Oriented.VERTICALLY);
-/*TODO:delete trace*/														StdOut.println(node.point.toString()+"\t | \t/\t"+N);
+/*TODO:delete trace vertical row, left side*/StdOut.printf("%-20s %20s %8s %5d\n", node.point.toString(), " | ", "/  ", N);
 			}
 			else if (compare > 0){
 				node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
-/*TODO:delete trace*/														StdOut.println(node.point.toString()+"\t | \t  \\\t"+N);
+/*TODO:delete trace vertical row, right side*/StdOut.printf("%-20s %20s %8s %5d\n", node.point.toString(), " | ", "  \\", N);
 			}
-			else 					node.value = val;
+			else node.value = val;
 		}
 		
-		if (node.orientation == Oriented.VERTICALLY){//Condition for VERTICAL rows, this is wrong
+		
+//--------------------------------------------------Condition for VERTICAL rows, this is wrong
+		if (node.orientation == Oriented.VERTICALLY){
 			double compare = point.y() - node.point.y();
-			if 		(compare < 0){
+			if (compare < 0){
 				node.lb = put(node.lb, point, val, Oriented.HORIZONTALLY);
-/*TODO:delete trace*/														StdOut.println(node.point.toString()+"\t--- \t/\t"+N);
+/*TODO:delete trace horizontal row, left side*/StdOut.printf("%-20s %20s %8s %5d\n", node.point.toString(), "---", "/  ", N);
 			}
 			else if (compare > 0){
 				node.rt = put(node.rt, point, val, Oriented.HORIZONTALLY);
-/*TODO:delete trace*/														StdOut.println(node.point.toString()+"\t--- \t  \\\t"+N);
+/*TODO:delete trace horizontal row, right side*/StdOut.printf("%-20s %20s %8s %5d\n", node.point.toString(), "---", "  \\", N);
 			}
-			else					node.value = val;
+			else node.value = val;
 		}
 
 		N++;
