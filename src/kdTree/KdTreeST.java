@@ -88,40 +88,58 @@ public class KdTreeST<Value> {
 		if (val == null) {
 			throw new IllegalArgumentException ("unable to insert null value into KDTree");
 		}
-		root = put(root, p, val, Oriented.VERTICALLY);
+		root = put(root, p, val, Oriented.VERTICALLY);		
+/*TODO:delete trace*/																			StdOut.print("--------\n"+tracer(root));				
 	}
 	
 	private Node put(Node node, Point2D point, Value val, Oriented o) {
 		
 		if (node == null) return new Node(point, val, o);			//create new node at end
-		N++;
 		
 		double compareX = point.x() - node.point.x();
 		double compareY = point.y() - node.point.y();
 		
-		if (node.orientation == Oriented.HORIZONTALLY){
-			if (compareX < 0){
-				node.lb = put(node.lb, point, val, Oriented.VERTICALLY);
-																								/*TODO:delete trace*/StdOut.print(tracer(node));				
-				}
-			else if (compareX > 0){
-				node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
-																								/*TODO:delete trace*/StdOut.print(tracer(node));				
-				}
-			else node.value = val;
+		if (compareX <= 0 && node.orientation == Oriented.VERTICALLY){
+			node.lb = put(node.lb, point, val, node.orientation);
+/*TODO:delete trace*/																			StdOut.print(tracer(node));				
 		}
+		if (compareX >= 0 && node.orientation == Oriented.VERTICALLY){
+			node.rt = put(node.rt, point, val, node.orientation);
+/*TODO:delete trace*/																			StdOut.print(tracer(node));				
+		}
+		if (compareY <= 0 && node.orientation == Oriented.HORIZONTALLY){
+			node.lb = put(node.lb, point, val, node.orientation);
+/*TODO:delete trace*/																			StdOut.print(tracer(node));				
+		}
+		if (compareY >= 0 && node.orientation == Oriented.HORIZONTALLY){
+			node.rt = put(node.rt, point, val, node.orientation);
+/*TODO:delete trace*/																			StdOut.print(tracer(node));				
+		}       
 		
-		if (node.orientation == Oriented.VERTICALLY){
-			if (compareY < 0){
-				node.lb = put(node.lb, point, val, Oriented.HORIZONTALLY);
-																								/*TODO:delete trace*/StdOut.print(tracer(node));					}
-			else if (compareY > 0){
-				node.rt = put(node.rt, point, val, Oriented.HORIZONTALLY);
-																								/*TODO:delete trace*/StdOut.print(tracer(node));															
-			}
-			else node.value = val;
-		}
-
+		
+//		if (node.orientation == Oriented.VERTICALLY){
+//			if (compareX <= 0){
+//				node.lb = put(node.lb, point, val, Oriented.HORIZONTALLY);
+///*TODO:delete trace*/																			StdOut.print(tracer(node));				
+//				}
+//			else if (compareX >= 0){
+//				node.rt = put(node.rt, point, val, Oriented.HORIZONTALLY);
+///*TODO:delete trace*/																			StdOut.print(tracer(node));				
+//				}
+//			else node.value = val;
+//		}
+//		
+//		if (node.orientation == Oriented.HORIZONTALLY){
+//			if (compareY <= 0){
+//				node.lb = put(node.lb, point, val, Oriented.VERTICALLY);
+///*TODO:delete trace*/																			StdOut.print(tracer(node));
+//			}
+//			else if (compareY >= 0){
+//				node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
+///*TODO:delete trace*/																			StdOut.print(tracer(node));															
+//			}
+//			else node.value = val;
+//		}
 		return node;
 	}
 	
@@ -136,8 +154,8 @@ public class KdTreeST<Value> {
 	private String tracer(Node node){
 		String orent = "no";
 		String subs = "no";
-		if (node.orientation == Oriented.VERTICALLY) orent = "---";
-		if (node.orientation == Oriented.HORIZONTALLY) orent = " | ";
+		if (node.orientation == Oriented.VERTICALLY) orent = " | ";
+		if (node.orientation == Oriented.HORIZONTALLY) orent = "---";
 		if (node.lb != null && node.rt == null) subs = "/  ";
 		if (node.lb == null && node.rt != null) subs = "  \\";
 		if (node.lb != null && node.rt != null) subs = "/ \\";

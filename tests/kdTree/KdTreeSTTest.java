@@ -16,9 +16,7 @@ public class KdTreeSTTest {
 	Point2D testPoint33 = new Point2D(3,3);		//horz
 	Point2D testPoint15 = new Point2D(1,5);		//vert
 	Point2D testPoint44 = new Point2D(4,4);		//horz
-	
-	
-	
+
 	@Test
 	public void testPut() {
 StdOut.println("\n----------testWorksheet------------");
@@ -31,18 +29,19 @@ StdOut.printf("%-20s %22s %6s %5s\n", "Node", "Orent", "subs", "N");
             Point2D p = new Point2D(x, y);
             kdTreeTestPut1.put(p, i);
         }
-		In in2 = new In("/kdTreeTests/input10.txt");
-		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
-        for (int i = 0; !in2.isEmpty(); i++) {
-            double x = in2.readDouble();
-            double y = in2.readDouble();
-            Point2D p = new Point2D(x, y);
-            kdTreeTestPut2.put(p, i);
-        }
+//		In in2 = new In("/kdTreeTests/input10.txt");
+//		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
+//        for (int i = 0; !in2.isEmpty(); i++) {
+//            double x = in2.readDouble();
+//            double y = in2.readDouble();
+//            Point2D p = new Point2D(x, y);
+//            kdTreeTestPut2.put(p, i);
+//        }
 		//fail("Not yet implemented");
 		//assertEquals(expected, actual);
 	}
 	
+	/*	
 	@Test
 	public void testIsEmpty() {
 StdOut.println("\n----------testIsEmpty------------");
@@ -54,7 +53,7 @@ StdOut.println("\n----------testIsEmpty------------");
 		assertEquals(false, kDTest02.isEmpty());
 	}
 	
-	/*
+
 	@Test
 	public void testSize() {
 StdOut.println("\n----------testSize------------");
