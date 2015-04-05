@@ -22,7 +22,7 @@ public class KdTreeSTTest {
 	@Test
 	public void testPut() {
 StdOut.println("\n----------testWorksheet------------");
-StdOut.printf("%-20s %22s %6s %5s\n", "Node", "Orent", "Dir", "N");
+StdOut.printf("%-20s %22s %6s %5s\n", "Node", "Orent", "subs", "N");
 		In in1 = new In("/kdTreeTests/inputWorksheet.txt");
 		KdTreeST<Integer> kdTreeTestPut1 = new KdTreeST<Integer>();
         for (int i = 0; !in1.isEmpty(); i++) {

@@ -2,8 +2,6 @@ package kdTree;
 
 import edu.princeton.cs.introcs.StdOut;
 
-
-
 public class KdTreeST<Value> {
 	
 	private enum Oriented {
@@ -95,42 +93,56 @@ public class KdTreeST<Value> {
 	
 	private Node put(Node node, Point2D point, Value val, Oriented o) {
 		
-		if (node == null) return new Node(point, val, o);
+		if (node == null) return new Node(point, val, o);			//create new node at end
+		N++;
 		
+		double compareX = point.x() - node.point.x();
+		double compareY = point.y() - node.point.y();
 		
-//----------------------------------------------------Condition for HORIZONTAL rows, this is wrong
 		if (node.orientation == Oriented.HORIZONTALLY){
-			double compare = point.x() - node.point.x();	
-			if (compare < 0){
+			if (compareX < 0){
 				node.lb = put(node.lb, point, val, Oriented.VERTICALLY);
-/*TODO:delete trace vertical row, left side*/StdOut.printf("%-20s %20s %8s %5d\n", node.point.toString(), " | ", "/  ", N);
-			}
-			else if (compare > 0){
+																								/*TODO:delete trace*/StdOut.print(tracer(node));				
+				}
+			else if (compareX > 0){
 				node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
-/*TODO:delete trace vertical row, right side*/StdOut.printf("%-20s %20s %8s %5d\n", node.point.toString(), " | ", "  \\", N);
-			}
+																								/*TODO:delete trace*/StdOut.print(tracer(node));				
+				}
 			else node.value = val;
 		}
 		
-		
-//--------------------------------------------------Condition for VERTICAL rows, this is wrong
 		if (node.orientation == Oriented.VERTICALLY){
-			double compare = point.y() - node.point.y();
-			if (compare < 0){
+			if (compareY < 0){
 				node.lb = put(node.lb, point, val, Oriented.HORIZONTALLY);
-/*TODO:delete trace horizontal row, left side*/StdOut.printf("%-20s %20s %8s %5d\n", node.point.toString(), "---", "/  ", N);
-			}
-			else if (compare > 0){
+																								/*TODO:delete trace*/StdOut.print(tracer(node));					}
+			else if (compareY > 0){
 				node.rt = put(node.rt, point, val, Oriented.HORIZONTALLY);
-/*TODO:delete trace horizontal row, right side*/StdOut.printf("%-20s %20s %8s %5d\n", node.point.toString(), "---", "  \\", N);
+																								/*TODO:delete trace*/StdOut.print(tracer(node));															
 			}
 			else node.value = val;
 		}
 
-		N++;
 		return node;
 	}
 	
+	/**
+	 * Private method for tracing node results. Returns a formatted string 
+	 * illustrating the node, orientation of the node and whether it has 
+	 * subtrees on the down/left side and/or up/right side
+	 * TODO: DELETE before handing in assignment
+	 * @param node
+	 * @return formatted string
+	 */
+	private String tracer(Node node){
+		String orent = "no";
+		String subs = "no";
+		if (node.orientation == Oriented.VERTICALLY) orent = "---";
+		if (node.orientation == Oriented.HORIZONTALLY) orent = " | ";
+		if (node.lb != null && node.rt == null) subs = "/  ";
+		if (node.lb == null && node.rt != null) subs = "  \\";
+		if (node.lb != null && node.rt != null) subs = "/ \\";
+		return String.format("%-20s %20s %8s %5d\n", node.point.toString(), orent, subs, N);
+	}
 	
 	/**
 	* returns the value associated with a given point
