@@ -36,6 +36,7 @@ StdOut.printf("%-20s %22s %6s %5s\n", "Node", "Orent", "subs", "N");
 //            double x = in2.readDouble();
 //            double y = in2.readDouble();
 //            Point2D p = new Point2D(x, y);
+//            StdOut.println("adding "+p.toString());
 //            kdTreeTestPut2.put(p, i);
 //        }
 		//fail("Not yet implemented");
