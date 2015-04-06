@@ -10,17 +10,9 @@ import edu.princeton.cs.introcs.StdOut;
 
 public class KdTreeSTTest {
 
-	Point2D testPoint23 = new Point2D(2,3);		//vert
-	Point2D testPoint42 = new Point2D(4,2);		//horz
-	Point2D testPoint45 = new Point2D(4,5);		//vert
-	Point2D testPoint33 = new Point2D(3,3);		//horz
-	Point2D testPoint15 = new Point2D(1,5);		//vert
-	Point2D testPoint44 = new Point2D(4,4);		//horz
-
 	@Test
 	public void testPut() {
-StdOut.println("\n----------testWorksheet------------");
-StdOut.printf("%-20s %22s %6s %5s\n", "Node", "Orent", "subs", "N");
+		StdOut.println("\n----------testWorksheet------------");
 		In in1 = new In("/kdTreeTests/inputWorksheet.txt");
 		KdTreeST<Integer> kdTreeTestPut1 = new KdTreeST<Integer>();
         for (int i = 0; !in1.isEmpty(); i++) {
@@ -30,6 +22,8 @@ StdOut.printf("%-20s %22s %6s %5s\n", "Node", "Orent", "subs", "N");
     		StdOut.println("adding "+p.toString());
             kdTreeTestPut1.put(p, i);
         }
+        StdOut.println("N: "+kdTreeTestPut1.size());
+        
 //		In in2 = new In("/kdTreeTests/input10.txt");
 //		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
 //        for (int i = 0; !in2.isEmpty(); i++) {
