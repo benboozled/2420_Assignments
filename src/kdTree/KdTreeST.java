@@ -17,7 +17,7 @@ public class KdTreeST<Value> {
 		   private RectHV rect;			// the axis-aligned rectangle corresponding to this node
 		   private Node leftBottom;		// the left/bottom subtree
 		   private Node rightTop;		// the right/top subtree
-		   private Oriented orientation;//vertical or horizontal
+		   private Oriented orientation;// vertical or horizontal
 		   
 		   public Node(Point2D point, Value value, Oriented orientation){
 			   this.point = point;
@@ -54,7 +54,7 @@ public class KdTreeST<Value> {
 	 * @param a value to associate with given point
 	 */
 	public void put(Point2D p, Value val){	
-		if (val == null)		throw new IllegalArgumentException ("unable to insert null value into KDTree");
+		if (val == null)		throw new IllegalArgumentException ("Unable to insert null value into KDTree");
 		root = put(root, p, val, Oriented.VERTICALLY);
 		N++;
 	}
@@ -73,44 +73,6 @@ public class KdTreeST<Value> {
 	}
 	
 
-//	private Node put(Node node, Point2D point, Value val, Oriented o) {
-//		
-//		if (node == null) return new Node(point, val, o);
-//		
-//		if (point.x() - node.point.x() < 0 && node.orientation == Oriented.VERTICALLY){
-//			node.lb = put(node.lb, point, val, Oriented.HORIZONTALLY);
-/////*TODO:delete trace*/																			StdOut.print(tracer(node));				
-//		}
-//		if (point.x() - node.point.x() >= 0 && node.orientation == Oriented.VERTICALLY){
-//			node.rt = put(node.rt, point, val, Oriented.HORIZONTALLY);
-/////*TODO:delete trace*/																			StdOut.print(tracer(node));				
-//		}
-//		if (point.y() - node.point.y() < 0 && node.orientation == Oriented.HORIZONTALLY){
-//			node.lb = put(node.lb, point, val, Oriented.VERTICALLY);
-/////*TODO:delete trace*/																			StdOut.print(tracer(node));				
-//		}
-//		if (point.y() - node.point.y() >= 0 && node.orientation == Oriented.HORIZONTALLY){
-//			node.rt = put(node.rt, point, val, Oriented.VERTICALLY);
-/////*TODO:delete trace*/																			StdOut.print(tracer(node));				
-//		}
-//		return node;
-//	}
-	
-	/**
-	 * Private method for tracing node results. Returns a formatted string 
-	 * illustrating the node, orientation of the node and whether it has 
-	 * subtrees on the down/left side and/or up/right side
-	 * TODO: DELETE before handing in assignment
-	 * @param node
-	 * @return formatted string
-	 */
-	private String tracer(Node node){
-		String orent = "no";
-		if (node.orientation == Oriented.VERTICALLY) orent = " | ";
-		if (node.orientation == Oriented.HORIZONTALLY) orent = "---";
-		return String.format("%-20s %20s\n", node.point.toString(), orent);
-	}
-	
 	/**
 	* returns the value associated with a given point
 	* @param a point of type Point2D
