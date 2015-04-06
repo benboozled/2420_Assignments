@@ -59,15 +59,15 @@ public class KdTreeST<Value> {
 		N++;
 	}
 	
-	private Node put(Node node, Point2D point, Value val, Oriented o) {
-		if (node == null) return new Node(point, val, o);
+	private Node put(Node node, Point2D point, Value val, Oriented orientation) {
+		if (node == null) return new Node(point, val, orientation);
 		if (node.orientation == Oriented.VERTICALLY){
 			if (point.x()-node.point.x() <  0)		node.leftBottom = put(node.leftBottom, point, val, Oriented.HORIZONTALLY);						
-			if (point.x()-node.point.x() >= 0)		node.rightTop = put(node.rightTop, point, val, Oriented.HORIZONTALLY);				
+			if (point.x()-node.point.x() >= 0)		node.rightTop   = put(node.rightTop,   point, val, Oriented.HORIZONTALLY);				
 		}
 		if (node.orientation == Oriented.HORIZONTALLY){
 			if (point.y()-node.point.y() <  0)		node.leftBottom = put(node.leftBottom, point, val, Oriented.VERTICALLY);			
-			if (point.y()-node.point.y() >= 0)		node.rightTop = put(node.rightTop, point, val, Oriented.VERTICALLY);	
+			if (point.y()-node.point.y() >= 0)		node.rightTop   = put(node.rightTop,   point, val, Oriented.VERTICALLY);	
 		}																		
 		return node;
 	}
