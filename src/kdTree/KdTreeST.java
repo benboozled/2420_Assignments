@@ -1,11 +1,25 @@
 package kdTree;
 
+import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.introcs.StdOut;
 
 @SuppressWarnings("unused")
 public class KdTreeST<Value> {
 	
-	private enum Oriented { VERTICALLY, HORIZONTALLY };
+	private enum Oriented {
+		VERTICALLY, HORIZONTALLY;
+		                 /**
+		* 
+		* @return next orientation
+		*/
+		public static Oriented next() {
+			if (Oriented.VERTICALLY.equals(Oriented.VERTICALLY))
+				return Oriented.HORIZONTALLY;
+			else 
+				return Oriented.VERTICALLY;
+		}
+	};
+		
 	private Node root;
 	private int N;
 	
@@ -91,55 +105,21 @@ public class KdTreeST<Value> {
 			if (point.y() > maxY)			maxY = Double.MAX_VALUE;
 			
 		}
-		
-		
-		
+
 		node.rect = new RectHV(minX, minY, maxX, maxY);
 
-	
-		StdOut.print(node.point.toString());
-		StdOut.print("\t[(");
-		StdOut.print(minX == Double.MIN_VALUE? "-inf": minX);
-		StdOut.print(", ");
-		StdOut.print(minY == Double.MIN_VALUE? "-inf": minY);
-		StdOut.print(")(");
-		StdOut.print(maxX == Double.MAX_VALUE? "+inf": maxX);
-		StdOut.print(", ");
-		StdOut.print(maxY == Double.MAX_VALUE? "+inf": maxY);
-		StdOut.print(")]\n");
-		
-		
-///*TODO: delete trace*/ if (node.rightTop != null)
-//	StdOut.print("\n"+point.toString()+" has rt.x: "+node.rightTop.point.x());
-//	if (node.leftBottom != null)
-//		StdOut.print(" has lb.x: "+node.leftBottom.point.x()+"\n");
-		
-//		node.rect = new RectHV(
-//				node.leftBottom != null? node.leftBottom.point.x() : Double.MIN_VALUE, 
-//				node.leftBottom != null? node.leftBottom.point.y() : Double.MIN_VALUE,
-//				node.rightTop != null? node.rightTop.point.x() : Double.MAX_VALUE, 
-//				node.rightTop != null? node.rightTop.point.y() : Double.MAX_VALUE);
-		
-		
-
-//		if (node.leftBottom != null){
-//			if (node.rightTop != null){
-//				
-//			}
-//		}
-		
+//		StdOut.print(node.point.toString());
 //		
-//		StdOut.println("[("+node.leftBottom.point.x()+
-//				", "+node.leftBottom.point.y()+
-//				"), ("+node.rightTop.point.x()+
-//				", "+node.rightTop.point.y()+")]");
-		
-//		node.rect = new RectHV( node.leftBottom.point.x(),
-//				node.leftBottom.point.y(),
-//				node.rightTop.point.x(),
-//				node.rightTop.point.y());
-	
-		
+//		StdOut.print("\t[(");
+//		StdOut.print(minX == Double.MIN_VALUE? "-inf": node.rect.xmin());
+//		StdOut.print(", ");
+//		StdOut.print(minY == Double.MIN_VALUE? "-inf": node.rect.ymin());
+//		StdOut.print(")(");
+//		StdOut.print(maxX == Double.MAX_VALUE? "+inf": node.rect.xmax());
+//		StdOut.print(", ");
+//		StdOut.print(maxY == Double.MAX_VALUE? "+inf": node.rect.ymax());
+//		StdOut.print(")]\n");
+
 		return node;
 	}
 	
@@ -150,22 +130,42 @@ public class KdTreeST<Value> {
 	* @return the value associated with a given point
 	*/
 	public Value get(Point2D p){
-		return get(root, p);
+		return get(root, p, Oriented.HORIZONTALLY);
 	}
+	
 	/**
-	* Private helper method similar to what is found in BST.class
-	* @param node
-	* @param key
-	* @return Value, our favorite
-	*/
-	private Value get(Node node, Point2D point) {
-	        if (node == null) return null;
-	        int cmp = point.compareTo(node.point);//TODO: Point2D.compareTo won't work for this
-	        
-	        if      (cmp < 0) return get(node.leftBottom, point);
-	        else if (cmp > 0) return get(node.rightTop, point);
-	        else              return node.value;
+	 * Private helper method for get
+	 * @param root2
+	 * @param p
+	 * @param o
+	 * @return
+	 */
+	private Value get(Node root2, Point2D p, Oriented o) {
+		if (root2 == null)			return null;
+		if (root2.point.equals(p))	return root2.value;
+		int cmp = compare(p, root2.point, o);
+		Oriented oNext = Oriented.next();			// Looks at the orientation of the next node.
+		if (cmp < 0) {
+			return get(root2.leftBottom, p, oNext);
+		} else
+			return get(root2.rightTop, p, oNext);
 	}
+	
+	
+		/**
+	* Private helper methods that compares two points
+	* @param p
+	* @param q
+	* @param o
+	* @return
+	*/
+	private int compare(Point2D p, Point2D q, Oriented o) {
+        if (o == Oriented.HORIZONTALLY) {
+            return Double.compare(p.x(), q.x());
+        } else {
+            return Double.compare(p.y(), q.y());
+        }
+    }
 	
 	/**
 	 * return whether or not this table contains given point
@@ -182,9 +182,40 @@ public class KdTreeST<Value> {
 	 * @return all of the points
 	 */
 	public Iterable<Point2D> points(){
-		return null;
- 
+		Queue<Point2D> queue = new Queue<Point2D>();
+        points(root, queue, min(), max());
+        return queue;
 	}
+	
+    private Point2D min() {
+        if (isEmpty()) return null;
+        return min(root).point;
+    } 
+
+    private Node min(Node x) { 
+        if (x.leftBottom == null) return x; 
+        else                return min(x.leftBottom); 
+    } 
+
+    private Point2D max() {
+        if (isEmpty()) return null;
+        return max(root).point;
+    } 
+
+    private Node max(Node x) { 
+        if (x.rightTop == null) return x; 
+        else                 return max(x.rightTop); 
+    } 
+    private void points(Node node, Queue<Point2D> queue, Point2D lo, Point2D hi) { 
+        if (node == null) return; 
+        int cmplo = lo.compareTo(node.point); 
+        int cmphi = hi.compareTo(node.point); 
+        
+        if (cmplo < 0) points(node.leftBottom, queue, lo, hi); 
+        if (cmplo <= 0 && cmphi >= 0) queue.enqueue(node.point); 
+        if (cmphi > 0) points(node.rightTop, queue, lo, hi); 
+    } 
+	
 	
 	/**
 	 * returns a range of points that are contained within a given rectangle

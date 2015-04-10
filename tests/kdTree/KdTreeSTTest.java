@@ -11,9 +11,11 @@ public class KdTreeSTTest {
 
 	@Test
 	public void testPut() {
-		StdOut.println("\n----------testWorksheet------------");
+		
 		In in1 = new In("/kdTreeTests/inputWorksheet.txt");
 		KdTreeST<Integer> kdTreeTestPut1 = new KdTreeST<Integer>();
+
+		StdOut.println("\n----------testWorksheet------------");
         for (int i = 0; !in1.isEmpty(); i++) {
             double x = in1.readDouble();
             double y = in1.readDouble();
@@ -21,8 +23,9 @@ public class KdTreeSTTest {
     		StdOut.println("adding "+p.toString());
             kdTreeTestPut1.put(p, i);
         }
-        //StdOut.println(kdTreeTestPut1.toString());
-        StdOut.println("N: "+kdTreeTestPut1.size());
+
+		for (Point2D pnt : kdTreeTestPut1.points())
+			StdOut.println(pnt.toString());
         
 //		In in2 = new In("/kdTreeTests/input10.txt");
 //		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
