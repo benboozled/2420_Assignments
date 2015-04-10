@@ -92,6 +92,8 @@ public class KdTreeST<Value> {
 			
 		}
 		
+		
+		
 		node.rect = new RectHV(minX, minY, maxX, maxY);
 
 	
