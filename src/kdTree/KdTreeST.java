@@ -79,7 +79,10 @@ public class KdTreeST<Value> {
 	
 	
 	private Node put(Node node, Point2D point, Value val, Oriented orientation) {
-		if (node == null) 	return new Node(point, val, orientation);
+
+		if (node == null){
+			return new Node(point, val, orientation);
+		}
 		
 		if (node.orientation == Oriented.VERTICALLY){
 			if (point.x()-node.point.x() <  0)	
@@ -105,21 +108,7 @@ public class KdTreeST<Value> {
 			if (point.y() > maxY)			maxY = Double.MAX_VALUE;
 			
 		}
-
 		node.rect = new RectHV(minX, minY, maxX, maxY);
-
-//		StdOut.print(node.point.toString());
-//		
-//		StdOut.print("\t[(");
-//		StdOut.print(minX == Double.MIN_VALUE? "-inf": node.rect.xmin());
-//		StdOut.print(", ");
-//		StdOut.print(minY == Double.MIN_VALUE? "-inf": node.rect.ymin());
-//		StdOut.print(")(");
-//		StdOut.print(maxX == Double.MAX_VALUE? "+inf": node.rect.xmax());
-//		StdOut.print(", ");
-//		StdOut.print(maxY == Double.MAX_VALUE? "+inf": node.rect.ymax());
-//		StdOut.print(")]\n");
-
 		return node;
 	}
 	
@@ -177,46 +166,46 @@ public class KdTreeST<Value> {
 
 	}
 	
+	
+    public Iterable<Point2D> points() {
+        return points(min(), max());
+    }
+    
 	/**
 	 * Return all of the points
 	 * @return all of the points
 	 */
-	public Iterable<Point2D> points(){
+	private Iterable<Point2D> points(Point2D lo, Point2D hi){
 		Queue<Point2D> queue = new Queue<Point2D>();
-        points(root, queue, min(), max());
+        points(root, queue, lo, hi);
         return queue;
 	}
-	
-    private Point2D min() {
-        if (isEmpty()) return null;
-        return min(root).point;
-    } 
-
-    private Node min(Node x) { 
-        if (x.leftBottom == null) return x; 
-        else                return min(x.leftBottom); 
-    } 
-
-    private Point2D max() {
-        if (isEmpty()) return null;
-        return max(root).point;
-    } 
-
-    private Node max(Node x) { 
-        if (x.rightTop == null) return x; 
-        else                 return max(x.rightTop); 
-    } 
+	 
     private void points(Node node, Queue<Point2D> queue, Point2D lo, Point2D hi) { 
         if (node == null) return; 
         int cmplo = lo.compareTo(node.point); 
         int cmphi = hi.compareTo(node.point); 
-        
         if (cmplo < 0) points(node.leftBottom, queue, lo, hi); 
         if (cmplo <= 0 && cmphi >= 0) queue.enqueue(node.point); 
         if (cmphi > 0) points(node.rightTop, queue, lo, hi); 
     } 
-	
-	
+    private Point2D min() {
+    	if (isEmpty()) return null;
+    	return min(root).point;
+    } 
+    private Node min(Node x) { 
+    	if (x.leftBottom == null) return x; 
+    	else                return min(x.leftBottom); 
+    } 
+    private Point2D max() {
+    	if (isEmpty()) return null;
+    	return max(root).point;
+    } 
+    private Node max(Node x) { 
+    	if (x.rightTop == null) return x; 
+    	else                 return max(x.rightTop); 
+    } 
+    	
 	/**
 	 * returns a range of points that are contained within a given rectangle
 	 * Easier said then done though, eh?

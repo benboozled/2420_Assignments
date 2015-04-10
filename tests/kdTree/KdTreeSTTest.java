@@ -20,12 +20,22 @@ public class KdTreeSTTest {
             double x = in1.readDouble();
             double y = in1.readDouble();
             Point2D p = new Point2D(x, y);
-    		StdOut.println("adding "+p.toString());
+            StdOut.print(p.toString());
             kdTreeTestPut1.put(p, i);
         }
+        StdOut.println();
+//        StdOut.println("2,3 is: "+kdTreeTestPut1.get(new Point2D(2,3)));
+//        StdOut.println("4,5 is: "+kdTreeTestPut1.get(new Point2D(4,5)));
+        StringBuilder actual = new StringBuilder();
+        String expected = "(2.0, 3.0)(4.0, 2.0)(4.0, 5.0)(3.0, 3.0)(1.0, 5.0)(4.0, 4.0)";
+		for (Point2D pnt : kdTreeTestPut1.points()){
+			actual.append(pnt.toString());
+			StdOut.print(pnt.toString());
+		}
+			
+		
+		assertEquals(expected, actual.toString());
 
-		for (Point2D pnt : kdTreeTestPut1.points())
-			StdOut.println(pnt.toString());
         
 //		In in2 = new In("/kdTreeTests/input10.txt");
 //		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
@@ -95,6 +105,43 @@ StdOut.println("\n----------testSize------------");
 }
 
 /*-------------------CODE SCRAPHEAP----------------------------------*/
+
+
+//StdOut.print(node.point.toString());
+//
+//StdOut.print("\t[(");
+//StdOut.print(minX == Double.MIN_VALUE? "-inf": node.rect.xmin());
+//StdOut.print(", ");
+//StdOut.print(minY == Double.MIN_VALUE? "-inf": node.rect.ymin());
+//StdOut.print(")(");
+//StdOut.print(maxX == Double.MAX_VALUE? "+inf": node.rect.xmax());
+//StdOut.print(", ");
+//StdOut.print(maxY == Double.MAX_VALUE? "+inf": node.rect.ymax());
+//StdOut.print(")]\n");
+
+//private void points(Node node, Queue<Point2D> queue, Point2D lo, Point2D hi) { 
+//StdOut.print("lo: "+lo.toString()+"hi: "+hi.toString()+"\n");
+//if (node == null){
+//	StdOut.print("hit null\n");
+//	return; 
+//}
+////int cmplo = lo.compareTo(node.point); 
+////int cmphi = hi.compareTo(node.point);
+//int cmp = compare(lo,hi,node.orientation);
+//if (cmp < 0){
+//	StdOut.print("cmp: "+cmp+" left\n");
+//	points(node, queue, lo, hi); 
+//}
+//if (cmp == 0){
+//	queue.enqueue(node.point); 
+//	StdOut.print("Enqueued: "+node.point.toString()+"\n");
+//}
+//if (cmp > 0){
+//	StdOut.print("cmp: "+cmp+" right\n");
+//	points(node.rightTop, queue, lo, hi); 
+//}
+//} 
+
 //private Node put(Node node, Point2D point, Value val, Oriented o) {
 //
 //if (node == null) return new Node(point, val, o);

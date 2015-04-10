@@ -68,7 +68,7 @@ double dx = this.x - that.x;
      *    { less than, equal to, greater than } that point
      */
 public int compareTo(Point2D that) {
-if (this.y < that.y) return -1;
+		if (this.y < that.y) return -1;
         if (this.y > that.y) return +1;
         if (this.x < that.x) return -1;
         if (this.x > that.x) return +1;
