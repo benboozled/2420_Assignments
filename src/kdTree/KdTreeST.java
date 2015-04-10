@@ -118,7 +118,7 @@ public class KdTreeST<Value> {
 	* @param a point of type Point2D
 	* @return the value associated with a given point
 	*/
-	public Value get(Point2D p){
+	public Value get(Point2D p){ 
 		return get(root, p, Oriented.HORIZONTALLY);
 	}
 	
