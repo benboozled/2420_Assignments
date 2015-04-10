@@ -21,6 +21,7 @@ public class KdTreeSTTest {
     		StdOut.println("adding "+p.toString());
             kdTreeTestPut1.put(p, i);
         }
+        //StdOut.println(kdTreeTestPut1.toString());
         StdOut.println("N: "+kdTreeTestPut1.size());
         
 //		In in2 = new In("/kdTreeTests/input10.txt");

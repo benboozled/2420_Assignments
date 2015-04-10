@@ -1,16 +1,19 @@
 package kdTree;
 
+import edu.princeton.cs.introcs.StdOut;
 
+@SuppressWarnings("unused")
 public class KdTreeST<Value> {
 	
-	private enum Oriented {
-		VERTICALLY, HORIZONTALLY
-	};
-	
+	private enum Oriented { VERTICALLY, HORIZONTALLY };
 	private Node root;
 	private int N;
 	
-	@SuppressWarnings("unused")
+	private double minX = Double.MIN_VALUE;
+	private double minY = Double.MIN_VALUE;
+	private double maxX = Double.MAX_VALUE;
+	private double maxY = Double.MAX_VALUE;
+
 	private class Node {
 		   private Point2D point;		// the point
 		   private Value value;			// the symbol table maps the point to this value
@@ -53,22 +56,88 @@ public class KdTreeST<Value> {
 	 * @param a point of type Point2D
 	 * @param a value to associate with given point
 	 */
-	public void put(Point2D p, Value val){	
-		if (val == null)		throw new IllegalArgumentException ("Unable to insert null value into KDTree");
-		root = put(root, p, val, Oriented.VERTICALLY);
+	public void put(Point2D point, Value val){
+		if (val == null)	throw new IllegalArgumentException ("Unable to insert null value into KDTree");
+		root = put(root, point, val, Oriented.VERTICALLY);
+		root.rect = new RectHV(Double.MIN_VALUE, Double.MIN_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
 		N++;
 	}
 	
+	
 	private Node put(Node node, Point2D point, Value val, Oriented orientation) {
-		if (node == null) return new Node(point, val, orientation);
+		if (node == null) 	return new Node(point, val, orientation);
+		
 		if (node.orientation == Oriented.VERTICALLY){
-			if (point.x()-node.point.x() <  0)		node.leftBottom = put(node.leftBottom, point, val, Oriented.HORIZONTALLY);						
-			if (point.x()-node.point.x() >= 0)		node.rightTop   = put(node.rightTop,   point, val, Oriented.HORIZONTALLY);				
+			if (point.x()-node.point.x() <  0)	
+				node.leftBottom = put(node.leftBottom, point, val, Oriented.HORIZONTALLY);
+			if (point.x()-node.point.x() >= 0)	
+				node.rightTop   = put(node.rightTop,   point, val, Oriented.HORIZONTALLY);
+			
+			if (point.x() > minX)			minX = node.point.x();
+			if (point.x() < minX)			minX = Double.MIN_VALUE;
+			if (point.x() < maxX)			maxX = node.point.x();
+			if (point.x() > maxX)			maxX = Double.MAX_VALUE;
+			
 		}
 		if (node.orientation == Oriented.HORIZONTALLY){
-			if (point.y()-node.point.y() <  0)		node.leftBottom = put(node.leftBottom, point, val, Oriented.VERTICALLY);			
-			if (point.y()-node.point.y() >= 0)		node.rightTop   = put(node.rightTop,   point, val, Oriented.VERTICALLY);	
-		}																		
+			if (point.y()-node.point.y() <  0)
+				node.leftBottom = put(node.leftBottom, point, val, Oriented.VERTICALLY);		
+			if (point.y()-node.point.y() >= 0)
+				node.rightTop   = put(node.rightTop,   point, val, Oriented.VERTICALLY);
+			
+			if (point.y() > minY)			minY = node.point.y();
+			if (point.y() < minY)			minY = Double.MIN_VALUE;
+			if (point.y() < maxY)			maxY = node.point.y();
+			if (point.y() > maxY)			maxY = Double.MAX_VALUE;
+			
+		}
+		
+		node.rect = new RectHV(minX, minY, maxX, maxY);
+
+	
+		StdOut.print(node.point.toString());
+		StdOut.print("\t[(");
+		StdOut.print(minX == Double.MIN_VALUE? "-inf": minX);
+		StdOut.print(", ");
+		StdOut.print(minY == Double.MIN_VALUE? "-inf": minY);
+		StdOut.print(")(");
+		StdOut.print(maxX == Double.MAX_VALUE? "+inf": maxX);
+		StdOut.print(", ");
+		StdOut.print(maxY == Double.MAX_VALUE? "+inf": maxY);
+		StdOut.print(")]\n");
+		
+		
+///*TODO: delete trace*/ if (node.rightTop != null)
+//	StdOut.print("\n"+point.toString()+" has rt.x: "+node.rightTop.point.x());
+//	if (node.leftBottom != null)
+//		StdOut.print(" has lb.x: "+node.leftBottom.point.x()+"\n");
+		
+//		node.rect = new RectHV(
+//				node.leftBottom != null? node.leftBottom.point.x() : Double.MIN_VALUE, 
+//				node.leftBottom != null? node.leftBottom.point.y() : Double.MIN_VALUE,
+//				node.rightTop != null? node.rightTop.point.x() : Double.MAX_VALUE, 
+//				node.rightTop != null? node.rightTop.point.y() : Double.MAX_VALUE);
+		
+		
+
+//		if (node.leftBottom != null){
+//			if (node.rightTop != null){
+//				
+//			}
+//		}
+		
+//		
+//		StdOut.println("[("+node.leftBottom.point.x()+
+//				", "+node.leftBottom.point.y()+
+//				"), ("+node.rightTop.point.x()+
+//				", "+node.rightTop.point.y()+")]");
+		
+//		node.rect = new RectHV( node.leftBottom.point.x(),
+//				node.leftBottom.point.y(),
+//				node.rightTop.point.x(),
+//				node.rightTop.point.y());
+	
+		
 		return node;
 	}
 	
