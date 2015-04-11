@@ -183,11 +183,10 @@ public class KdTreeST<Value> {
 	 
     private void points(Node node, Queue<Point2D> queue, Point2D lo, Point2D hi) { 
         if (node == null) return; 
-        int cmplo = lo.compareTo(node.point); 
-        int cmphi = hi.compareTo(node.point); 
-        if (cmplo < 0) points(node.leftBottom, queue, lo, hi); 
-        if (cmplo <= 0 && cmphi >= 0) queue.enqueue(node.point); 
-        if (cmphi > 0) points(node.rightTop, queue, lo, hi); 
+      	queue.enqueue(node.point); 
+       	points(node.leftBottom, queue, lo, hi); 
+       	points(node.rightTop, queue, lo, hi); 
+        
     } 
     private Point2D min() {
     	if (isEmpty()) return null;
