@@ -5,22 +5,7 @@ import edu.princeton.cs.introcs.StdOut;
 
 @SuppressWarnings("unused")
 public class KdTreeST<Value> {
-	
-	//TODO: deprecate orientation
-	private enum Oriented {
-		VERTICALLY, HORIZONTALLY;
-		                 /**
-		* 
-		* @return next orientation
-		*/
-		public static Oriented next() {
-			if (Oriented.VERTICALLY.equals(Oriented.VERTICALLY))
-				return Oriented.HORIZONTALLY;
-			else 
-				return Oriented.VERTICALLY;
-		}
-	};
-		
+			
 	private Node root;
 	private int N;
 	
@@ -125,9 +110,9 @@ public class KdTreeST<Value> {
 	private Value get(Node node, Point2D point) { 
 		if (node == null)	return null;
 		int cmp = 0;
-		if (node.level % 2 == 1)	cmp = Double.compare(point.x(), node.point.x());
 		if (node.level % 2 == 0) 	cmp = Double.compare(point.y(), node.point.y());
-        if (cmp < 0) 		return get(node.leftBottom, point);
+		if (node.level % 2 == 1)	cmp = Double.compare(point.x(), node.point.x());
+        if 		(cmp < 0) 	return get(node.leftBottom, point);
         else if (cmp > 0)	return get(node.rightTop, point);
         else             	return node.value;
 	}
@@ -140,8 +125,7 @@ public class KdTreeST<Value> {
 	public boolean contains(Point2D point){
 		return get(root, point)!=null;
 	}
-	
-	
+
     public Iterable<Point2D> points() {
         return points(min(), max());
     }

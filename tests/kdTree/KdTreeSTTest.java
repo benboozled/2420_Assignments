@@ -36,6 +36,11 @@ public class KdTreeSTTest {
 		assertEquals(true, kdTreeTestContains1.contains(new Point2D(1,5)));
 		StdOut.print("\npoint 4,4: "+kdTreeTestContains1.contains(new Point2D(4,4)));
 		assertEquals(true, kdTreeTestContains1.contains(new Point2D(4,4)));
+		
+		StdOut.print("\npoint 0,0: "+kdTreeTestContains1.contains(new Point2D(0,0)));
+		assertEquals(false, kdTreeTestContains1.contains(new Point2D(0,0)));
+		StdOut.print("\npoint 10,10: "+kdTreeTestContains1.contains(new Point2D(10,10)));
+		assertEquals(false, kdTreeTestContains1.contains(new Point2D(10,10)));
 	}
 	
 	@Test
