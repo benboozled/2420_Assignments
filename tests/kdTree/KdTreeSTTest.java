@@ -8,61 +8,121 @@ import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
 
 public class KdTreeSTTest {
+	
+	In inWorksheet = new In("/kdTreeTests/inputWorksheet.txt");
+	In inInput10 = new In("/kdTreeTests/input10.txt");
+	In inInputLevelOrder = new In("/kdTreeTests/inputLevelOrder.txt");
 
 	@Test
-	public void testPut() {
-		
-		In in1 = new In("/kdTreeTests/inputWorksheet.txt");
-		KdTreeST<Integer> kdTreeTestPut1 = new KdTreeST<Integer>();
+	public void testGet() {
+		StdOut.print("\n------------------------GET");
+		StdOut.println("\n-----worksheet");
+		KdTreeST<Integer> kdTreeTestGet1 = new KdTreeST<Integer>();
+        for (int i = 0; !inWorksheet.isEmpty(); i++) {
+            double x = inWorksheet.readDouble();
+            double y = inWorksheet.readDouble();
+            Point2D p = new Point2D(x, y);
+            kdTreeTestGet1.put(p, i);
+        }
+        
+        StdOut.print("\npoint 2,3: "+kdTreeTestGet1.get(new Point2D(2,3)));
+        assertEquals(true, kdTreeTestGet1.get(new Point2D(2,3))==0);
+        StdOut.print("\npoint 4,2: "+kdTreeTestGet1.get(new Point2D(4,2)));
+        assertEquals(true, kdTreeTestGet1.get(new Point2D(4,2))==1);
+        StdOut.print("\npoint 4,5: "+kdTreeTestGet1.get(new Point2D(4,5)));
+		assertEquals(true, kdTreeTestGet1.get(new Point2D(4,5))==2);
+		StdOut.print("\npoint 3,3: "+kdTreeTestGet1.get(new Point2D(3,3)));
+		assertEquals(true, kdTreeTestGet1.get(new Point2D(3,3))==3);
+		StdOut.print("\npoint 1,5: "+kdTreeTestGet1.get(new Point2D(1,5)));
+		assertEquals(true, kdTreeTestGet1.get(new Point2D(1,5))==4);
+		StdOut.print("\npoint 4,4: "+kdTreeTestGet1.get(new Point2D(4,4)));
+		StdOut.print(" <----------??\n");
+		//assertEquals(true, kdTreeTestGet1.get(new Point2D(4,4))==5);
+	}
 
-		StdOut.println("\n----------testWorksheet------------");
-        for (int i = 0; !in1.isEmpty(); i++) {
-            double x = in1.readDouble();
-            double y = in1.readDouble();
+//	@Test
+//	public void testPointsLevelOrder() {
+//		StdOut.println("\n----------------------POINTS");
+//		StdOut.println("-----levelOrder");
+//		KdTreeST<Integer> kdTreeTestPoints1 = new KdTreeST<Integer>();
+//        for (int i = 0; !inInputLevelOrder.isEmpty(); i++) {
+//            double x = inInputLevelOrder.readDouble();
+//            double y = inInputLevelOrder.readDouble();
+//            Point2D p = new Point2D(x, y);
+//            StdOut.print(p.toString());
+//            kdTreeTestPoints1.put(p, i);
+//        }
+//        StdOut.println();
+//		StringBuilder actual = new StringBuilder();
+//		String expected = "(0.7, 0.2)(0.5, 0.4)(0.9, 0.6)(0.2, 0.3)(0.4, 0.7)";
+//		for (Point2D pnt : kdTreeTestPoints1.points()){
+//			actual.append(pnt.toString());
+//		}
+//		assertEquals(expected, actual.toString());
+//	}
+
+	@Test
+	public void testPoints2() {
+		StdOut.println("\n\n-----worksheet");
+		KdTreeST<Integer> kdTreeTestPoints2 = new KdTreeST<Integer>();
+        for (int i = 0; !inWorksheet.isEmpty(); i++) {
+            double x = inWorksheet.readDouble();
+            double y = inWorksheet.readDouble();
+            Point2D p = new Point2D(x, y);
+            StdOut.print(p.toString());
+            kdTreeTestPoints2.put(p, i);
+        }
+        StdOut.println();
+		StringBuilder actual2 = new StringBuilder();
+		String expected2 = "(2.0, 3.0)(1.0, 5.0)(4.0, 2.0)(4.0, 5.0)(3.0, 3.0)(4.0, 4.0)";
+		for (Point2D pnt : kdTreeTestPoints2.points()){
+			actual2.append(pnt.toString());
+		}
+		assertEquals(expected2, actual2.toString());
+	}	
+	
+	@Test
+	public void testPut() {
+		StdOut.print("\n------------------------PUT");
+		StdOut.println("\n-----worksheet");
+		KdTreeST<Integer> kdTreeTestPut1 = new KdTreeST<Integer>();
+        for (int i = 0; !inWorksheet.isEmpty(); i++) {
+            double x = inWorksheet.readDouble();
+            double y = inWorksheet.readDouble();
             Point2D p = new Point2D(x, y);
             StdOut.print(p.toString());
             kdTreeTestPut1.put(p, i);
         }
-        StdOut.println();
-//        StdOut.println("2,3 is: "+kdTreeTestPut1.get(new Point2D(2,3)));
-//        StdOut.println("4,5 is: "+kdTreeTestPut1.get(new Point2D(4,5)));
-        StringBuilder actual = new StringBuilder();
-        String expected = "(2.0, 3.0)(4.0, 2.0)(4.0, 5.0)(3.0, 3.0)(1.0, 5.0)(4.0, 4.0)";
-		for (Point2D pnt : kdTreeTestPut1.points()){
-			actual.append(pnt.toString());
-			StdOut.print(pnt.toString());
-		}
-			
+//--------------------------------------------------------------------------
+        StdOut.println("\n-----input10");
+		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
+        for (int i = 0; !inInput10.isEmpty(); i++) {
+            double x = inInput10.readDouble();
+            double y = inInput10.readDouble();
+            Point2D p = new Point2D(x, y);
+            StdOut.println("adding "+p.toString());
+            kdTreeTestPut2.put(p, i);
+        }
+	}
+	
+	@Test
+	public void testIsEmpty() {
+		StdOut.println("\n\n----------------------ISEMPTY");
+		KdTreeST<Integer> testIsEmpty = new KdTreeST<Integer>();
+		assertEquals(true, testIsEmpty.isEmpty());
+		StdOut.println("isEmpty: "+(testIsEmpty.isEmpty()?"true":"false"));
 		
-		assertEquals(expected, actual.toString());
-
-        
-//		In in2 = new In("/kdTreeTests/input10.txt");
-//		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
-//        for (int i = 0; !in2.isEmpty(); i++) {
-//            double x = in2.readDouble();
-//            double y = in2.readDouble();
-//            Point2D p = new Point2D(x, y);
-//            StdOut.println("adding "+p.toString());
-//            kdTreeTestPut2.put(p, i);
-//        }
-		//fail("Not yet implemented");
-		//assertEquals(expected, actual);
+		testIsEmpty.put(new Point2D(2, 3), 0);
+		StdOut.println("adding 2,3");
+		testIsEmpty.put(new Point2D(4, 5), 1);
+		StdOut.println("adding 4,5");
+		testIsEmpty.put(new Point2D(6, 7), 2);
+		StdOut.println("adding 6,7");
+		assertEquals(false, testIsEmpty.isEmpty());
+		StdOut.println("isEmpty: "+(testIsEmpty.isEmpty()?"true":"false"));
 	}
 	
 	/*	
-	@Test
-	public void testIsEmpty() {
-StdOut.println("\n----------testIsEmpty------------");
-		KdTreeST<Point2D> kDTest02 = new KdTreeST<Point2D>();
-		assertEquals(true, kDTest02.isEmpty());
-		
-		kDTest02.put(testPoint23, testPoint23);
-		kDTest02.put(testPoint42, testPoint42);
-		assertEquals(false, kDTest02.isEmpty());
-	}
-	
-
 	@Test
 	public void testSize() {
 StdOut.println("\n----------testSize------------");
@@ -76,9 +136,13 @@ StdOut.println("\n----------testSize------------");
 		kDTest03.put(testPoint42, testPoint42);
 		assertEquals(3, kDTest03.size());
 	}
+	
+	
 
 	@Test
 	public void testGet() {
+	//        StdOut.println("2,3 parent is: "+kdTreeTestPut1.get(new Point2D(2,3)));
+//        StdOut.println("4,5 parent is: "+kdTreeTestPut1.get(new Point2D(4,5)));
 		fail("Not yet implemented");
 	}
 
@@ -87,10 +151,7 @@ StdOut.println("\n----------testSize------------");
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testPoints() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testRange() {

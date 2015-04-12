@@ -1,11 +1,11 @@
 package kdTree;
 
 import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.introcs.StdOut;
 
 @SuppressWarnings("unused")
 public class KdTreeST<Value> {
 	
+	//TODO: deprecate orientation
 	private enum Oriented {
 		VERTICALLY, HORIZONTALLY;
 		                 /**
@@ -34,15 +34,17 @@ public class KdTreeST<Value> {
 		   private RectHV rect;			// the axis-aligned rectangle corresponding to this node
 		   private Node leftBottom;		// the left/bottom subtree
 		   private Node rightTop;		// the right/top subtree
-		   private Oriented orientation;// vertical or horizontal
-		   
-		   public Node(Point2D point, Value value, Oriented orientation){
+		   private Node parent;			// the node above
+		   private int level;			// the tree level the node is on
+
+		   public Node(Point2D point, Value value, Node parent, int level){
 			   this.point = point;
 			   this.value = value;
-			   this.orientation = orientation;
+			   this.parent = parent;
+			   this.level = level;
 		   }
 	}
-	
+
 	public KdTreeST() {
 		 
 	}
@@ -72,54 +74,44 @@ public class KdTreeST<Value> {
 	 */
 	public void put(Point2D point, Value val){
 		if (val == null)	throw new IllegalArgumentException ("Unable to insert null value into KDTree");
-		root = put(root, point, val, Oriented.VERTICALLY);
-		root.rect = new RectHV(Double.MIN_VALUE, Double.MIN_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+		RectHV infinity = new RectHV(Double.MIN_VALUE, Double.MIN_VALUE, Double.MAX_VALUE, Double.MAX_VALUE );
+		root = put(	root, null, point, infinity, val, 0);
 		N++;
 	}
 	
-	
-	private Node put(Node node, Point2D point, Value val, Oriented orientation) {
-
-		if (node == null){
-			return new Node(point, val, orientation);
-		}
-		
-		if (node.orientation == Oriented.VERTICALLY){
+	private Node put(Node node, Node parent, Point2D point, RectHV rect, Value val, int level) {
+		if (node == null)	return new Node(point, val, node, level+1);
+		if (node.level % 2 == 1){
 			if (point.x()-node.point.x() <  0)	
-				node.leftBottom = put(node.leftBottom, point, val, Oriented.HORIZONTALLY);
+				node.leftBottom = put(node.leftBottom, node, point, rect, val, level+1);
 			if (point.x()-node.point.x() >= 0)	
-				node.rightTop   = put(node.rightTop,   point, val, Oriented.HORIZONTALLY);
-			
+				node.rightTop   = put(node.rightTop,   node, point, rect, val, level+1);
 			if (point.x() > minX)			minX = node.point.x();
 			if (point.x() < minX)			minX = Double.MIN_VALUE;
 			if (point.x() < maxX)			maxX = node.point.x();
 			if (point.x() > maxX)			maxX = Double.MAX_VALUE;
-			
 		}
-		if (node.orientation == Oriented.HORIZONTALLY){
+		if (node.level % 2 == 0){
 			if (point.y()-node.point.y() <  0)
-				node.leftBottom = put(node.leftBottom, point, val, Oriented.VERTICALLY);		
+				node.leftBottom = put(node.leftBottom, node, point, rect, val, level+1);		
 			if (point.y()-node.point.y() >= 0)
-				node.rightTop   = put(node.rightTop,   point, val, Oriented.VERTICALLY);
+				node.rightTop   = put(node.rightTop,   node, point, rect, val, level+1);
 			
 			if (point.y() > minY)			minY = node.point.y();
 			if (point.y() < minY)			minY = Double.MIN_VALUE;
 			if (point.y() < maxY)			maxY = node.point.y();
 			if (point.y() > maxY)			maxY = Double.MAX_VALUE;
-			
 		}
-		node.rect = new RectHV(minX, minY, maxX, maxY);
 		return node;
 	}
 	
-
 	/**
 	* returns the value associated with a given point
 	* @param a point of type Point2D
 	* @return the value associated with a given point
 	*/
-	public Value get(Point2D p){ 
-		return get(root, p, Oriented.HORIZONTALLY);
+	public Value get(Point2D p){
+		return get(root, p);
 	}
 	
 	/**
@@ -129,32 +121,17 @@ public class KdTreeST<Value> {
 	 * @param o
 	 * @return
 	 */
-	private Value get(Node root2, Point2D p, Oriented o) {
-		if (root2 == null)			return null;
-		if (root2.point.equals(p))	return root2.value;
-		int cmp = compare(p, root2.point, o);
-		Oriented oNext = Oriented.next();			// Looks at the orientation of the next node.
-		if (cmp < 0) {
-			return get(root2.leftBottom, p, oNext);
-		} else
-			return get(root2.rightTop, p, oNext);
+	private Value get(Node node, Point2D point) { 
+		if (node == null)	return null;
+		int cmp = 0;
+		if (node.level % 2 == 1)	cmp = Double.compare(point.x(), node.point.x());
+		if (node.level % 2 == 0) 	cmp = Double.compare(point.y(), node.point.y());
+        if (cmp < 0) 		return get(node.leftBottom, point);
+        else if (cmp > 0)	return get(node.rightTop, point);
+        else             	return node.value;
 	}
 	
 	
-		/**
-	* Private helper methods that compares two points
-	* @param p
-	* @param q
-	* @param o
-	* @return
-	*/
-	private int compare(Point2D p, Point2D q, Oriented o) {
-        if (o == Oriented.HORIZONTALLY) {
-            return Double.compare(p.x(), q.x());
-        } else {
-            return Double.compare(p.y(), q.y());
-        }
-    }
 	
 	/**
 	 * return whether or not this table contains given point
@@ -165,7 +142,6 @@ public class KdTreeST<Value> {
 		return false;
 
 	}
-	
 	
     public Iterable<Point2D> points() {
         return points(min(), max());
@@ -183,12 +159,13 @@ public class KdTreeST<Value> {
 	 
     private void points(Node node, Queue<Point2D> queue, Point2D lo, Point2D hi) { 
         if (node == null) return; 
-      	queue.enqueue(node.point); 
+      	queue.enqueue(node.point);
        	points(node.leftBottom, queue, lo, hi); 
-       	points(node.rightTop, queue, lo, hi); 
-        
+       	points(node.rightTop, queue, lo, hi);  
     } 
-    private Point2D min() {
+
+
+	private Point2D min() {
     	if (isEmpty()) return null;
     	return min(root).point;
     } 
@@ -228,10 +205,9 @@ public class KdTreeST<Value> {
 		return p; 
 	}
 	
-	public static void main(String[] args){
-
-
+	public static void main(String[] args){  
+        
 	}
-	
 
+	
 }
