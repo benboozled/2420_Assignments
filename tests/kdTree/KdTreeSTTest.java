@@ -17,9 +17,20 @@ public class KdTreeSTTest {
 	In inInput100K = new In("/kdTreeTests/input100K.txt");
 	In inInput1M = new In("/kdTreeTests/input1M.txt");
 
-	@Ignore
+	@Test
 	public void testNearest() {
-		fail("Not yet implemented");
+		//StdOut.println("\n-----input1M");
+		KdTreeST<Integer> kdTreeTestNear1 = new KdTreeST<Integer>();
+		for (int i = 0; !inInput1M.isEmpty(); i++) {
+			double x = inInput1M.readDouble();
+			double y = inInput1M.readDouble();
+			Point2D p = new Point2D(x, y);
+			kdTreeTestNear1.put(p, i);
+		}
+		StdOut.print("Nearest: (0.723941, 0.966772)\n         "
+				+kdTreeTestNear1.nearest(new Point2D(0.723941, 0.966772))+"");
+		StdOut.print("\nNearest: (0.052521, 0.273311)\n         "
+				+kdTreeTestNear1.nearest(new Point2D(0.052521, 0.273311))+"");
 	}	
 
 	@Ignore
