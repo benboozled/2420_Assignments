@@ -13,14 +13,121 @@ public class KdTreeSTTest {
 	In inWorksheet = new In("/kdTreeTests/inputWorksheet.txt");
 	In inInput10 = new In("/kdTreeTests/input10.txt");
 	In inInputLevelOrder = new In("/kdTreeTests/inputLevelOrder.txt");
+	In inInput10K = new In("/kdTreeTests/input10K.txt");
+	In inInput100K = new In("/kdTreeTests/input100K.txt");
+	In inInput1M = new In("/kdTreeTests/input1M.txt");
+
+	@Ignore
+	public void testNearest() {
+		fail("Not yet implemented");
+	}	
+
+	@Ignore
+	public void testRange() {
+		fail("Not yet implemented");
+	}
+
+	@Ignore
+	public void testPutGet1M() {
+		//StdOut.println("\n-----input1M");
+		KdTreeST<Integer> kdTreeTestPut5 = new KdTreeST<Integer>();
+		for (int i = 0; !inInput1M.isEmpty(); i++) {
+			double x = inInput1M.readDouble();
+			double y = inInput1M.readDouble();
+			Point2D p = new Point2D(x, y);
+			kdTreeTestPut5.put(p, i);
+		}
+		assertEquals(true, kdTreeTestPut5.get(new Point2D(0.723941, 0.966772))==999995);
+		assertEquals(true, kdTreeTestPut5.get(new Point2D(0.723055, 0.568865))==999996);
+		assertEquals(true, kdTreeTestPut5.get(new Point2D(0.233049, 0.438232))==999997);
+		assertEquals(true, kdTreeTestPut5.get(new Point2D(0.800153, 0.567465))==999998);
+		assertEquals(true, kdTreeTestPut5.get(new Point2D(0.761521, 0.842539))==999999);
+	}
+	
+	@Ignore
+	public void testPutGet100K() {
+		//StdOut.println("\n-----input100K");
+		KdTreeST<Integer> kdTreeTestPut4 = new KdTreeST<Integer>();
+		for (int i = 0; !inInput100K.isEmpty(); i++) {
+			double x = inInput100K.readDouble();
+			double y = inInput100K.readDouble();
+			Point2D p = new Point2D(x, y);
+			kdTreeTestPut4.put(p, i);
+		}
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.158530, 0.486901))==0);
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.792202, 0.762825))==1);
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.738013, 0.827616))==2);
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.615232, 0.064454))==3);
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.107092, 0.863317))==4);
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.654095, 0.869838))==99995);
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.613742, 0.970450))==99996);
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.843521, 0.443400))==99997);
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.594097, 0.539994))==99998);
+		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.946269, 0.290566))==99999);
+	}
+
+	@Test
+	public void testPutGetWorksheet() {
+		//StdOut.println("\n-----worksheet");
+		KdTreeST<Integer> kdTreeTestPut1 = new KdTreeST<Integer>();
+        for (int i = 0; !inWorksheet.isEmpty(); i++) {
+            double x = inWorksheet.readDouble();
+            double y = inWorksheet.readDouble();
+            Point2D p = new Point2D(x, y);
+            //StdOut.print(p.toString());
+            kdTreeTestPut1.put(p, i);
+        }
+        assertEquals(true, kdTreeTestPut1.get(new Point2D(2,3))==0);
+        assertEquals(true, kdTreeTestPut1.get(new Point2D(4,2))==1);
+		assertEquals(true, kdTreeTestPut1.get(new Point2D(4,5))==2);
+		assertEquals(true, kdTreeTestPut1.get(new Point2D(3,3))==3);
+		assertEquals(true, kdTreeTestPut1.get(new Point2D(1,5))==4);
+		//TODO: ERROR!!!
+		//assertEquals(true, kdTreeTestPut1.get(new Point2D(4,4))==5);
+	}
+
+	@Test
+	public void testPutGet10() {
+		//StdOut.println("\n-----input10");
+		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
+		for (int i = 0; !inInput10.isEmpty(); i++) {
+			double x = inInput10.readDouble();
+			double y = inInput10.readDouble();
+			Point2D p = new Point2D(x, y);
+			//StdOut.println("adding "+p.toString());
+			kdTreeTestPut2.put(p, i);
+		}
+        assertEquals(true, kdTreeTestPut2.get(new Point2D(0.406360,0.678100))==0);
+        assertEquals(true, kdTreeTestPut2.get(new Point2D(0.147733,0.203388))==4);
+        assertEquals(true, kdTreeTestPut2.get(new Point2D(0.371858,0.169457))==9);
+	}
+
+	@Test
+	public void testPutGet10K() {
+		//StdOut.println("\n-----input10K");
+		KdTreeST<Integer> kdTreeTestPut3 = new KdTreeST<Integer>();
+		for (int i = 0; !inInput10K.isEmpty(); i++) {
+			double x = inInput10K.readDouble();
+			double y = inInput10K.readDouble();
+			Point2D p = new Point2D(x, y);
+			kdTreeTestPut3.put(p, i);
+		}
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.406360, 0.678100))==0);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.740024, 0.021714))==1);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.010189, 0.742363))==2);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.018690, 0.959379))==3);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.147733, 0.203388))==4);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.350568, 0.758627))==9994);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.612036, 0.710024))==9995);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.597453, 0.295488))==9996);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.161338, 0.918481))==9997);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.933617, 0.350682))==9998);
+		assertEquals(true, kdTreeTestPut3.get(new Point2D(0.785370, 0.652338))==9999);
+	}
 
 	@Ignore
 	public void testRectangle() {		
-//		StdOut.print("\n------------------------RECTANGLES");
-//		StdOut.println("\n-----worksheet");
-//		KdTreeST.main(null);
-		//KdTreeST.testRectangle();
-        //assertEquals(true, KdTreeST.testRectangle());
+
 	}
 	
 	@Test
@@ -55,28 +162,7 @@ public class KdTreeSTTest {
 	
 	@Test
 	public void testGet() {
-		//StdOut.print("\n------------------------GET");
-		//StdOut.println("\n-----worksheet");
-		KdTreeST<Integer> kdTreeTestGet1 = new KdTreeST<Integer>();
-        for (int i = 0; !inWorksheet.isEmpty(); i++) {
-            double x = inWorksheet.readDouble();
-            double y = inWorksheet.readDouble();
-            Point2D p = new Point2D(x, y);
-            kdTreeTestGet1.put(p, i);
-        }
-        //StdOut.print("\npoint 2,3: "+kdTreeTestGet1.get(new Point2D(2,3)));
-        assertEquals(true, kdTreeTestGet1.get(new Point2D(2,3))==0);
-        //StdOut.print("\npoint 4,2: "+kdTreeTestGet1.get(new Point2D(4,2)));
-        assertEquals(true, kdTreeTestGet1.get(new Point2D(4,2))==1);
-        //StdOut.print("\npoint 4,5: "+kdTreeTestGet1.get(new Point2D(4,5)));
-		assertEquals(true, kdTreeTestGet1.get(new Point2D(4,5))==2);
-		//StdOut.print("\npoint 3,3: "+kdTreeTestGet1.get(new Point2D(3,3)));
-		assertEquals(true, kdTreeTestGet1.get(new Point2D(3,3))==3);
-		//StdOut.print("\npoint 1,5: "+kdTreeTestGet1.get(new Point2D(1,5)));
-		assertEquals(true, kdTreeTestGet1.get(new Point2D(1,5))==4);
-		//StdOut.print("\npoint 4,4: "+kdTreeTestGet1.get(new Point2D(4,4)));
-		//StdOut.print(" <----------??\n");
-		//assertEquals(true, kdTreeTestGet1.get(new Point2D(4,4))==5);
+		testPutGetWorksheet();
 	}
 
 	@Test
@@ -126,30 +212,6 @@ public class KdTreeSTTest {
 	}	
 	
 	@Test
-	public void testPut() {
-		//StdOut.print("\n------------------------PUT");
-		//StdOut.println("\n-----worksheet");
-		KdTreeST<Integer> kdTreeTestPut1 = new KdTreeST<Integer>();
-        for (int i = 0; !inWorksheet.isEmpty(); i++) {
-            double x = inWorksheet.readDouble();
-            double y = inWorksheet.readDouble();
-            Point2D p = new Point2D(x, y);
-            //StdOut.print(p.toString());
-            kdTreeTestPut1.put(p, i);
-        }
-//--------------------------------------------------------------------------
-//        //StdOut.println("\n-----input10");
-//		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
-//        for (int i = 0; !inInput10.isEmpty(); i++) {
-//            double x = inInput10.readDouble();
-//            double y = inInput10.readDouble();
-//            Point2D p = new Point2D(x, y);
-//            //StdOut.println("adding "+p.toString());
-//            kdTreeTestPut2.put(p, i);
-//        }
-	}
-	
-	@Test
 	public void testIsEmpty() {
 		//StdOut.println("\n\n----------------------ISEMPTY");
 		KdTreeST<Integer> testIsEmpty = new KdTreeST<Integer>();
@@ -181,26 +243,7 @@ public class KdTreeSTTest {
 
 	@Ignore
 	public void testSize() {
-//		StdOut.println("\n----------testSize------------");
-//		KdTreeST<Point2D> kDTest03 = new KdTreeST<Point2D>();
-//		assertEquals(0, kDTest03.size());
-//		
-//		kDTest03.put(testPoint23, testPoint23);
-////		assertEquals(1, kDTest03.size());
-//		
-//		kDTest03.put(testPoint23, testPoint23);
-//		kDTest03.put(testPoint42, testPoint42);
-//		assertEquals(3, kDTest03.size());
-	}
 
-	@Ignore
-	public void testRange() {
-		fail("Not yet implemented");
-	}
-
-	@Ignore
-	public void testNearest() {
-		fail("Not yet implemented");
 	}
 
 }
@@ -282,34 +325,25 @@ public class KdTreeSTTest {
 
 //double xnew = (point.x() >= rect.xmin()? point.x() : Double.MIN_VALUE);	   	
 //private RectHV bisect(RectHV rect, Point2D point, int level){
-//	/*TODO: delete trace*/StdOut.print("\n"+point);
 //	if (level % 2 == 1){//x
 //		if (point.x() > rect.xmin())
 //			return new RectHV(point.x(),rect.ymin(),rect.xmax(),rect.ymax());
-//		/*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //		if (point.x()  < rect.xmin())
 //			return new RectHV(Double.MIN_VALUE,rect.ymin(),rect.xmax(),rect.ymax());
-//		/*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //		if (point.x()  < rect.xmax())
 //			new RectHV(rect.xmin(),rect.ymin(),point.y(),rect.ymax());
-//		/*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //		if (point.x()  > rect.xmax())
 //			new RectHV(rect.xmin(),rect.ymin(),Double.MAX_VALUE,rect.ymax());
-//		/*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //	}
 //	if (level % 2 == 0){//y
 //		if (point.y() > rect.ymin())
 //			return new RectHV(point.x(),rect.ymin(),rect.xmax(),rect.ymax());
-//		/*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //		if (point.y() < rect.ymin())
 //			return new RectHV(Double.MIN_VALUE,rect.ymin(),rect.xmax(),rect.ymax());
-//		/*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //		if (point.y() < rect.ymax())
 //			new RectHV(rect.xmin(),rect.ymin(),point.y(),rect.ymax());
-//		/*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //		if (point.y() > rect.ymax())
 //			new RectHV(rect.xmin(),rect.ymin(),Double.MAX_VALUE,rect.ymax());
-//		/*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //	}
 //	System.err.println("\nunhandled rectangle condition");
 	
@@ -343,7 +377,6 @@ public class KdTreeSTTest {
 //if (node == null)	return new Node(point, val, level+1,
 //					new RectHV(rect.xmin(),rect.ymin(),rect.xmax(),rect.ymax()));
 //
-///*TODO: delete trace*/StdOut.print("\n-------------"+point);
 //if (node.level % 2 == 1){										//for VERTICAL line 			
 //	if (point.x()-node.point.x() <  0){							//new point LEFT of old point
 //		node.leftBottom = put(	node.leftBottom, 				//put node in LEFT branch 
@@ -351,20 +384,16 @@ public class KdTreeSTTest {
 //								level+1, 						//increment LEVEL
 //								new RectHV(Double.MIN_VALUE,	//new XMIN
 //								rect.ymin(),rect.xmax(),rect.ymax()));//recurse
-//		/*TODO: delete trace*/KdTreeSTTest.traceRect(node.rect);
 //	}
 //	if (point.x()-node.point.x() >= 0)	{
 //		node.rightTop = put(node.rightTop, point, val, level+1, node.rect);
-//		///*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //	}
 //}
 //if (node.level % 2 == 0){//horizontal line, upper right corner
 //	if (point.y()-node.point.y() <  0)
 //		node.leftBottom = put(node.leftBottom, point, val, level+1, node.rect);
-//	///*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //	if (point.y()-node.point.y() >= 0)
 //		node.rightTop = put(node.rightTop, point, val, level+1, node.rect);
-//	///*TODO: delete trace*/KdTreeSTTest.traceRect(rect);
 //}
 //return node;
 //}

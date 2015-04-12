@@ -1,19 +1,11 @@
 package kdTree;
 
 import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.introcs.StdOut;
-
 
 public class KdTreeST<Value> {
 
 	private Node root;
 	private int N;
-	
-//	private double minX = Double.MIN_VALUE;
-//	private double minY = Double.MIN_VALUE;
-//	private double maxX = Double.MAX_VALUE;
-//	private double maxY = Double.MAX_VALUE;
-//	private RectHV infinity = new RectHV(minX, minY, maxX, maxY );
 	
 	private class Node {
 		private Point2D point;		// the point
@@ -67,17 +59,13 @@ public class KdTreeST<Value> {
 			if (point.x()-node.point.x() <  0)	
 				node.leftBottom = put(node.leftBottom, point, val, level+1);
 			if (point.x()-node.point.x() >= 0)	
-				node.rightTop   = put(node.rightTop,   point, val, level+1);
-//			minX = point.x() <  minX? node.point.x() : Double.MIN_VALUE;
-//			maxX = point.x() >= maxX? Double.MIN_VALUE : node.point.x();			
+				node.rightTop   = put(node.rightTop,   point, val, level+1);	
 		}
 		if (node.level % 2 == 0){
 			if (point.y()-node.point.y() <  0)
 				node.leftBottom = put(node.leftBottom, point, val, level+1);		
 			if (point.y()-node.point.y() >= 0)
-				node.rightTop   = put(node.rightTop,   point, val, level+1);
-//			minY = point.y() <  minY? node.point.y() : Double.MIN_VALUE;
-//			maxY = point.y() >= maxY? Double.MIN_VALUE : node.point.y();				
+				node.rightTop   = put(node.rightTop,   point, val, level+1);			
 		}
 		return node;
 	}
@@ -137,7 +125,7 @@ public class KdTreeST<Value> {
 	 * @param a rectangle of type RectHV
 	 * @return all points that are inside the rectangle 
 	 */
-	public Iterable<Point2D> range(RectHV rect){//TODO: all points that are inside the rectangle 
+	public Iterable<Point2D> range(RectHV rect){
 		Queue<Point2D> queue = new 	Queue<Point2D>();
 		// for each point that is returned points(), enqueue the point to a queue if it is contained in the rectangle
         for (Point2D p: points()) {
