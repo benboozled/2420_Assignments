@@ -14,6 +14,31 @@ public class KdTreeSTTest {
 	In inInputLevelOrder = new In("/kdTreeTests/inputLevelOrder.txt");
 
 	@Test
+	public void testContains() {
+		StdOut.print("\n------------------------CONTAINS");
+		StdOut.println("\n-----worksheet");
+		KdTreeST<Integer> kdTreeTestContains1 = new KdTreeST<Integer>();
+        for (int i = 0; !inWorksheet.isEmpty(); i++) {
+            double x = inWorksheet.readDouble();
+            double y = inWorksheet.readDouble();
+            Point2D p = new Point2D(x, y);
+            kdTreeTestContains1.put(p, i);
+        }
+        StdOut.print("\npoint 2,3: "+kdTreeTestContains1.contains(new Point2D(2,3)));
+        assertEquals(true, kdTreeTestContains1.contains(new Point2D(2,3)));
+        StdOut.print("\npoint 4,2: "+kdTreeTestContains1.contains(new Point2D(4,2)));
+        assertEquals(true, kdTreeTestContains1.contains(new Point2D(4,2)));
+        StdOut.print("\npoint 4,5: "+kdTreeTestContains1.contains(new Point2D(4,5)));
+		assertEquals(true, kdTreeTestContains1.contains(new Point2D(4,5)));
+		StdOut.print("\npoint 3,3: "+kdTreeTestContains1.contains(new Point2D(3,3)));
+		assertEquals(true, kdTreeTestContains1.contains(new Point2D(3,3)));
+		StdOut.print("\npoint 1,5: "+kdTreeTestContains1.contains(new Point2D(1,5)));
+		assertEquals(true, kdTreeTestContains1.contains(new Point2D(1,5)));
+		StdOut.print("\npoint 4,4: "+kdTreeTestContains1.contains(new Point2D(4,4)));
+		assertEquals(true, kdTreeTestContains1.contains(new Point2D(4,4)));
+	}
+	
+	@Test
 	public void testGet() {
 		StdOut.print("\n------------------------GET");
 		StdOut.println("\n-----worksheet");
@@ -24,7 +49,6 @@ public class KdTreeSTTest {
             Point2D p = new Point2D(x, y);
             kdTreeTestGet1.put(p, i);
         }
-        
         StdOut.print("\npoint 2,3: "+kdTreeTestGet1.get(new Point2D(2,3)));
         assertEquals(true, kdTreeTestGet1.get(new Point2D(2,3))==0);
         StdOut.print("\npoint 4,2: "+kdTreeTestGet1.get(new Point2D(4,2)));

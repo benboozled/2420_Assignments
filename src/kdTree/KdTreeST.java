@@ -1,6 +1,7 @@
 package kdTree;
 
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.introcs.StdOut;
 
 @SuppressWarnings("unused")
 public class KdTreeST<Value> {
@@ -130,18 +131,16 @@ public class KdTreeST<Value> {
         else if (cmp > 0)	return get(node.rightTop, point);
         else             	return node.value;
 	}
-	
-	
-	
+
 	/**
 	 * return whether or not this table contains given point
 	 * @param a point of type Point2D
 	 * @return whether or not this table contains given point
 	 */
-	public boolean contains(Point2D p){
-		return false;
-
+	public boolean contains(Point2D point){
+		return get(root, point)!=null;
 	}
+	
 	
     public Iterable<Point2D> points() {
         return points(min(), max());
@@ -163,7 +162,6 @@ public class KdTreeST<Value> {
        	points(node.leftBottom, queue, lo, hi); 
        	points(node.rightTop, queue, lo, hi);  
     } 
-
 
 	private Point2D min() {
     	if (isEmpty()) return null;
