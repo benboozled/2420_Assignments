@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
 
@@ -18,6 +19,34 @@ public class KdTreeSTTest {
 	In inInput1M = new In("/kdTreeTests/input1M.txt");
 
 	@Test
+	public void testRange() {
+		//StdOut.println("\n-----input10K");
+		KdTreeST<Integer> kdTreeTestRange1 = new KdTreeST<Integer>();
+		for (int i = 0; !inInput10K.isEmpty(); i++) {
+			double x = inInput10K.readDouble();
+			double y = inInput10K.readDouble();
+			Point2D p = new Point2D(x, y);
+			kdTreeTestRange1.put(p, i);
+		}
+		double lowLeft = 0.0; 
+		double upRight = 0.5;
+		RectHV rect = new RectHV(lowLeft, lowLeft, upRight, upRight);
+		Iterable<Point2D> range = kdTreeTestRange1.range(rect);
+		Queue<Point2D> q = new Queue<>();
+		for(Point2D p : q){
+			assertEquals(true, (p.x() > lowLeft && p.x() < upRight && 
+								p.y() > lowLeft && p.y() < upRight ));
+		}
+		
+		
+		
+//		StdOut.print("\nrange: ");
+//		for(Point2D pnt : range)	 StdOut.print(pnt.toString()+"\n");
+		
+		//assertEquals(true, kdTreeTestRange1.get(new Point2D(0.158530, 0.486901))==0);
+	}
+
+	@Test
 	public void testNearest() {
 		//StdOut.println("\n-----input1M");
 		KdTreeST<Integer> kdTreeTestNear1 = new KdTreeST<Integer>();
@@ -27,16 +56,11 @@ public class KdTreeSTTest {
 			Point2D p = new Point2D(x, y);
 			kdTreeTestNear1.put(p, i);
 		}
-		StdOut.print("Nearest: (0.723941, 0.966772)\n         "
-				+kdTreeTestNear1.nearest(new Point2D(0.723941, 0.966772))+"");
-		StdOut.print("\nNearest: (0.052521, 0.273311)\n         "
-				+kdTreeTestNear1.nearest(new Point2D(0.052521, 0.273311))+"");
+		Point2D pnt1 = kdTreeTestNear1.nearest(new Point2D(0.723941, 0.966772));
+		StdOut.print("Nearest: (0.723941, 0.966772)\n         "+pnt1+"");
+		Point2D pnt2 = kdTreeTestNear1.nearest(new Point2D(0.052521, 0.273311));
+		StdOut.print("\nNearest: (0.052521, 0.273311)\n         "+pnt2+"");
 	}	
-
-	@Ignore
-	public void testRange() {
-		fail("Not yet implemented");
-	}
 
 	@Ignore
 	public void testPutGet1M() {
@@ -94,7 +118,8 @@ public class KdTreeSTTest {
 		assertEquals(true, kdTreeTestPut1.get(new Point2D(3,3))==3);
 		assertEquals(true, kdTreeTestPut1.get(new Point2D(1,5))==4);
 		//TODO: ERROR!!!
-		//assertEquals(true, kdTreeTestPut1.get(new Point2D(4,4))==5);
+		int five = kdTreeTestPut1.get(new Point2D(4,4));
+		//assertEquals(5, five);
 	}
 
 	@Test

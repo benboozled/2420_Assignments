@@ -135,23 +135,17 @@ public class KdTreeST<Value> {
         return queue; 
 	}
 	
-	/**
-	 * Returns the nearest neighbor of a given point.
-	 * @param a point of type Point2D
-	 * @return the nearest neighbor of a given point, null if the table is empty
-	 */
 	public Point2D nearest(Point2D p) {               // a nearest neighbor in the set to p; null if set is empty
 		if (p == null) 
 			throw new NullPointerException("Null pointer exception");
-		double nearest = 1.5;
-        Point2D nearestP = null;
-        for (Point2D p2: points()) {
-        	if (p2.distanceSquaredTo(p) < nearest) {
-        		nearest = p2.distanceSquaredTo(p);
-        			nearestP = p2;
-            }            
-        }
-        return nearestP;
+		Point2D nearest = p;
+		Double dist = Double.MAX_VALUE;
+		for (Point2D p2 : points())
+			if (p.distanceSquaredTo(p2) < dist && !p2.equals(p)) {
+				nearest = p2;
+				dist = p.distanceSquaredTo(p2);
+			}
+		return nearest;
 	}
 		
 	public static void main(String[] args){  
