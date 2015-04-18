@@ -1,5 +1,22 @@
 package kdTree;
 
+/**
+ * @author Joshua Hardesty
+ * @author David Weber
+ * Assignment: A05 Kd-Tree
+ * Created: 03/30/2015
+ * Modified: 04/18/2015
+ * 
+ * Dependencies: Point2D.java, RectHV.java
+ * 
+ * Implementation of 2D axis-aligned rectangle
+ * Subset lifted from http://algs4.cs.princeton.edu/code/RectHV.java.html
+ *
+ * Sources and assistance: 
+ * 		- Various code from algs4.cs.princeton.edu
+ * 		- Some explanation of recursive methodology from Melissa Weber
+ */
+
 import edu.princeton.cs.algs4.Queue;
 
 public class KdTreeST<Value> {
@@ -20,6 +37,9 @@ public class KdTreeST<Value> {
 		}  
 	}
 
+	/**
+	 * The constructor.
+	 */
 	public KdTreeST() {
 		 
 	}
@@ -43,7 +63,9 @@ public class KdTreeST<Value> {
 	}
 	
 	/**
-	 * Associates a given value with a given point
+	 * Associates a given value with a given point. This method is
+	 * non-recursive but initiates a recursive, private, overloaded
+	 * method which creates the binary tree.  
 	 * @param a point of type Point2D
 	 * @param a value to associate with given point
 	 */
@@ -53,6 +75,16 @@ public class KdTreeST<Value> {
 		N++;
 	}
 	
+	/** This method is recursive. When reaching a null node
+	 *  a new node is created and the method resets the antecedent 
+	 *  nodes accordingly.
+	 * @param node: node which holds the values for Point and Value
+	 * @param point: 2-dimensional point represented by the tree
+	 * @param value: value associated with a given node in the tree
+	 * @param level: hierarchical level in the binary tree 
+	 * 		  	(root = 0, root leftBottom & rightTop = 1, etc.)
+	 * @return returns the node. 
+	 */
 	private Node put(Node node, Point2D point, Value val, int level) {
 		if (node == null) 	return new Node(point, val, level+1);
 		if (node.level % 2 == 1){
@@ -80,11 +112,11 @@ public class KdTreeST<Value> {
 	}
 	
 	/**
-	 * Private helper method for get
-	 * @param root2
-	 * @param p
-	 * @param o
-	 * @return
+	 * A recursive method which traverses the tree and returns the 
+	 * node and point associated with that node. 
+	 * @param node
+	 * @param point
+	 * @return returns node and point
 	 */
 	private Value get(Node node, Point2D point) { 
 		if (node == null)	return null;
@@ -105,6 +137,10 @@ public class KdTreeST<Value> {
 		return get(root, point)!=null;
 	}
 
+	/**
+	 * Returns a Point2D Iterable containing all the points in the tree
+	 * @return all the points in the tree
+	 */
     public Iterable<Point2D> points() {
         Queue<Point2D> points = new Queue<Point2D>();
         Queue<Node> queue = new Queue<Node>();
@@ -120,10 +156,9 @@ public class KdTreeST<Value> {
     }
     	
 	/**
-	 * returns a range of points that are contained within a given rectangle
-	 * Easier said then done though, eh?
-	 * @param a rectangle of type RectHV
-	 * @return all points that are inside the rectangle 
+	 * Returns a Point2D Iterable containing all the points in a given rectangle
+	 * @param RectHV used to query which points are contained in a given area
+	 * @return All the points in a given rectangle
 	 */
 	public Iterable<Point2D> range(RectHV rect){
 		Queue<Point2D> queue = new 	Queue<Point2D>();
@@ -135,7 +170,12 @@ public class KdTreeST<Value> {
         return queue; 
 	}
 	
-	public Point2D nearest(Point2D p) {               // a nearest neighbor in the set to p; null if set is empty
+	/**
+	 * returns the nearest neighbor to a given point. 
+	 * @param The point being queried
+	 * @return the nearest neighbor in the set to p; null if set is empty
+	 */
+	public Point2D nearest(Point2D p) {
 		if (p == null) 
 			throw new NullPointerException("Null pointer exception");
 		Point2D nearest = p;

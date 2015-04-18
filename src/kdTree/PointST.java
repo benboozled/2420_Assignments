@@ -2,11 +2,20 @@ package kdTree;
 
 import edu.princeton.cs.algs4.RedBlackBST;
 
+/**
+ * @author Joshua Hardesty
+ * @author David Weber
+ * Assignment: A05 Kd-Tree
+ * Created: 03/30/2015
+ * Modified: 04/18/2015
+ * 
+ * Dependencies: RedBlackBST
+ */
+
 public class PointST<Value> {
 	
 	RedBlackBST<Point2D, Value> points = new RedBlackBST<>();
 
-	
 	public PointST() {
 		 
 	}
@@ -76,7 +85,7 @@ public class PointST<Value> {
 	 * @param a rectangle of type RectHV
 	 * @return all points that are inside the rectangle 
 	 */
-	public Iterable<Point2D> range(RectHV rect){//TODO: all points that are inside the rectangle 
+	public Iterable<Point2D> range(RectHV rect){
 		if (rect == null) 
 			throw new NullPointerException("Null pointer exception");
 		
@@ -88,7 +97,7 @@ public class PointST<Value> {
 	 * @param a point of type Point2D
 	 * @return the nearest neighbor of a given point, null if the table is empty
 	 */
-	public Point2D nearest(Point2D p){//TODO: a nearest neighbor to point p; null if the symbol table is empty
+	public Point2D nearest(Point2D p){
 		if (p == null) 
 			throw new NullPointerException("Null pointer exception");
 		
