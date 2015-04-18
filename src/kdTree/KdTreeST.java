@@ -18,6 +18,7 @@ package kdTree;
  */
 
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.introcs.StdOut;
 
 public class KdTreeST<Value> {
 
@@ -188,8 +189,34 @@ public class KdTreeST<Value> {
 		return nearest;
 	}
 		
-	public static void main(String[] args){  
-
+	public static void main(String[] args){
+		Point2D testPoint23 = new Point2D(2,3);	
+		Point2D testPoint22 = new Point2D(2,2);
+		Point2D testPoint33 = new Point2D(3,3);
+		Point2D testPoint42 = new Point2D(4,2);		
+		Point2D testPoint45 = new Point2D(4,5);	
+		Point2D testPoint77 = new Point2D(7,7);
+		
+		KdTreeST<Point2D> kdst = new KdTreeST<>();
+		
+		kdst.put(testPoint23, testPoint23);
+		kdst.put(testPoint22, testPoint22);
+		kdst.put(testPoint33, testPoint33);
+		kdst.put(testPoint42, testPoint42);
+		kdst.put(testPoint45, testPoint45);
+		kdst.put(testPoint77, testPoint77);
+		
+		StdOut.println("kdst empty? " + kdst.isEmpty());
+		StdOut.println("kdst size: " + kdst.size());
+		StdOut.println("Nearest to " + testPoint23.toString() + " : " + kdst.nearest(testPoint23));
+		StdOut.println();
+		
+		Iterable<Point2D> points = kdst.range(new RectHV(0, 0, 6, 6));
+		
+		StdOut.println("Points in the RectHV(0, 0, 6, 6):");
+		for(Point2D p: points) {
+			StdOut.println(p);
+		}	
 	}
 	
 }

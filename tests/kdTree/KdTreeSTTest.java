@@ -1,13 +1,14 @@
 package kdTree;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Stopwatch;
 import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
+import edu.princeton.cs.introcs.StdRandom;
+
 
 public class KdTreeSTTest {
 	
@@ -17,36 +18,104 @@ public class KdTreeSTTest {
 	In inInput10K = new In("/kdTreeTests/input10K.txt");
 	In inInput100K = new In("/kdTreeTests/input100K.txt");
 	In inInput1M = new In("/kdTreeTests/input1M.txt");
-
+	
 	@Test
-	public void testRange() {
-		//StdOut.println("\n-----input10K");
-		KdTreeST<Integer> kdTreeTestRange1 = new KdTreeST<Integer>();
-		for (int i = 0; !inInput10K.isEmpty(); i++) {
-			double x = inInput10K.readDouble();
-			double y = inInput10K.readDouble();
+	public void performance100Kbrute(){
+		StdOut.println("\n-----PERFORMANCE");
+		StdOut.println("\n-----input100K brute");
+		PointST<Integer> kdTreePerfomance100K = new PointST<Integer>();
+		for (int i = 0; !inInput100K.isEmpty(); i++) {
+			double x = inInput100K.readDouble();
+			double y = inInput100K.readDouble();
 			Point2D p = new Point2D(x, y);
-			kdTreeTestRange1.put(p, i);
+			kdTreePerfomance100K.put(p, i);
+		}		
+		performanceRandomNearest(kdTreePerfomance100K);
+	}
+	
+	@Test
+	public void performance1Mbrute(){
+		StdOut.println("\n-----input1M brute");
+		PointST<Integer> kdTreePerfomance1M = new PointST<Integer>();
+		for (int i = 0; !inInput1M.isEmpty(); i++) {
+			double x = inInput1M.readDouble();
+			double y = inInput1M.readDouble();
+			Point2D p = new Point2D(x, y);
+			kdTreePerfomance1M.put(p, i);
+		}		
+		performanceRandomNearest(kdTreePerfomance1M);
+	}
+	
+	private static void performanceRandomNearest(PointST<Integer> tree){
+		double count = 0;
+		int subCount = 0;
+		int[] ave = new int[10];
+		for (int i = 0; i < 10; i++){
+			Stopwatch time = new Stopwatch();
+			subCount = 0;
+			while (time.elapsedTime() < 1.0){			
+				tree.nearest(new Point2D(StdRandom.uniform(),StdRandom.uniform()));
+				subCount++;
+			}
+			ave[i] = subCount;
+			StdOut.print("Nearest per second round "+i+" : "+subCount+"\n");
 		}
-		double lowLeft = 0.0; 
-		double upRight = 0.5;
-		RectHV rect = new RectHV(lowLeft, lowLeft, upRight, upRight);
-		Iterable<Point2D> range = kdTreeTestRange1.range(rect);
-		Queue<Point2D> q = new Queue<>();
-		for(Point2D p : q){
-			assertEquals(true, (p.x() > lowLeft && p.x() < upRight && 
-								p.y() > lowLeft && p.y() < upRight ));
+		for (int el : ave){
+			count = count+el;
 		}
-		
-		
-		
-//		StdOut.print("\nrange: ");
-//		for(Point2D pnt : range)	 StdOut.print(pnt.toString()+"\n");
-		
-		//assertEquals(true, kdTreeTestRange1.get(new Point2D(0.158530, 0.486901))==0);
+		StdOut.print("average: "+(count/10));
+	}
+	
+	@Test
+	public void performance100KkdTree(){
+		StdOut.println("\n-----input100K kd");
+		KdTreeST<Integer> kdTreePerfomance100K = new KdTreeST<Integer>();
+		for (int i = 0; !inInput100K.isEmpty(); i++) {
+			double x = inInput100K.readDouble();
+			double y = inInput100K.readDouble();
+			Point2D p = new Point2D(x, y);
+			kdTreePerfomance100K.put(p, i);
+		}		
+		performanceRandomNearest(kdTreePerfomance100K);
+	}
+	
+	@Test
+	public void performance1MkdkdTree(){
+		StdOut.println("\n-----input1M kd");
+		KdTreeST<Integer> kdTreePerfomance1M = new KdTreeST<Integer>();
+		for (int i = 0; !inInput1M.isEmpty(); i++) {
+			double x = inInput1M.readDouble();
+			double y = inInput1M.readDouble();
+			Point2D p = new Point2D(x, y);
+			kdTreePerfomance1M.put(p, i);
+		}		
+		performanceRandomNearest(kdTreePerfomance1M);
+	}
+	
+	private static void performanceRandomNearest(KdTreeST<Integer> tree){
+		double count = 0;
+		int subCount = 0;
+		int[] ave = new int[10];
+		for (int i = 0; i < 10; i++){
+			Stopwatch time = new Stopwatch();
+			subCount = 0;
+			while (time.elapsedTime() < 1.0){			
+				tree.nearest(new Point2D(StdRandom.uniform(),StdRandom.uniform()));
+				subCount++;
+			}
+			ave[i] = subCount;
+			StdOut.print("Nearest per second round "+i+" : "+subCount+"\n");
+		}
+		for (int el : ave){
+			count = count+el;
+		}
+		StdOut.print("average: "+(count/10));
 	}
 
-	@Test
+	//-----------------------------------------------
+	
+	
+	@Ignore
 	public void testNearest() {
 		//StdOut.println("\n-----input1M");
 		KdTreeST<Integer> kdTreeTestNear1 = new KdTreeST<Integer>();
@@ -101,7 +170,7 @@ public class KdTreeSTTest {
 		assertEquals(true, kdTreeTestPut4.get(new Point2D(0.946269, 0.290566))==99999);
 	}
 
-	@Test
+	@Ignore
 	public void testPutGetWorksheet() {
 		//StdOut.println("\n-----worksheet");
 		KdTreeST<Integer> kdTreeTestPut1 = new KdTreeST<Integer>();
@@ -122,7 +191,7 @@ public class KdTreeSTTest {
 		//assertEquals(5, five);
 	}
 
-	@Test
+	@Ignore
 	public void testPutGet10() {
 		//StdOut.println("\n-----input10");
 		KdTreeST<Integer> kdTreeTestPut2 = new KdTreeST<Integer>();
@@ -138,7 +207,7 @@ public class KdTreeSTTest {
         assertEquals(true, kdTreeTestPut2.get(new Point2D(0.371858,0.169457))==9);
 	}
 
-	@Test
+	@Ignore
 	public void testPutGet10K() {
 		//StdOut.println("\n-----input10K");
 		KdTreeST<Integer> kdTreeTestPut3 = new KdTreeST<Integer>();
@@ -166,7 +235,7 @@ public class KdTreeSTTest {
 
 	}
 	
-	@Test
+	@Ignore
 	public void testContains() {
 		//StdOut.print("\n------------------------CONTAINS");
 		//StdOut.println("\n-----worksheet");
@@ -196,12 +265,12 @@ public class KdTreeSTTest {
 		assertEquals(false, kdTreeTestContains1.contains(new Point2D(10,10)));
 	}
 	
-	@Test
+	@Ignore
 	public void testGet() {
 		testPutGetWorksheet();
 	}
 
-	@Test
+	@Ignore
 	public void testPointsLevelOrder() {
 		//StdOut.println("\n----------------------POINTS");
 		//StdOut.println("-----testPointsLevelOrder,worksheet");
@@ -224,7 +293,7 @@ public class KdTreeSTTest {
 		assertEquals(expected, actual.toString());
 	}
 
-	@Test
+	@Ignore
 	public void testPoints2() {
 		//StdOut.println("\n\n-----testPoints2,worksheet");
 		KdTreeST<Integer> kdTreeTestPoints2 = new KdTreeST<Integer>();
@@ -247,7 +316,7 @@ public class KdTreeSTTest {
 		assertEquals(expected2, actual2.toString());
 	}	
 	
-	@Test
+	@Ignore
 	public void testIsEmpty() {
 		//StdOut.println("\n\n----------------------ISEMPTY");
 		KdTreeST<Integer> testIsEmpty = new KdTreeST<Integer>();
