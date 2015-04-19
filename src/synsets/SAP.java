@@ -1,18 +1,24 @@
 package synsets;
 
 import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.DirectedCycle;
+import edu.princeton.cs.algs4.Stack;
 
 public class SAP {
-
+	
+		private final Digraph graph;
+		private Stack<Integer> cycle; // vertices on a cycle (if one exists)
+		private boolean[] onStack; // vertices on recursive call stack
+			
 		// constructor takes a digraph (not necessarily a DAG)
 		public SAP(Digraph G){
-			
+			this.graph = G;
 		}
 		
 		// is the digraph a directed acyclic graph?
 		public boolean isDAG(){
-			
-			return false; 
+			DirectedCycle myDiCycle = new DirectedCycle(graph);
+			return true == myDiCycle.hasCycle();
 		}
 		
 		// is the digraph a rooted DAG?
