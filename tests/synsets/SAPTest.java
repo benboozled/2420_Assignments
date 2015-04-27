@@ -70,23 +70,38 @@ public class SAPTest {
 	}
 	@Test
 	public void testAncestorIntInt() {
-		StdOut.print("\nSAPsapEx1 3,11");
+		//StdOut.print("\nSAPsapEx1 3,11");
 		assertEquals(1, SAPsapEx1.ancestor(3, 11));
-		StdOut.print("\nSAPsapEx1 4,6");
+		//StdOut.print("\nSAPsapEx1 4,6");
 		assertEquals(0, SAPsapEx1.ancestor(4, 6));
-		StdOut.print("\nSAPsapEx1 7,8");
+		//StdOut.print("\nSAPsapEx1 7,8");
 		assertEquals(3, SAPsapEx1.ancestor(7, 8));
-		StdOut.print("\nSAPsapEx1 9,12");
+		//StdOut.print("\nSAPsapEx1 9,12");
 		assertEquals(5, SAPsapEx1.ancestor(9, 12));
-		
-		StdOut.print("\nSAPsapEx2 1,5");
+		//StdOut.print("\nSAPsapEx2 1,5");
 		assertEquals(0, SAPsapEx2.ancestor(1, 5));
-		
-//		SAPsapEx1.ancestor(4, 6);
-//		SAPsapEx1.ancestor(3, 11);
-//		SAPsapEx2.ancestor(1, 5);
+	}
+	@Test
+	public void testLengthInt() {
+		//StdOut.print("\nSAPsapEx1 3,11");
+		assertEquals(4, SAPsapEx1.length(3, 11));
+		//StdOut.print("\nSAPsapEx1 4,6");
+		assertEquals(4, SAPsapEx1.length(4, 6));
 	}
 	
+	@Test
+	public void testIsRootedDAG() {
+		assertEquals(true, SAPsapEx1.isDAG());
+		assertEquals(true, SAPsapEx2.isDAG());
+		assertEquals(false, SAPdigraphCycle.isDAG());
+	}
+
+	
+	
+	@Ignore
+	public void testLengthIterable() {
+		fail("Not yet implemented");
+	}
 	
 	/************************************************
 	 * Traces and analysis
@@ -100,28 +115,65 @@ public class SAPTest {
 	private static void trace(BreadthFirstDirectedPaths bfs, String name){
 		StdOut.print(""+name+"-------------\n"+bfs.pathTo(0).toString()+"\n");
 	}
-	
-	
-	@Ignore
-	public void testIsRootedDAG() {
-		fail("Not yet implemented");
-	}
-
-	@Ignore
-	public void testLengthIntInt() {
-		fail("Not yet implemented");
-	}
-
-
-
-	@Ignore
-	public void testLengthIterableOfIntegerIterableOfInteger() {
-		fail("Not yet implemented");
-	}
-
-	@Ignore
-	public void testAncestorIterableOfIntegerIterableOfInteger() {
-		fail("Not yet implemented");
-	}
 
 }
+
+//TODO: delete unused----------------------------------------
+
+//		Stack<Integer> stackV = path(v);
+//		Stack<Integer> stackW = path(w);
+//		for (int i : stackV){
+//			if (stackV.peek() == stackW.peek()){
+//				ancestor = stackV.peek();
+//				stackV.pop(); 
+//				stackW.pop();
+//			}
+//		}
+
+//		BreadthFirstDirectedPaths bfsV = new BreadthFirstDirectedPaths(digraph, v);
+//		BreadthFirstDirectedPaths bfsW = new BreadthFirstDirectedPaths(digraph, w);
+//		Stack<Integer> stackV = new Stack<>();
+//		Stack<Integer> stackW = new Stack<>();
+//		for (int i : bfsV.pathTo(0))	{stackV.push(i);}	
+//		for (int i : bfsW.pathTo(0))	{stackW.push(i);}
+//		StdOut.print("\nstackV:\n");
+//		StdOut.print(stackV.toString());
+//		StdOut.print("\n");
+//		StdOut.print("stackW:\n");
+//		StdOut.print(stackW.toString());
+//		StdOut.print("\n");	
+//				if (stackV.peek() != null){
+//					graph.addEdge(stackV.pop(), stackV.peek());
+//				}
+//		int vPeek = 0;
+//		int wPeek = 0;
+		//while (!stackV.isEmpty())
+		//for (int i : stackW.pop())
+//			vPeek = stackV.peek();
+//			wPeek = stackW.peek();
+//		Queue<Integer> queueW = new Queue<>();
+//		for (int i : bfsW.pathTo(0))
+//			if (stackV.peek() != i)
+//				queueW.enqueue(stackV.pop());
+		
+//		for (int i : bfsW.pathTo(0))
+//			stackW.push(i); wlength++;
+		
+//		Queue<Integer> queueV = new Queue<>();
+//		for (int i : bfsV.pathTo(0)) 
+//			queueV.enqueue(i);
+//		StdOut.print("\nbfsV:\n");
+//		for (int i : bfsV.pathTo(0)){
+//			StdOut.print(i);
+//			if (i != 0) StdOut.print(" > ");
+//		}
+//		StdOut.print("\nbfsW:\n");
+//		for (int i : bfsW.pathTo(0)){
+//			StdOut.print(i);
+//			if (i != 0) StdOut.print(" > ");
+//		}
+//		StdOut.print("\nqueueV:\n");
+//		StdOut.print(queueV.toString());																								
+//		StdOut.print("\nqueueW:\n");
+//		StdOut.print(queueW.toString());
+//end trace--------------------------------------------------
