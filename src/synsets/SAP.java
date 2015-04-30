@@ -2,12 +2,11 @@ package synsets;
 
 import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.DirectedCycle;
 import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.Topological;
 
 public class SAP {
 
-	private final Topological topo;
 	private final Digraph digraph;
 	private BreadthFirstDirectedPaths bfsV; 
 	private BreadthFirstDirectedPaths bfsW;
@@ -18,7 +17,6 @@ public class SAP {
 	 */
 	public SAP(Digraph graph){
 		this.digraph = graph;
-		topo = new Topological(graph);
 	}
 	
 	/**
@@ -26,19 +24,25 @@ public class SAP {
 	 * @return
 	 */
 	public boolean isDAG(){
-		return topo.order() !=null;
+		DirectedCycle myDiCycle = new DirectedCycle(digraph);
+		return true != myDiCycle.hasCycle();
 	}
 	
 	/** is the digraph a rooted DAG?
 	 * @return
 	 */
 	public boolean isRootedDAG(){
-		Stack<Integer> stack = new Stack<Integer>();
-		for (int i : topo.order())
-			stack.push(i);
-		return stack.peek() == 0;
+		boolean rooted = true;
+		BreadthFirstDirectedPaths bfs = new BreadthFirstDirectedPaths(
+				this.digraph, this.digraph.V());
+		for (int i = 0; i != digraph.V();) {
+			if (!bfs.hasPathTo(i))
+				rooted = false;
+			break;
+		}
+		return rooted;
 	}
-	
+
 	/** length of shortest ancestral path between v and w; -1 if no such path
 	 * @param v
 	 * @param w
@@ -77,18 +81,25 @@ public class SAP {
 	 */
 	public int ancestor(Iterable<Integer> v, Iterable<Integer> w){
 		int ancestor = -1;
+//		Stack<Integer> stackV = reverse(v);
+//		Stack<Integer> stackW = reverse(w);
+		//works
+//		Stack<Integer> stackV = reverse(v);
+//		for (int i : w) stackV.push(i);	
+//		for (int j : reverse(v))
+//			if (stackV.pop()==j) {ancestor = j;}
+		//works	
 		for (int i : reverse(v))
 			for (int j : reverse(w))
-				if (i==j) ancestor = i;
+				if (i==j) {ancestor = i; break;}
 		return ancestor;
 	}
-	
-	private Iterable<Integer> reverse(Iterable<Integer> s){
+
+	private Stack<Integer> reverse(Iterable<Integer> s){
 		Stack<Integer> stack = new Stack<Integer>();
 		for (int item : s) {stack.push(item);}
 		return stack;
 	}
-	
 	
 	/**
 	 * for testing
