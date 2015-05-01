@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.DirectedEdge;
@@ -63,7 +64,7 @@ public class SAPTest {
 		assertEquals("it's nothing", false, SAPnothing != null);
 		assertEquals("it's nothing", true, SAPtinyCG != null);
 	}	
-	@Test
+	@Ignore
 	public void testIsDAG() {
 		assertEquals("Has a cycle", true, SAPdigraph1.isDAG());
 		assertEquals("Has a cycle", true, SAPdigraph4.isDAG());	
@@ -72,44 +73,70 @@ public class SAPTest {
 		assertEquals(true, SAPtinyCG.isDAG());
 //		trace(digraphCycle, "digraphCycle");
 	}
-	@Test
+	@Ignore
 	public void testIsRootedDAG() {
 		assertEquals(true, SAPsapEx1.isDAG());
 		assertEquals(true, SAPsapEx2.isDAG());
 		assertEquals(false, SAPdigraphCycle.isDAG());
 		assertEquals(true, SAPtinyCG.isDAG());
 	}
-	
 	/************************************************
 	 * Methods
 	 ***********************************************/
+	@Test
+	public void testWordnet() {
+		WordNet net = new WordNet("/wordnetTests/synsets100-subgraph.txt", "/wordnetTests/hypernyms100-subgraph.txt");
+		//WordNet net = new WordNet("/wordnetTests/big_synset.txt", "/wordnetTests/big_hypernyms.txt");
+		StdOut.println("Here is all the nouns: " + net.nouns());
+		StdOut.println("is it a noun? " + net.isNoun("gluten"));
+		StdOut.println("SAP test: " + net.sap("gluten", "molecule"));
+		StdOut.println("Distance test : " + net.distance("gluten", "molecule"));
+	}
+	
+	@Ignore
+	public void testLengthInt() {
+		StdOut.print("\n--------lengthInt----------\n");
+		
+		StdOut.print("\nSAPsapEx2 1,5:\n");
+		assertEquals(2, SAPsapEx2.length(1, 5));
+		StdOut.print("\nSAPsapEx1 3,11:\n");
+		assertEquals(4, SAPsapEx1.length(3, 11));
+		StdOut.print("\nSAPsapEx1 4,6:\n");
+		assertEquals(4, SAPsapEx1.length(4, 6));
+		StdOut.print("\nSAPdigraph1 10,8:\n");
+		assertEquals(3, SAPdigraph1.length(10, 8));
+		
+//		StdOut.print("\nSAPdigraph6 0,7:\n");
+//		assertEquals(4, SAPdigraph6.length(0, 7));
+//		assertEquals(2, SAPdigraph6.length(7, 4));
+//		assertEquals(5, SAPdigraph6.length(0, 5));
+	}	
+	
 	@Ignore
 	public void testWithTestClient() {
-//		testClient(digraphClient, 3, 11);
-//		testClient(digraphClient, 9, 12);
-//		testClient(digraphClient, 7, 2);
-		testClient(digraphClient, 1, 6);
+		testClient(digraphClient, 3, 11);
+		testClient(digraphClient, 9, 12);
+		testClient(digraphClient, 7, 2);
+		//TODO: does not catch bad data point: there is no 6 in the digraph
+		//testClient(digraphClient, 1, 6);
 	}
-	@Test
+	
+	
+	@Ignore
 	public void testAncestorIntInt() {
-		//StdOut.print("\nSAPsapEx1 3,11");
+		StdOut.print("\n--------ancestorInt----------\n");
+		StdOut.print("\nSAPsapEx1 3,11\n");
 		assertEquals(1, SAPsapEx1.ancestor(3, 11));
-		//StdOut.print("\nSAPsapEx1 4,6");
+		StdOut.print("\nSAPsapEx1 4,6\n");
 		assertEquals(0, SAPsapEx1.ancestor(4, 6));
-		//StdOut.print("\nSAPsapEx1 7,8");
+		StdOut.print("\nSAPsapEx1 7,8\n");
 		assertEquals(3, SAPsapEx1.ancestor(7, 8));
-		//StdOut.print("\nSAPsapEx1 9,12");
+		StdOut.print("\nSAPsapEx1 9,12\n");
 		assertEquals(5, SAPsapEx1.ancestor(9, 12));
-		//StdOut.print("\nSAPsapEx2 1,5");
+		StdOut.print("\nSAPsapEx2 1,5\n");
 		assertEquals(0, SAPsapEx2.ancestor(1, 5));
 	}
-	@Test
-	public void testLengthInt() {
-		//StdOut.print("\nSAPsapEx1 3,11");
-		assertEquals(4, SAPsapEx1.length(3, 11));
-		//StdOut.print("\nSAPsapEx1 4,6");
-		assertEquals(4, SAPsapEx1.length(4, 6));
-	}
+	
 	@Ignore
 	public void testLengthIterable() {
 		fail("Not yet implemented");
@@ -118,15 +145,20 @@ public class SAPTest {
 	/************************************************
 	 * Traces and analysis
 	 ***********************************************/
-	private static void trace(Digraph graph, String name){
+	public static void trace(Digraph graph, String name){
 		StdOut.print("\n\n"+name+"-------------\n"+graph.toString());
 	}
-	private static void trace(Topological topo, String name){
+	public static void trace(Topological topo, String name){
 		StdOut.print("TOPO "+name+"-------------\n"+topo.order()+"\n");
 	}
-	private static void trace(BreadthFirstDirectedPaths bfs, String name){
-		StdOut.print("BFS "+name+"-------------\n"+bfs.pathTo(0).toString()+"\n");
+	public static void trace(BreadthFirstDirectedPaths bfs, String name){
+		StdOut.print("BFS "+name+"\n"+bfs.pathTo(0).toString()+"\n");
 	}
+	public static void trace(Bag<Integer> b, String name){
+		StdOut.print("\n"+name+": ");
+		for (int i : b){ StdOut.print(i); }
+	}
+	
 	public static void testClient(Digraph G, int v, int w) {
 	    SAP sap = new SAP(G);
         int length   = sap.length(v, w);
