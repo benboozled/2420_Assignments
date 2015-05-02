@@ -1,3 +1,9 @@
+/**
+ * @author David Weber
+ * @author Ben Anderl
+ * @Date Created Apr 19, 2015 
+ * Last modified: May 2, 2015 
+ */
 package synsets;
 
 import static org.junit.Assert.assertEquals;
@@ -56,7 +62,7 @@ public class SAPTest {
 	/************************************************
 	 * Basic construction
 	 ***********************************************/
-	@Ignore
+	@Test
 	public void testSAP() {
 		assertEquals("it's nothing", true, SAPdigraph1 != null);
 		assertEquals("it's nothing", true, SAPdigraph4 != null);
@@ -64,7 +70,7 @@ public class SAPTest {
 		assertEquals("it's nothing", false, SAPnothing != null);
 		assertEquals("it's nothing", true, SAPtinyCG != null);
 	}	
-	@Ignore
+	@Test
 	public void testIsDAG() {
 		assertEquals("Has a cycle", true, SAPdigraph1.isDAG());
 		assertEquals("Has a cycle", true, SAPdigraph4.isDAG());	
@@ -73,7 +79,7 @@ public class SAPTest {
 		assertEquals(true, SAPtinyCG.isDAG());
 //		trace(digraphCycle, "digraphCycle");
 	}
-	@Ignore
+	@Test
 	public void testIsRootedDAG() {
 		assertEquals(true, SAPsapEx1.isDAG());
 		assertEquals(true, SAPsapEx2.isDAG());
@@ -84,64 +90,55 @@ public class SAPTest {
 	 * Methods
 	 ***********************************************/
 	@Test
-	public void testWordnet() {
+	public void testWordnet100Sub() {
 		WordNet net = new WordNet("/wordnetTests/synsets100-subgraph.txt", "/wordnetTests/hypernyms100-subgraph.txt");
-		//WordNet net = new WordNet("/wordnetTests/big_synset.txt", "/wordnetTests/big_hypernyms.txt");
-		StdOut.println("Here is all the nouns: " + net.nouns());
-		StdOut.println("is it a noun? " + net.isNoun("gluten"));
-		StdOut.println("SAP test: " + net.sap("gluten", "molecule"));
-		StdOut.println("Distance test : " + net.distance("gluten", "molecule"));
+		StdOut.println("Distance test hypernyms-100 : " + net.distance("gluten", "molecule"));
 	}
-	
-	@Ignore
+	@Test
+	public void testWordnetBigSynset() {
+		WordNet net2 = new WordNet("/wordnetTests/big_synset.txt", "/wordnetTests/big_hypernyms.txt");
+		StdOut.println("Distance test big_hypernyms : " + net2.distance("b", "f"));
+	}
+	@Test
+	public void testWordnetSynset() {
+		WordNet net3 = new WordNet("/wordnetTests/synset.txt", "/wordnetTests/hypernyms.txt");
+		StdOut.println("should be 23: " + net3.distance("white_marlin", "mileage"));
+		StdOut.println("should be 33: " + net3.distance("Black_Plague", "black_marlin"));
+		StdOut.println("should be 27: " + net3.distance("American_water_spaniel", "histology"));
+		StdOut.println("should be 29: " + net3.distance("Brown_Swiss", "barrel_roll"));
+	}
+	@Test
 	public void testLengthInt() {
-		StdOut.print("\n--------lengthInt----------\n");
-		
-		StdOut.print("\nSAPsapEx2 1,5:\n");
+		//StdOut.print("\n--------lengthInt----------\n");
+		//StdOut.print("\nSAPsapEx2 1,5:\n");
 		assertEquals(2, SAPsapEx2.length(1, 5));
-		StdOut.print("\nSAPsapEx1 3,11:\n");
 		assertEquals(4, SAPsapEx1.length(3, 11));
-		StdOut.print("\nSAPsapEx1 4,6:\n");
+		//StdOut.print("\nSAPsapEx1 4,6:\n");
 		assertEquals(4, SAPsapEx1.length(4, 6));
-		StdOut.print("\nSAPdigraph1 10,8:\n");
+		//StdOut.print("\nSAPdigraph1 10,8:\n");
 		assertEquals(3, SAPdigraph1.length(10, 8));
-		
-//		StdOut.print("\nSAPdigraph6 0,7:\n");
-//		assertEquals(4, SAPdigraph6.length(0, 7));
-//		assertEquals(2, SAPdigraph6.length(7, 4));
-//		assertEquals(5, SAPdigraph6.length(0, 5));
 	}	
-	
-	@Ignore
+	@Test
 	public void testWithTestClient() {
 		testClient(digraphClient, 3, 11);
 		testClient(digraphClient, 9, 12);
 		testClient(digraphClient, 7, 2);
-		//TODO: does not catch bad data point: there is no 6 in the digraph
-		//testClient(digraphClient, 1, 6);
+		testClient(digraphClient, 1, 6);
 	}
-	
-	
-	@Ignore
+	@Test
 	public void testAncestorIntInt() {
-		StdOut.print("\n--------ancestorInt----------\n");
-		StdOut.print("\nSAPsapEx1 3,11\n");
+		//StdOut.print("\n--------ancestorInt----------\n");
+		//StdOut.print("\nSAPsapEx1 3,11\n");
 		assertEquals(1, SAPsapEx1.ancestor(3, 11));
-		StdOut.print("\nSAPsapEx1 4,6\n");
+		//StdOut.print("\nSAPsapEx1 4,6\n");
 		assertEquals(0, SAPsapEx1.ancestor(4, 6));
-		StdOut.print("\nSAPsapEx1 7,8\n");
+		//StdOut.print("\nSAPsapEx1 7,8\n");
 		assertEquals(3, SAPsapEx1.ancestor(7, 8));
-		StdOut.print("\nSAPsapEx1 9,12\n");
+		//StdOut.print("\nSAPsapEx1 9,12\n");
 		assertEquals(5, SAPsapEx1.ancestor(9, 12));
-		StdOut.print("\nSAPsapEx2 1,5\n");
+		//StdOut.print("\nSAPsapEx2 1,5\n");
 		assertEquals(0, SAPsapEx2.ancestor(1, 5));
 	}
-	
-	@Ignore
-	public void testLengthIterable() {
-		fail("Not yet implemented");
-	}
-	
 	/************************************************
 	 * Traces and analysis
 	 ***********************************************/
@@ -158,7 +155,6 @@ public class SAPTest {
 		StdOut.print("\n"+name+": ");
 		for (int i : b){ StdOut.print(i); }
 	}
-	
 	public static void testClient(Digraph G, int v, int w) {
 	    SAP sap = new SAP(G);
         int length   = sap.length(v, w);
@@ -168,95 +164,3 @@ public class SAPTest {
 
 }
 
-//TODO: delete unused----------------------------------------
-
-//if (!valid(v)||!valid(w)) return -1;
-//	private boolean valid (int s){
-//		//TODO: data validation
-//		if (digraph.adj(s) == null) return false;
-//		boolean result = true;
-//		for (int i : digraph.adj(s)){   
-//			if (s==i) result = true;
-//		}
-//		return result;
-//	}
-//	
-//	private boolean valid(Iterable<Integer> s){
-//		if (s==null) return false;
-//		return true;
-//	}
-
-
-
-//		trace(sapEx1, "SAPsapEx1");
-//		trace(SAPsapEx1.getBfs(3), "SAPsapEx1 bfs 3");
-//		trace(SAPsapEx1.getBfs(11), "SAPsapEx1 bfs 11");
-//		trace(sapEx2, "SAPsapEx2");
-//		trace(SAPsapEx2.getBfs(1), "SAPsapEx2 bfs 1");
-//		trace(SAPsapEx2.getBfs(5), "SAPsapEx2 bfs 5");
-		
-//		trace(digraph1, "digraph1");
-//		trace(digraph4, "digraph4");
-//		trace(digraph6, "digraph6");
-//		trace(SAPsapEx1.getTopo(), "SAPsapEx1 topo");
-//		trace(SAPsapEx2.getTopo(), "SAPsapEx2 topo");
-//		trace(SAPdigraph1.getTopo(), "digraph1 topo");
-//		trace(SAPdigraph4.getTopo(), "digraph4 topo");
-//		trace(SAPdigraph6.getTopo(), "digraph6 topo");
-//		Stack<Integer> stackV = path(v);
-//		Stack<Integer> stackW = path(w);
-//		for (int i : stackV){
-//			if (stackV.peek() == stackW.peek()){
-//				ancestor = stackV.peek();
-//				stackV.pop(); 
-//				stackW.pop();
-//			}
-//		}
-
-//		BreadthFirstDirectedPaths bfsV = new BreadthFirstDirectedPaths(digraph, v);
-//		BreadthFirstDirectedPaths bfsW = new BreadthFirstDirectedPaths(digraph, w);
-//		Stack<Integer> stackV = new Stack<>();
-//		Stack<Integer> stackW = new Stack<>();
-//		for (int i : bfsV.pathTo(0))	{stackV.push(i);}	
-//		for (int i : bfsW.pathTo(0))	{stackW.push(i);}
-//		StdOut.print("\nstackV:\n");
-//		StdOut.print(stackV.toString());
-//		StdOut.print("\n");
-//		StdOut.print("stackW:\n");
-//		StdOut.print(stackW.toString());
-//		StdOut.print("\n");	
-//				if (stackV.peek() != null){
-//					graph.addEdge(stackV.pop(), stackV.peek());
-//				}
-//		int vPeek = 0;
-//		int wPeek = 0;
-		//while (!stackV.isEmpty())
-		//for (int i : stackW.pop())
-//			vPeek = stackV.peek();
-//			wPeek = stackW.peek();
-//		Queue<Integer> queueW = new Queue<>();
-//		for (int i : bfsW.pathTo(0))
-//			if (stackV.peek() != i)
-//				queueW.enqueue(stackV.pop());
-		
-//		for (int i : bfsW.pathTo(0))
-//			stackW.push(i); wlength++;
-		
-//		Queue<Integer> queueV = new Queue<>();
-//		for (int i : bfsV.pathTo(0)) 
-//			queueV.enqueue(i);
-//		StdOut.print("\nbfsV:\n");
-//		for (int i : bfsV.pathTo(0)){
-//			StdOut.print(i);
-//			if (i != 0) StdOut.print(" > ");
-//		}
-//		StdOut.print("\nbfsW:\n");
-//		for (int i : bfsW.pathTo(0)){
-//			StdOut.print(i);
-//			if (i != 0) StdOut.print(" > ");
-//		}
-//		StdOut.print("\nqueueV:\n");
-//		StdOut.print(queueV.toString());																								
-//		StdOut.print("\nqueueW:\n");
-//		StdOut.print(queueW.toString());
-//end trace--------------------------------------------------
